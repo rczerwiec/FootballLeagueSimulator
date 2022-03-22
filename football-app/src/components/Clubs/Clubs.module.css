@@ -1,0 +1,15 @@
+.club_object{
+    width: 50%;
+    margin: auto;
+    border: 1px solid #dddddd;
+    padding:12px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 4px #bbbbbb;
+    cursor: pointer;
+}
+
+@media (min-width: 900px){
+    .club_object{
+        width: 430px;
+    }
+} 

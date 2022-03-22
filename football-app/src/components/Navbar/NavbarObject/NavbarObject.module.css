@@ -1,0 +1,15 @@
+.option{
+    margin-bottom:8px;
+    width:100%;
+    cursor: pointer;
+}
+
+.option:hover{
+    background-color: #8a8a8a;
+}
+
+.text{
+    text-decoration: none;
+    outline: none;
+    color: white;
+}

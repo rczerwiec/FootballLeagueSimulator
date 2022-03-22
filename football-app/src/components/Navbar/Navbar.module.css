@@ -1,0 +1,32 @@
+.side_navbar{
+    height: 100%;
+    width: 25%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:#9b9b9b;
+    transition: .5s ease;
+    overflow-x: hidden;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 3px 0 4px 4px #bbbbbb;
+}
+
+.side_navbar_closed{
+    height: 100%;
+    width: 5%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.button{
+    
+}
