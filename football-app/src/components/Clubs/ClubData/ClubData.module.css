@@ -1,0 +1,14 @@
+.clubDetails{
+    margin:auto;
+    margin-top:20px;
+    margin-bottom: 20px;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #dddddd;
+    box-shadow: 0 3px 4px #bbbbbb;
+}
+
+.clubDetailsDiv{
+    margin:auto;
+}

@@ -6,15 +6,17 @@ const cors = require('cors');
 
 //Import Routes
 const clubsRoute = require('./routes/clubs');
+const playersRoute = require('./routes/players');
 
 
 
 require('dotenv/config');
 
 //Middlewares
-app.use(cors());
+app.use(cors()); 
 app.use(express.json()) //parse our request to json
 app.use('/clubs', clubsRoute);
+app.use('/players', playersRoute);
 
 //Routes
 app.get('/', (req,res) => res.send(`You're on home page`));

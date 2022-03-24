@@ -32,10 +32,10 @@ const Navbar = props =>{
     <div className={showNav.style}>
         {showNav.showed &&
         <div>
-            <NavbarObject routeDestination='#section' name="Kluby"/>
-            <NavbarObject routeDestination='#section' name="Zawodnicy"/>
-            <NavbarObject routeDestination='#section' name="Ligi"/>
-            <NavbarObject routeDestination='#section' name="Ustawienia"/>
+            <NavbarObject routeDestination='/clubs' name="Kluby"/>
+            <NavbarObject routeDestination='/zawodnicy' name="Zawodnicy"/>
+            <NavbarObject routeDestination='/ligi' name="Ligi"/>
+            <NavbarObject routeDestination='/ustawienia' name="Ustawienia"/>
         </div>
         }
         <div><button className={styles.button} onClick={showNavHandler}>{showNav.text}</button></div>
