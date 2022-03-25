@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Player from "./Player/Player";
+import NewPlayerCreator from "./PlayerCreator/NewPlayerCreator";
 
 const Players = props => {
     
     const [playersState, setPlayersState] = useState({
         players: [],
+    })
+
+    const [actionState, setActionState] = useState({
+        action: null,
     })
 
     useEffect(() => {
@@ -19,6 +24,12 @@ const Players = props => {
     });
     })
 
+    const newPlayerHandler = () =>{
+        setActionState({
+            action: <NewPlayerCreator/>
+        })
+    }
+
     const players = playersState.players.map((player, index) => {
         return(
             <Player key={player._id} name={player.name} nationality={player.nationality}></Player>
@@ -28,7 +39,9 @@ const Players = props => {
 
     return(
         <div>
+            {actionState.action}
             <h2>Lista Graczy</h2>
+            <button onClick={newPlayerHandler}>Nowy Piłkarz</button>
             {players}
         </div>
 

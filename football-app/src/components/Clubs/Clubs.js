@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Club from "./Club/Club";
 import ClubData from "./ClubData/ClubData";
+import NewClubCreator from "./ClubCreator/NewClubCreator";
 import styles from "./Clubs.module.css";
 
 const Clubs = (props) => {
@@ -12,13 +13,17 @@ const Clubs = (props) => {
     clubs: [],
   });
 
-
+  const newClubHandler = () => {
+    setSelectedClubState({
+      selectedClub: <NewClubCreator/>
+    });
+  }
 
   const showSelectedClubHandler = (id) => {
     console.log("Club ID" + id);
     axios.get("http://localhost:5000/clubs/"+id).then(
       response=> {
-        //console.log(response.data);
+        //console.log("działa");
         setSelectedClubState({
           selectedClub:<div><ClubData name = {response.data.name} type={response.data.type}/></div>,
         })
@@ -53,6 +58,7 @@ const Clubs = (props) => {
     <div>
       {selectedClubState.selectedClub}
       <h2>Lista Klubów</h2>
+      <button onClick={newClubHandler}>Nowy Klub</button>
       {clubs}
     </div>
   );
