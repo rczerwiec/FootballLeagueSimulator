@@ -30,9 +30,9 @@ const Clubs = (props) => {
     axios.get("http://localhost:5000/clubs", null).then((response) => {
       //const firstTenEmployees = response.data.slice(0,10);
 
-      const employees = response;
+      const clubs = response;
       setClubState({
-        clubs: employees.data,
+        clubs: clubs.data,
       });
     });
     //console.log(clubState.clubs);

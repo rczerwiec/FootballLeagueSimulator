@@ -5,7 +5,7 @@ const NavbarObject = props => {
 
 
     return(
-        <div className={styles.option}><a className={styles.text} href={props.routeDestination}>{props.name}</a></div>
+        <a className={styles.text} href={props.routeDestination}><div className={styles.option} >{props.name}</div></a>
     );
 }
 

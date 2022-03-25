@@ -5,6 +5,7 @@ import Leagues from './components/Leagues/Leagues';
 import Settings from './components/Settings/Settings';
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'; 
+import Navbar from './components/Navbar/Navbar';
 
 class App extends React.Component{
 
@@ -15,6 +16,7 @@ class App extends React.Component{
 
     return (
       <Router>
+      <Navbar></Navbar>
       <div className="App">
         <Routes>
           <Route path="/clubs" element={<Clubs/>}/>
