@@ -1,3 +1,10 @@
-.name{
-    font-size:24px;
+.Club{
+    padding:10px;
+    margin:auto;
+    width:50%;
+    box-shadow: 1cm 0cm 1cm 0 #bbbbbb;
+    cursor:pointer;
+}
+.Club:hover{
+    box-shadow: 1cm 0cm 1cm 0 #a8a8a8; 
 }

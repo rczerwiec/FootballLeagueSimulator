@@ -5,7 +5,7 @@ const Club = props =>{
 
 
     return(
-        <div className={styles.name} onClick={() => {props.showSelectedClub(props._id)}}>Klub: {props.name}</div>
+        <div className={styles.Club} onClick={() => {props.showSelectedClub(props._id)}}>Klub: {props.name}</div>
     )
 }
 

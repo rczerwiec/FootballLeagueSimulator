@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Player from "./Player/Player";
 import NewPlayerCreator from "./PlayerCreator/NewPlayerCreator";
+import styles from "../Navbar/Navbar.module.css"
 
 const Players = props => {
     
@@ -41,7 +42,7 @@ const Players = props => {
         <div>
             {actionState.action}
             <h2>Lista Graczy</h2>
-            <button onClick={newPlayerHandler}>Nowy Piłkarz</button>
+            <button className={styles.button} onClick={newPlayerHandler}>Nowy Piłkarz</button>
             {players}
         </div>
 

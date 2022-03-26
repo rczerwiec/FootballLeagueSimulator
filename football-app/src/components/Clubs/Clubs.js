@@ -3,7 +3,7 @@ import axios from "axios";
 import Club from "./Club/Club";
 import ClubData from "./ClubData/ClubData";
 import NewClubCreator from "./ClubCreator/NewClubCreator";
-import styles from "./Clubs.module.css";
+import styles from "../Navbar/Navbar.module.css";
 
 const Clubs = (props) => {
   const [selectedClubState, setSelectedClubState] = useState({
@@ -47,7 +47,6 @@ const Clubs = (props) => {
     return (
       <div
         key={club._id}
-        className={styles.club_object}
       >
         <Club showSelectedClub={showSelectedClubHandler} _id={club._id} name={club.name}></Club>
       </div>
@@ -58,7 +57,7 @@ const Clubs = (props) => {
     <div>
       {selectedClubState.selectedClub}
       <h2>Lista Klubów</h2>
-      <button onClick={newClubHandler}>Nowy Klub</button>
+      <button className={styles.button} onClick={newClubHandler}>Nowy Klub</button>
       {clubs}
     </div>
   );

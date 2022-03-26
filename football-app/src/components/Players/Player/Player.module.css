@@ -1,0 +1,14 @@
+.Player{
+    padding:10px;
+    margin:auto;
+    width:50%;
+    box-shadow: 1cm 0cm 1cm 0 #bbbbbb;
+    cursor:pointer;
+}
+.Player:hover{
+    box-shadow: 1cm 0cm 1cm 0 #a8a8a8; 
+}
+
+.PlayerName{
+    margin:5px;
+}
