@@ -59,7 +59,7 @@ router.delete('/:clubId', async (req,res) => {
 //UPDATE CLUB
 router.patch('/:clubId',async (req, res) => {
     try{
-        const updatedClub =  await Club.updateOne({_id: req.params.clubId},{$set : {name: req.body.name}});
+        const updatedClub =  await Club.updateOne({_id: req.params.clubId},{$set : {name: req.body.name, type: req.body.type}});
         res.json(updatedClub);
     }
     catch(err){

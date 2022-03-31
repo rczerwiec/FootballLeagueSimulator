@@ -7,9 +7,11 @@ const Player = (props) => {
 
     return (
       <div className={styles.Player}>
-        <div className={styles.PlayerName}>{props.name}, {props.nationality}</div>
-        <button className={navStyles.button}>Edytuj</button>
-        <button className={navStyles.button}>Usuń</button>
+        <div onClick={() => {props.showSelectedPlayer(props.id)}}>
+          <div className={styles.PlayerName}>{props.name}, {props.nationality}</div>
+        </div>
+        <button className={navStyles.button} onClick={()=> {props.edit(props.id)}}>Edytuj</button>
+        <button className={navStyles.button} onClick={() => {props.remove(props.id)}}>Usuń</button>
       </div>
     );
 }

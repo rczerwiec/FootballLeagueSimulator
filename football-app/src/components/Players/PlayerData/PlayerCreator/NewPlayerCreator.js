@@ -23,7 +23,7 @@ const NewPlayerCreator = (props) =>{
             <h3>Nowy Gracz</h3>
             <form onSubmit={handleSubmit}>
                 <input value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></input>
-                <input value={nationality} placeholder="Narodowość GRacza" onChange={(e) => setNationality(e.target.value)}></input>
+                <input value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></input>
                 <button type="submit">Stwórz</button>
 
             </form>

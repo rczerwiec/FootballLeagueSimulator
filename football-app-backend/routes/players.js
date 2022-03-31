@@ -44,4 +44,24 @@ router.get('/:playerId', async (req,res) => {
 
 })
 
+router.delete('/:playerId', async (req,res) =>{
+    try{
+        const player = await Player.remove({_id:req.params.playerId});
+        res.json(player);
+    }
+    catch(err){
+        res.json({message:err});
+    }
+})
+
+router.patch('/:playerId', async(req,res)=>{
+    try{
+        const player =  await Player.updateOne({_id: req.params.playerId},{$set : {name: req.body.name, nationality: req.body.nationality}});
+        res.json(player);
+    }
+    catch(err){
+        res.json({message:err});
+    }
+})
+
 module.exports = router;

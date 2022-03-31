@@ -11,7 +11,7 @@ const PlayerSchema = mongoose.Schema({
     },
     clubID:{
         type: String,
-        require: false,
+        require: true,
         default: 'undefined'
     },
 });
