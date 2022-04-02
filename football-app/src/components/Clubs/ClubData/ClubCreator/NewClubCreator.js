@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 const NewClubCreator = () =>{
@@ -16,7 +16,6 @@ let handleSubmit = async (e) =>{
         console.log(response);
       });
 }
-
 
     return(
         <div>

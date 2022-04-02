@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const ClubSchema = mongoose.Schema({
     name: {
         type: String,
@@ -9,6 +10,11 @@ const ClubSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    //one to many
+    players:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Players"
+    }],
     titles: {
         type: Number,
         required: true,

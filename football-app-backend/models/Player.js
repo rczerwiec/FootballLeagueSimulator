@@ -9,10 +9,10 @@ const PlayerSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    clubID:{
-        type: String,
-        require: true,
-        default: 'undefined'
+    //one to many
+    club:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clubs"   
     },
 });
 

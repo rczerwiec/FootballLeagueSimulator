@@ -76,7 +76,7 @@ const Players = (props) => {
           <PlayerData
             name={response.data.name}
             nationality={response.data.nationality}
-            club={response.ClubID}
+            club={response.data.club}
           />
         ),
       });

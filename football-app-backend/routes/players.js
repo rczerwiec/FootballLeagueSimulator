@@ -18,9 +18,8 @@ router.post('/', async (req,res) => {
     const player = new Player({
         name: req.body.name,
         nationality: req.body.nationality,
-        
+        club: req.body.club,
     })
-
     try{
         const savedPlayer = await player.save()
         res.json(savedPlayer);
