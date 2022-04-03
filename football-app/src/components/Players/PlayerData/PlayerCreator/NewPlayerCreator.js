@@ -14,7 +14,6 @@ const NewPlayerCreator = (props) =>{
     useEffect(() => {
         if(clubs.clubs.length === 0){
             axios.get("http://localhost:5000/clubs", null).then((response) => {
-                //const firstTenEmployees = response.data.slice(0,10);
         
                 const options = response.data.map(d =>({
                     "value": d._id,
@@ -34,12 +33,12 @@ const NewPlayerCreator = (props) =>{
             nationality: nationality,
             club: club,
         }
+        console.log(club);
+        //axios.get('http://localhost:5000/clubs'+playerToSave.club)
     
         axios.post('http://localhost:5000/players',playerToSave).then(response =>{
             console.log(response);
         });
-
-        axios.patch('http://localhost:5000/clubs'+playerToSave.club, )
     }
 
     return(

@@ -61,6 +61,7 @@ const Players = (props) => {
                 id={response.data._id}
                 name={response.data.name}
                 nationality={response.data.nationality}
+                club={response.data.club}
               />
             ),
           });
