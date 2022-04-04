@@ -1,14 +1,49 @@
-.clubDetails{
-    margin:auto;
-    margin-top:20px;
-    margin-bottom: 20px;
-    padding:20px;
+.ClubDetails{
     display: flex;
     flex-direction: column;
-    border: 2px solid #dddddd;
-    box-shadow: 0 3px 4px #bbbbbb;
+    flex-wrap: wrap;
 }
 
-.clubDetailsDiv{
+.ClubInfo{
+    padding: 15px;
+}
+
+.Players{
+    padding: 15px;
+}
+
+.CreateNewClub{
+    padding: 15px;
+}
+
+.ClubForm{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     margin:auto;
 }
+
+.ClubInput{
+    border:1px solid black;
+    padding: 10px;
+    background-color: #14A76C;
+    color:black;
+}
+
+::placeholder{
+    color:black;
+}
+
+.Button{
+    border: 1px solid black;
+    color:#14A76C;
+    padding: 10px;
+    background-color: #272727;
+}
+
+.Button:hover{
+    background-color: #242424;
+    cursor: pointer;
+}
+
+

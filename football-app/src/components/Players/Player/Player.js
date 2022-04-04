@@ -1,19 +1,38 @@
-import React from 'react';
-import styles from './Player.module.css';
-import navStyles from '../../Navbar/Navbar.module.css'
+import React from "react";
+import styles from "./Player.module.css";
+import navStyles from "../../Navbar/Navbar.module.css";
 
 const Player = (props) => {
-
-    
-    return (
-      <div>
-        <div  className={styles.Player} onClick={() => {props.showSelectedPlayer(props.id)}}>
-          <div className={styles.PlayerName}>{props.name}, {props.nationality}</div>
-        </div>
-        <button className={navStyles.button} onClick={()=> {props.edit(props.id)}}>Edytuj</button>
-        <button className={navStyles.button} onClick={() => {props.remove(props.id)}}>Usuń</button>
+  return (
+    <div className={styles.PlayerFlex}>
+      <div
+        className={styles.PlayerContent}
+        onClick={() => {
+          props.showSelectedPlayer(props.id);
+        }}
+      >
+        {props.name}, {props.nationality}
       </div>
-    );
-}
+      <div className={styles.Buttons}>
+        <div
+          className={styles.Button}
+          onClick={() => {
+            props.edit(props.id);
+          }}
+        >
+          Edytuj
+        </div>
+        <div
+          className={styles.Button}
+          onClick={() => {
+            props.remove(props.id);
+          }}
+        >
+          Usuń
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Player;

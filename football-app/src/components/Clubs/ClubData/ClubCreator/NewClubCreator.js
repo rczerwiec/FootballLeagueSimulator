@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
+import styles from "../ClubData.module.css"
 import axios from "axios";
 
 const NewClubCreator = () =>{
@@ -18,12 +19,12 @@ let handleSubmit = async (e) =>{
 }
 
     return(
-        <div>
+        <div className={styles.CreateNewClub}>
             <h3>Utwórz Klub</h3>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Wprowadź nazwe klubu" value={name} onChange={(e) => setName(e.target.value)}/>
-                <input type="text" placeholder="Wprowadź typ klubu" value={type} onChange={(e) => setType(e.target.value)}/>
-                <button type="submit">Utwórz</button>
+            <form className={styles.ClubForm} onSubmit={handleSubmit}>
+                <input className={styles.ClubInput} type="text" placeholder="Wprowadź nazwe klubu" value={name} onChange={(e) => setName(e.target.value)}/>
+                <input className={styles.ClubInput} type="text" placeholder="Wprowadź typ klubu" value={type} onChange={(e) => setType(e.target.value)}/>
+                <button className = {styles.Button} type="submit">Utwórz</button>
             </form>
         </div>
     );

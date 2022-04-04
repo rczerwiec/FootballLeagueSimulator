@@ -1,5 +1,13 @@
-.App {
-  text-align: center;
+.AppFlex {
+  display: flex;
+  text-align: center; 
+
+}
+
+.Content{
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #3f3f3f;
 }
 
 

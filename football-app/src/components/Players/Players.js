@@ -4,7 +4,7 @@ import Player from "./Player/Player";
 import NewPlayerCreator from "./PlayerData/PlayerCreator/NewPlayerCreator";
 import PlayerData from "./PlayerData/PlayerData";
 import PlayerEditor from "./PlayerData/PlayerEditor/PlayerEditor";
-import styles from "../Navbar/Navbar.module.css";
+import styles from "./Players.module.css";
 
 const Players = (props) => {
   const [playersState, setPlayersState] = useState({
@@ -101,12 +101,14 @@ const Players = (props) => {
 
   return (
     <div>
-      {actionState.action}
-      <h2>Lista Graczy</h2>
-      <button className={styles.button} onClick={newPlayerHandler}>
+      {actionState.action !==null ?
+        (<div className={styles.Action}>{actionState.action}</div>):(<div/>)
+      }
+      <div className={styles.Header}>Lista Graczy</div>
+      <button className={styles.Button} onClick={newPlayerHandler}>
         Nowy Piłkarz
       </button>
-      {players}
+      <div className={styles.Players}>{players}</div>
     </div>
   );
 };

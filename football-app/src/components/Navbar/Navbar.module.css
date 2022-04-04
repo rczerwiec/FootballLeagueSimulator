@@ -1,42 +1,42 @@
-.side_navbar{
-    height: 100%;
-    width: 25%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color:#9b9b9b;
-    transition: .5s ease;
-    overflow-x: hidden;
-    padding-top: 20px;
+.NavbarFlex{
     display: flex;
     flex-direction: column;
-    box-shadow: 3px 0 4px 4px #bbbbbb;
-    text-align: center;
+    background-color: #242424;
+    min-height: 100vh;
+
 }
 
-.side_navbar_closed{
-    height: 100%;
-    width: 5%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
+.NavbarLogo{
+    color: #14A76C;
+    font-size:50px;
+    background-color: #292525;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.NavbarOptions{
     display: flex;
     flex-direction: column;
-    align-items: left;
+    gap:5px;
+    padding: 4px;
+    height: 100vh;
 }
 
-.button{
-    border: 2px solid #adadad;
-    box-shadow: 1px 0 1px 0 #bbbbbb;
-    padding:10px;
-    background-color:aliceblue;
-    cursor:pointer;
+.NavbarOption{
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
 }
 
-.button:hover{
-    background-color:rgb(218, 218, 218);
-    box-shadow: 2px 0 2px 0 #bbbbbb;
+.NavbarOption:hover{
+    background-color: #242424;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+.NavbarText{
+    color: #14A76C;
+    font-size: 22px;
+    text-decoration: none;
+}
+
+.NavbarFotter{
+    font-size:16px;
 }

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Select from 'react-select';
+import styles from '../PlayerData.module.css';
 
 const NewPlayerCreator = (props) =>{
 
@@ -42,16 +43,17 @@ const NewPlayerCreator = (props) =>{
     }
 
     return(
-        <div>
+        <div className={styles.CreateNewPlayer}>
             <h3>Nowy Gracz</h3>
-            <form onSubmit={handleSubmit}>
-                <input value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></input>
-                <input value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></input>
-                <Select
+            <form className={styles.PlayerForm} onSubmit={handleSubmit}>
+                <input className={styles.PlayerInput} value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></input>
+                <input  className={styles.PlayerInput} value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></input>
+                <Select className = {styles.Button}
+                    placeholder="Wybierz Klub"
                     options={clubs.clubs}
                     onChange={(e) => setClub(e.value)}
                 />
-                <button type="submit">Stwórz</button>
+                <button className = {styles.Button} type="submit">Stwórz</button>
 
             </form>
         </div>

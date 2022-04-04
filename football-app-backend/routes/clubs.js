@@ -1,4 +1,5 @@
 const express = require('express');
+const { json } = require('express/lib/response');
 const router = express.Router();
 const Club = require('../models/Club');
 
@@ -32,6 +33,18 @@ router.post('/', async (req,res) => {
 
 })
 
+//ALL CLUB PLAYERS
+router.get('/:clubId/players', async (req,res) =>{
+    try{
+        const club = await Club.findById(req.params.clubId).populate("players");
+        console.log(club);
+        res.json(club.players);
+    }
+    catch(err){
+        res.json({message:err});
+    }
+})
+
 //SPECIFIC CLUB
 router.get('/:clubId', async (req,res) => {
     try{
@@ -47,6 +60,15 @@ router.get('/:clubId', async (req,res) => {
 //DELETE CLUB
 router.delete('/:clubId', async (req,res) => {
     try{
+        const club = await Club.findById(req.params.clubId).populate("players");
+        club.players.forEach((e) => {
+            console.log(e.club);
+            e.club = null;
+            e.save();
+        })
+
+
+
         const removedClub = await Club.remove({_id: req.params.clubId});
         res.json(removedClub);
     }

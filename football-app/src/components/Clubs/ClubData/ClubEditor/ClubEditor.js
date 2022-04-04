@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import styles from "../ClubData.module.css"
 import axios from "axios";
 
 const ClubEditor = (props) =>{
@@ -18,12 +19,12 @@ const ClubEditor = (props) =>{
     }
 
     return(
-        <div>
-            <h3>Informacje o klubie</h3>
-            <form onSubmit={saveNewData}>
-                Nazwa:<input value={name} onChange={(e) => setName(e.target.value)}></input>
-                Typ:<input value={type} onChange={(e) => setType(e.target.value)}></input>
-                <button type="submit">Edytuj</button>
+        <div className={styles.CreateNewClub}>
+            <h3>Edytuj Klub</h3>
+            <form className={styles.ClubForm} onSubmit={saveNewData}>
+                Nazwa:<input className={styles.ClubInput} value={name} onChange={(e) => setName(e.target.value)}></input>
+                Typ:<input className={styles.ClubInput} value={type} onChange={(e) => setType(e.target.value)}></input>
+                <button className = {styles.Button} type="submit">Edytuj</button>
             </form>
 
         </div>
