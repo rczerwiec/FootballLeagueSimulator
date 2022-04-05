@@ -14,6 +14,10 @@ const PlayerSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Clubs"   
     },
+    overall:{
+        type: Number,
+        require:true
+    }
 });
 
 module.exports = mongoose.model('Players', PlayerSchema);

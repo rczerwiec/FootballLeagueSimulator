@@ -20,14 +20,20 @@ router.post('/', async (req,res) => {
         name: req.body.name,
         nationality: req.body.nationality,
         club: req.body.club,
+        overall: req.body.overall
     })
     try{
         const club = await Club.findById(player.club.valueOf());
-        console.log(club.players)
-        const savedPlayer = await player.save();
-        club.players.push(savedPlayer);
-        await club.save();
-        res.json(savedPlayer);
+        if (club.players.length <= 4){
+            const savedPlayer = await player.save();
+            club.players.push(savedPlayer);
+            await club.save();
+            res.json(savedPlayer);
+        }
+        else{
+            res.json({message:"Klub jest pełen!"});
+        }
+
     }
     catch(err){
         res.json({message: err});
@@ -82,7 +88,7 @@ router.patch('/:playerId', async(req,res)=>{
             oldPlayer.club.players.splice(oldPlayer.club.players.indexOf(req.params.playerId),1);
             await oldPlayer.club.save();
         }
-        await Player.updateOne({_id: req.params.playerId},{$set : {name: req.body.name, nationality: req.body.nationality, club: req.body.club}});
+        await Player.updateOne({_id: req.params.playerId},{$set : {name: req.body.name, nationality: req.body.nationality, club: req.body.club, overall: req.body.overall}});
         const player = await Player.findById(req.params.playerId).populate("club");
         player.club.players.push(player);
         await player.club.save();

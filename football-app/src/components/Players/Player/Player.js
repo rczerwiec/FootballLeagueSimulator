@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Player.module.css";
-import navStyles from "../../Navbar/Navbar.module.css";
 
 const Player = (props) => {
   return (
@@ -11,7 +10,7 @@ const Player = (props) => {
           props.showSelectedPlayer(props.id);
         }}
       >
-        {props.name}, {props.nationality}
+        {props.name}, {props.nationality}, OV:{props.overall}
       </div>
       <div className={styles.Buttons}>
         <div

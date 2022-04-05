@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div className="AppFlex">
         <Router>
-          <Navbar></Navbar>
+          <Navbar/>
           <div className="Content">
             <Routes>
               <Route path="/kluby" element={<Clubs />} />

@@ -19,7 +19,7 @@ const ClubData = (props) => {
   }, [props.id])
 
   const clubPlayers = players.list.map((player, index) => {
-    return <div className={styles.Player} key={player._id}>- {player.name}</div>;
+    return <div className={styles.Player} key={player._id}>- {player.name} (OV:{player.overall})</div>;
   });
 
   return (

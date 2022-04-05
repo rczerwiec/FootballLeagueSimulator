@@ -7,6 +7,7 @@ const PlayerEditor = (props) =>{
 
     const [name, setName] = useState(props.name);
     const [nationality, setNationality] = useState(props.nationality);
+    const [overall, setOverall] = useState(props.overall);
     const [club, setClub] = useState();
     const [clubs, setClubs] = useState({
         clubs:[],
@@ -34,6 +35,7 @@ const PlayerEditor = (props) =>{
             name: name,
             nationality: nationality,
             club: club,
+            overall: overall,
         }
     
         axios.patch('http://localhost:5000/players/'+props.id,playerToSave).then(response =>{
@@ -47,6 +49,7 @@ const PlayerEditor = (props) =>{
             <form className={styles.PlayerForm} onSubmit={saveNewData}>
                 Nazwa:<input className={styles.PlayerInput} value={name} onChange={(e) => setName(e.target.value)}></input>
                 Pochodzenie:<input className={styles.PlayerInput} value={nationality} onChange={(e) => setNationality(e.target.value)}></input>
+                Overall:<input className={styles.PlayerInput} value={overall} onChange={(e) => setOverall(e.target.value)}></input>
                 Klub:                <Select
                 className = {styles.Button}
                     placeholder="Wybierz Klub Do Zmiany"

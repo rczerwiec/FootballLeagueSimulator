@@ -6,7 +6,7 @@ const NavbarOption = (props) => {
     return(
         <div className={styles.NavbarOption}>
             <a className={styles.NavbarText} href={props.destination}>
-            <div>{props.name}</div>
+            <div>{props.icon}</div><div> {props.name}</div>
           </a>
         </div>
     )

@@ -8,10 +8,12 @@ const NewPlayerCreator = (props) =>{
     const [name, setName] = useState("");
     const [nationality, setNationality] = useState("");
     const [club, setClub] = useState("");
+    const [overall, setOverall] = useState("");
     const [clubs, setClubs] = useState({
         clubs:[],
     })
         
+    //Lista klubów do wyboru w select
     useEffect(() => {
         if(clubs.clubs.length === 0){
             axios.get("http://localhost:5000/clubs", null).then((response) => {
@@ -33,9 +35,9 @@ const NewPlayerCreator = (props) =>{
             name: name,
             nationality: nationality,
             club: club,
+            overall: overall,
         }
-        console.log(club);
-        //axios.get('http://localhost:5000/clubs'+playerToSave.club)
+        
     
         axios.post('http://localhost:5000/players',playerToSave).then(response =>{
             console.log(response);
@@ -48,6 +50,7 @@ const NewPlayerCreator = (props) =>{
             <form className={styles.PlayerForm} onSubmit={handleSubmit}>
                 <input className={styles.PlayerInput} value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></input>
                 <input  className={styles.PlayerInput} value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></input>
+                <input  className={styles.PlayerInput} value={overall} placeholder="Overall Gracza" onChange={(e) => setOverall(e.target.value)}></input>
                 <Select className = {styles.Button}
                     placeholder="Wybierz Klub"
                     options={clubs.clubs}
