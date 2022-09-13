@@ -21,7 +21,12 @@ const LeagueSchema = mongoose.Schema({
         default: 8
     },
     matches:[{
-    }]
+    }],
+    complete: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 })
 
 module.exports = mongoose.model('Leagues', LeagueSchema);

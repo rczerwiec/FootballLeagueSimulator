@@ -62,6 +62,7 @@ const Players = (props) => {
                 name={response.data.name}
                 nationality={response.data.nationality}
                 club={response.data.club}
+                age={response.data.age}
                 overall={response.data.overall}
               />
             ),
@@ -80,6 +81,7 @@ const Players = (props) => {
             nationality={response.data.nationality}
             club={response.data.club}
             overall={response.data.overall}
+            age={response.data.age}
           />
         ),
       });
@@ -93,6 +95,7 @@ const Players = (props) => {
         key={player._id}
         id={player._id}
         name={player.name}
+        age={player.age}
         overall={player.overall}
         nationality={player.nationality}
         showSelectedPlayer={selectPlayerHandler}

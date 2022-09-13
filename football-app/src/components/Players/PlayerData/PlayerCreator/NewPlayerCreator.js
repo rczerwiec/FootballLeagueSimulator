@@ -7,7 +7,7 @@ const NewPlayerCreator = (props) =>{
 
     const [name, setName] = useState("");
     const [nationality, setNationality] = useState("");
-    const [club, setClub] = useState("");
+    const [club, setClub] = useState(undefined);
     const [overall, setOverall] = useState("");
     const [clubs, setClubs] = useState({
         clubs:[],
@@ -31,16 +31,16 @@ const NewPlayerCreator = (props) =>{
     });
 
     let handleSubmit = async (e) =>{
+        console.log(club);
         const playerToSave = {
             name: name,
             nationality: nationality,
             club: club,
             overall: overall,
         }
-        
     
         axios.post('http://localhost:5000/players',playerToSave).then(response =>{
-            console.log(response);
+            console.log("Odpowiedź",response);
         });
     }
 

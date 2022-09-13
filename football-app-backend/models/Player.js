@@ -12,7 +12,12 @@ const PlayerSchema = mongoose.Schema({
     //one to many
     club:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Clubs"   
+        ref: "Clubs",
+    },
+    age:{
+        type: Number,
+        default:16,
+        require:true,
     },
     overall:{
         type: Number,

@@ -26,9 +26,9 @@ const ClubData = (props) => {
     <div className={styles.ClubDetails}>
       <div className={styles.ClubInfo}>
         <h3>{props.name}</h3>
-        <div className={styles.clubDetailsDiv}>Typ klubu:{props.type}</div>
-        <div className={styles.clubDetailsDiv}>Mistrzostwa Regionu: 0</div>
-        <div className={styles.clubDetailsDiv}>Mistrzostwa Świata: 0</div>
+        <div className={styles.clubDetailsDiv}>Typ klubu: {props.type}</div>
+        <div className={styles.clubDetailsDiv}>Mistrzostwo Kraju: 0</div>
+        <div className={styles.clubDetailsDiv}>Liga Mistrzów: 0</div>
       </div>
       <div className={styles.Players}>
         <h4>Zawodnicy:</h4>

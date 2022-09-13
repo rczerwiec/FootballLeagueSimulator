@@ -10,7 +10,7 @@ const Player = (props) => {
           props.showSelectedPlayer(props.id);
         }}
       >
-        {props.name}, {props.nationality}, OV:{props.overall}
+        {props.name}, {props.nationality}, {props.age}l OV:{props.overall}
       </div>
       <div className={styles.Buttons}>
         <div

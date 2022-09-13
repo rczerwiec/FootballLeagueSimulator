@@ -63,7 +63,7 @@ router.delete('/:clubId', async (req,res) => {
         const club = await Club.findById(req.params.clubId).populate("players");
         club.players.forEach((e) => {
             console.log(e.club);
-            e.club = null;
+            e.club = undefined;
             e.save();
         })
 

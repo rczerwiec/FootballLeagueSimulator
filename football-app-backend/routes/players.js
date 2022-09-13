@@ -22,20 +22,31 @@ router.post('/', async (req,res) => {
         club: req.body.club,
         overall: req.body.overall
     })
+    console.log(player);
     try{
-        const club = await Club.findById(player.club.valueOf());
-        if (club.players.length <= 4){
-            const savedPlayer = await player.save();
-            club.players.push(savedPlayer);
-            await club.save();
-            res.json(savedPlayer);
+        if(req.body.club !==undefined){
+            const club = await Club.findById(player.club.valueOf());
+            if (club.players.length <= 4){
+                const savedPlayer = await player.save();
+                club.players.push(savedPlayer);
+                await club.save();
+                res.json(savedPlayer);
+                console.log("Utworzono gracza i przypisano go do klubu")
+            }
+            else{
+                res.json({message:"Klub jest pełen!"});
+            }
         }
         else{
-            res.json({message:"Klub jest pełen!"});
+            player.club = undefined;
+            const savedPlayer = await player.save();
+            res.json(savedPlayer);
+            console.log("Utworzono gracza bez klubu")
         }
 
     }
     catch(err){
+        console.log("Błąd podczas tworzenia gracza")
         res.json({message: err});
     }
 })
@@ -69,14 +80,22 @@ router.get('/:playerId/club', async (req,res) => {
 router.delete('/:playerId', async (req,res) =>{
     try{
         const player = await Player.findById(req.params.playerId);
-        const club = await Club.findById(player.club.valueOf());
-
-        await Player.deleteOne({_id:req.params.playerId});
-        club.players.splice(club.players.indexOf(req.params.playerId),1);
-        await club.save();
-        res.json(player);
+        if(player.club !== undefined && player.club !== null){
+            const club = await Club.findById(player.club.valueOf());
+            await Player.deleteOne({_id:req.params.playerId});
+            club.players.splice(club.players.indexOf(req.params.playerId),1);
+            await club.save();
+            res.json(player);
+            console.log("Pomyślnie usunięto gracza i jego dane z klubu");
+        }
+        else{
+            await Player.deleteOne({_id:req.params.playerId});
+            res.json(player);
+            console.log("Pomyślnie usunięto gracza");
+        }
     }
     catch(err){
+        console.log("Błąd podczas usuwania gracza")
         res.json({message:err});
     }
 })

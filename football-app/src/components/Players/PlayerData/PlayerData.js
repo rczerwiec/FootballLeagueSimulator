@@ -20,6 +20,7 @@ const PlayerData = (props) =>{
             <div>Nazwa:{props.name}</div>
             <div>Pochodzenie:{props.nationality}</div>
             <div>Overall:{props.overall}</div>
+            <div>Wiek:{props.age}</div>
             <div>Klub:{club}</div>
         </div>
     );
