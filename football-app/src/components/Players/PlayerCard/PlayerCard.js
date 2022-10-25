@@ -1,7 +1,7 @@
 import React from "react";
-import CardButtons from "../Buttons/CardButtons";
+import CardButtons from "../../Buttons/CardButton/CardButtons"
 import InformationCard from "../../InformationCard/InformationCard";
-import PlayerInfo from "../PlayerInfo";
+import PlayerInfo from "./PlayerInfo";
 
 const PlayerCard = (props) => {
   return (

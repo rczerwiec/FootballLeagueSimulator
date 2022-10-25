@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Club from "./Club/Club";
-import ClubData from "./ClubData/ClubData";
+import ClubCard from "./ClubCard/ClubCard";
+import ClubFullInfo from "./ClubData/ClubFullInfo";
 import NewClubCreator from "./ClubData/ClubCreator/NewClubCreator";
 import ClubEditor from "./ClubData/ClubEditor/ClubEditor";
-import styles from "./Clubs.module.css";
+import styles from "./ClubsMenu.module.css";
 
 const Clubs = (props) => {
   const [actionState, setActionState] = useState({
@@ -27,7 +27,7 @@ const Clubs = (props) => {
       setActionState({
         action: (
           <div>
-            <ClubData
+            <ClubFullInfo
               id={id}
               name={response.data.name}
               type={response.data.type}
@@ -85,13 +85,13 @@ const Clubs = (props) => {
   const clubs = clubState.clubs.map((club, index) => {
     return (
       <div key={club._id}>
-        <Club
+        <ClubCard
           showSelectedClub={showSelectedClubHandler}
           _id={club._id}
           name={club.name}
           edit={editClubHandler}
           remove={removeClubHandler}
-        ></Club>
+        ></ClubCard>
       </div>
     );
   });

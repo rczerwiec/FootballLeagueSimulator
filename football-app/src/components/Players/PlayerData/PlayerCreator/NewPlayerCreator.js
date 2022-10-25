@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Select from 'react-select';
-import styles from '../PlayerData.module.css';
+import styles from '../PlayerFullInfo.module.css';
 
 const NewPlayerCreator = (props) =>{
 

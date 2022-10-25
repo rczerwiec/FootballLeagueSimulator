@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Player from "./Player/Player";
+import PlayerCard from "./PlayerCard/PlayerCard";
 import NewPlayerCreator from "./PlayerData/PlayerCreator/NewPlayerCreator";
-import PlayerData from "./PlayerData/PlayerData";
+import PlayersFullInfo from "./PlayerData/PlayerFullInfo";
 import PlayerEditor from "./PlayerData/PlayerEditor/PlayerEditor";
-import styles from "./Players.module.css";
+import styles from "./PlayersMenu.module.css";
 
-const Players = (props) => {
+const PlayersMenu = (props) => {
   const [playersState, setPlayersState] = useState({
     players: [],
   });
@@ -76,12 +76,13 @@ const Players = (props) => {
     axios.get("http://localhost:5000/players/" + id, null).then((response) => {
       setActionState({
         action: (
-          <PlayerData
-            name={response.data.name}
-            nationality={response.data.nationality}
-            club={response.data.club}
-            overall={response.data.overall}
-            age={response.data.age}
+          <PlayersFullInfo
+            playerName={response.data.name}
+            playerNationality={response.data.nationality}
+            playerClub={response.data.club}
+            playerOverall={response.data.overall}
+            playerAge={response.data.age}
+
           />
         ),
       });
@@ -91,7 +92,7 @@ const Players = (props) => {
   //Mapowanie graczy
   const players = playersState.players.map((player, index) => {
     return (
-      <Player
+      <PlayerCard
         key={player._id}
         id={player._id}
         name={player.name}
@@ -101,7 +102,7 @@ const Players = (props) => {
         showSelectedPlayer={selectPlayerHandler}
         remove={removePlayerHandler}
         edit={editPlayerHandler}
-      ></Player>
+      ></PlayerCard>
     );
   });
 
@@ -119,4 +120,4 @@ const Players = (props) => {
   );
 };
 
-export default Players;
+export default PlayersMenu;

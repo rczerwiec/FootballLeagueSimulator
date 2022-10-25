@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "../ClubData.module.css"
+import styles from "../ClubFullInfo.module.css"
 import axios from "axios";
 
 const NewClubCreator = () =>{

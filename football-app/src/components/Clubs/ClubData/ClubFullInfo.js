@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styles from "./ClubData.module.css";
+import styles from "./ClubFullInfo.module.css";
 
-const ClubData = (props) => {
+const ClubFullInfo = (props) => {
   const [players, setPlayers] = useState({
     list: [],
   });
@@ -38,4 +38,4 @@ const ClubData = (props) => {
   );
 };
 
-export default ClubData;
+export default ClubFullInfo;

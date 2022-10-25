@@ -1,5 +1,5 @@
 import "./App.css";
-import Clubs from "./components/Clubs/Clubs";
+import ClubsMenu from "./components/Clubs/ClubsMenu";
 import Players from "./components/Players/PlayersMenu";
 import Leagues from "./components/Leagues/Leagues";
 import Settings from "./components/Settings/Settings";
@@ -32,7 +32,7 @@ const App = () => {
             <Navbar/>
             <div className="Content">
               <Routes>
-                <Route path="/kluby" element={<Clubs />} />
+                <Route path="/kluby" element={<ClubsMenu />} />
                 <Route path="/zawodnicy" element={<Players />} />
                 <Route path="/ligi" element={<Leagues />} />
                 <Route path="/ustawienia" element={<Settings />} />

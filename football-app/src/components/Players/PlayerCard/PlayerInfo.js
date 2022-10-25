@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Player/Player.module.css";
+import styles from "./PlayerInfo.module.css";
 
 const PlayerInfo = (props) =>{
     return(
