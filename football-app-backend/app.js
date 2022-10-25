@@ -1,16 +1,17 @@
-const express = require('express');
-const app = express()
-const port = 5000
-const mongoose = require('mongoose');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
 
-//Import Routes
-const clubsRoute = require('./routes/clubs');
-const playersRoute = require('./routes/players');
+import clubsRoute from './routes/clubs.js';
+import playersRoute from './routes/players.js';
+
+import 'dotenv/config';
+
+const app = express();
+const port = 5000;
 
 
 
-require('dotenv/config');
 
 //Middlewares
 app.use(cors()); 

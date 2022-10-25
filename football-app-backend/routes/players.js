@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const Player = require('../models/Player');
-const Club = require('../models/Club');
+import Player from '../models/Player.js';
+import Club from '../models/Club.js';
 
 //GET ALL PLAYERS
 router.get('/', async (req,res) => {
@@ -119,4 +119,4 @@ router.patch('/:playerId', async(req,res)=>{
     }
 })
 
-module.exports = router;
+export default router;

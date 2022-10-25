@@ -1,7 +1,7 @@
-const express = require('express');
-const { json } = require('express/lib/response');
+import mongoose from 'mongoose';
+import express from 'express';
 const router = express.Router();
-const Club = require('../models/Club');
+import Club from '../models/Club.js';
 
 
 //GET BACK ALL THE CLUBS
@@ -90,4 +90,4 @@ router.patch('/:clubId',async (req, res) => {
     
 })
 
-module.exports = router;
+export default router;
