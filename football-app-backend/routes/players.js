@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import Player from '../models/Player.js';
 import Club from '../models/Club.js';
+import {faker} from '@faker-js/faker';
 
 //GET ALL PLAYERS
 router.get('/', async (req,res) => {
@@ -49,6 +50,33 @@ router.post('/', async (req,res) => {
         console.log("Błąd podczas tworzenia gracza")
         res.json({message: err});
     }
+})
+
+//GENERATE X PLAYERS
+router.post('/generateMultiple', async(req,res) =>{
+    //console.log(req.body);
+    
+    for(var i=0; i<req.body.howMuchToGenerate; i++){
+        console.log(i);
+        var randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1)
+
+        const player = new Player({
+            name: faker.name.firstName() + " " + faker.name.lastName(),
+            nationality: faker.address.country(),
+            overall: randomNumber
+        })
+
+        try{
+            player.club = undefined;
+            const savedPlayer = await player.save();
+            //console.log(savedPlayer);
+            
+        }
+        catch(err){
+            res.json({message: err});
+        }
+    }
+    res.json("Pomyślnie wygenerowano graczy");
 })
 
 //GET SPECIFIC PLAYER
