@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
 
 const Settings = (props) => {
 
@@ -17,9 +18,9 @@ const Settings = (props) => {
 
     return(
         <div><h2>Ustawienia</h2>
-        
-        <button onClick={generatePlayers}>Generuj 10 graczy [PL]</button>
-        
+        <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
+        <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
+        <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
         </div>
     );
 }
