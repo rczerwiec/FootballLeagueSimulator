@@ -1,9 +1,10 @@
 import React from "react";
+import InformationCard from "../../InformationCard/InformationCard";
 import styles from "./Club.module.css";
 
 const Club = (props) => {
   return (
-    <div className={styles.ClubFlex}>
+    <InformationCard>
       <div
         className={styles.ClubContent}
         onClick={() => {
@@ -12,7 +13,7 @@ const Club = (props) => {
       >
         {props.name}
       </div>
-      
+
       <div className={styles.Buttons}>
         <div
           className={styles.Button}
@@ -31,7 +32,8 @@ const Club = (props) => {
           Usuń
         </div>
       </div>
-    </div>
+    </InformationCard>
+
   );
 };
 

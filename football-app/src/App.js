@@ -1,6 +1,6 @@
 import "./App.css";
 import Clubs from "./components/Clubs/Clubs";
-import Players from "./components/Players/Players";
+import Players from "./components/Players/PlayersMenu";
 import Leagues from "./components/Leagues/Leagues";
 import Settings from "./components/Settings/Settings";
 import { useEffect, useState } from "react";

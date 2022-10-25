@@ -1,5 +1,20 @@
+.PlayerFlex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:10px;
+    justify-content: center;
+    border: 4px solid #242424;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
 
-.ClubContent{
+.PlayerFlex:hover{
+    background-color: #505050;
+}
+
+.PlayerContent{
     font-size: 24px;
     width:70vw;
     padding:10px;

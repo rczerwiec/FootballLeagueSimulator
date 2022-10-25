@@ -1,37 +1,15 @@
 import React from "react";
-import styles from "./Player.module.css";
+import CardButtons from "../Buttons/CardButtons";
+import InformationCard from "../../InformationCard/InformationCard";
+import PlayerInfo from "../PlayerInfo";
 
-const Player = (props) => {
+const PlayerCard = (props) => {
   return (
-    <div className={styles.PlayerFlex}>
-      <div
-        className={styles.PlayerContent}
-        onClick={() => {
-          props.showSelectedPlayer(props.id);
-        }}
-      >
-        {props.name}, {props.nationality}, {props.age}l OV:{props.overall}
-      </div>
-      <div className={styles.Buttons}>
-        <div
-          className={styles.Button}
-          onClick={() => {
-            props.edit(props.id);
-          }}
-        >
-          Edytuj
-        </div>
-        <div
-          className={styles.Button}
-          onClick={() => {
-            props.remove(props.id);
-          }}
-        >
-          Usuń
-        </div>
-      </div>
-    </div>
+    <InformationCard>
+      <PlayerInfo showSelectedPlayer={props.showSelectedPlayer} id={props.id} name={props.name} nationality={props.nationality} age={props.age} overall={props.overall}/>
+      <CardButtons firstButtonText="Edit" secondButtonText="Delete" edit={props.edit} remove={props.remove}/>
+    </InformationCard>
   );
 };
 
-export default Player;
+export default PlayerCard;
