@@ -1,12 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-
+import colors from "colors";
 import clubsRoute from './routes/clubs.js';
 import playersRoute from './routes/players.js';
 
 import 'dotenv/config';
 
+
+colors.enable();
 const app = express();
 const port = 5000;
 
