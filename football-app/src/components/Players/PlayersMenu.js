@@ -25,7 +25,7 @@ const PlayersMenu = (props) => {
         players: players.data,
       });
     });
-  });
+  },[props]);
 
   //Otworzenie okna z tworzeniem nowego gracza
   const newPlayerHandler = (id) => {

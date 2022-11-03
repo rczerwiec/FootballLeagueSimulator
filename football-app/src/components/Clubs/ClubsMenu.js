@@ -80,7 +80,7 @@ const Clubs = (props) => {
       });
     });
     //console.log(clubState.clubs);
-  });
+  },[props]);
 
   const clubs = clubState.clubs.map((club, index) => {
     return (
