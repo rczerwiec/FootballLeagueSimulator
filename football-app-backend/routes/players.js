@@ -50,7 +50,7 @@ router.post('/', async (req,res) => {
 
     }
     catch(err){
-        console.log("createPlayer>>".yellow,"Blad podczas tworzenia klubu".red);
+        console.log("createPlayer>>".yellow,"Blad podczas tworzenia klubu".red, err);
         res.json({message: err});
     }
 })

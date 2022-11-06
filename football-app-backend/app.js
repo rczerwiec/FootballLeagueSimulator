@@ -26,6 +26,9 @@ app.get('/', (req,res) => res.send(`You're on home page`));
 
 
 //Connect to DB
-mongoose.connect(process.env.DB_CONNECTION, () => console.log('connected to db'));
+mongoose.connect(process.env.DB_CONNECTION).catch(
+    error => console.log(error)).then( () => {
+        console.log("Connected with db!");
+    });
 
 app.listen(port, () => console.log(`Example ${port}!`))
