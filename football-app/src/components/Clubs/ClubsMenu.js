@@ -5,6 +5,7 @@ import ClubFullInfo from "./ClubData/ClubFullInfo";
 import NewClubCreator from "./ClubData/ClubCreator/NewClubCreator";
 import ClubEditor from "./ClubData/ClubEditor/ClubEditor";
 import styles from "./ClubsMenu.module.css";
+import Spinner from "../Spinner/Spinner";
 
 const Clubs = (props) => {
   const [actionState, setActionState] = useState({
@@ -12,7 +13,21 @@ const Clubs = (props) => {
   });
   const [clubState, setClubState] = useState({
     clubs: [],
+    loading:true,
   });
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/clubs", null).then((response) => {
+      //const firstTenEmployees = response.data.slice(0,10);
+
+      const clubs = response;
+      setClubState({
+        clubs: clubs.data,
+        loading: false,
+      });
+    });
+    //console.log(clubState.clubs);
+  },[props]);
 
   const newClubHandler = () => {
     setActionState({
@@ -70,18 +85,6 @@ const Clubs = (props) => {
     }
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:5000/clubs", null).then((response) => {
-      //const firstTenEmployees = response.data.slice(0,10);
-
-      const clubs = response;
-      setClubState({
-        clubs: clubs.data,
-      });
-    });
-    //console.log(clubState.clubs);
-  },[props]);
-
   const clubs = clubState.clubs.map((club, index) => {
     return (
       <div key={club._id}>
@@ -101,11 +104,19 @@ const Clubs = (props) => {
       {actionState.action !==null ?
         (<div className={styles.Action}>{actionState.action}</div>):(<div/>)
       }
-      <div className={styles.Header}>Lista Klubów</div>
-      <button className={styles.Button} onClick={newClubHandler}>
-        Nowy Klub
-      </button>
-      <div className={styles.Clubs}>{clubs}</div>
+      { clubState.loading ? (<Spinner/>) :
+      (
+        <div>
+        <div className={styles.Header}>Lista Klubów</div>
+        <button className={styles.Button} onClick={newClubHandler}>
+          Nowy Klub
+        </button>
+        <div className={styles.Clubs}>{clubs}</div>
+        </div>
+      )
+
+      }
+
     </div>
   );
 };

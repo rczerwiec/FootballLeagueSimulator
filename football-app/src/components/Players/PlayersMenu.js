@@ -5,10 +5,12 @@ import NewPlayerCreator from "./PlayerData/PlayerCreator/NewPlayerCreator";
 import PlayersFullInfo from "./PlayerData/PlayerFullInfo";
 import PlayerEditor from "./PlayerData/PlayerEditor/PlayerEditor";
 import styles from "./PlayersMenu.module.css";
+import Spinner from "../Spinner/Spinner";
 
 const PlayersMenu = (props) => {
   const [playersState, setPlayersState] = useState({
     players: [],
+    loading: true,
   });
 
   const [actionState, setActionState] = useState({
@@ -23,6 +25,7 @@ const PlayersMenu = (props) => {
       const players = response;
       setPlayersState({
         players: players.data,
+        loading: false,
       });
     });
   },[props]);
@@ -111,11 +114,17 @@ const PlayersMenu = (props) => {
       {actionState.action !==null ?
         (<div className={styles.Action}>{actionState.action}</div>):(<div/>)
       }
+      {playersState.loading ? (<Spinner/>) :
+        (      <div>
       <div className={styles.Header}>Lista Graczy</div>
       <button className={styles.Button} onClick={newPlayerHandler}>
         Nowy Piłkarz
       </button>
       <div className={styles.Players}>{players}</div>
+      </div>)
+        
+      }
+
     </div>
   );
 };

@@ -10,25 +10,9 @@ import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
 
-  const [loading, setLoading] = useState(false);
-
-  useEffect(()=>{
-    if (loading == false){
-
-      generatePlayers()
-      setLoading(true)
-      console.log("Loading")
-    }
-  },[loading])
-
-
-  let generatePlayers = async (e) =>{
-    
-  }
-  
     return (
       <div className="AppFlex">
-        {loading ? <Router>
+        <Router>
             <Navbar/>
             <div className="Content">
               <Routes>
@@ -38,11 +22,8 @@ const App = () => {
                 <Route path="/ustawienia" element={<Settings />} />
               </Routes>
             </div>
-          </Router> : 
-          <div>Error</div>}
-            
+          </Router>
 
-        
       </div>
     );
   }
