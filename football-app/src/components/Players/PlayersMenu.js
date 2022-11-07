@@ -54,6 +54,7 @@ const PlayersMenu = (props) => {
   };
 
   const editPlayerHandler = (id) => {
+    console.log(id);
     if (id !== null) {
       axios
         .get("http://localhost:5000/players/" + id, null)

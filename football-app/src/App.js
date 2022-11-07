@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
+import Match from "./components/Match/Match";
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
                 <Route path="/kluby" element={<ClubsMenu />} />
                 <Route path="/zawodnicy" element={<Players />} />
                 <Route path="/ligi" element={<Leagues />} />
+                <Route path="/pojedynek" element={<Match/>}/> 
                 <Route path="/ustawienia" element={<Settings />} />
               </Routes>
             </div>

@@ -7,7 +7,7 @@ const PlayerCard = (props) => {
   return (
     <InformationCard>
       <PlayerInfo showSelectedPlayer={props.showSelectedPlayer} id={props.id} name={props.name} nationality={props.nationality} age={props.age} overall={props.overall}/>
-      <CardButtons firstButtonText="Edit" secondButtonText="Delete" edit={props.edit} remove={props.remove}/>
+      <CardButtons firstButtonText="Edit" secondButtonText="Delete" id={props.id} edit={props.edit} remove={props.remove}/>
     </InformationCard>
   );
 };
