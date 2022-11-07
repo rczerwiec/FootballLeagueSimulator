@@ -48,12 +48,28 @@ const Match = () => {
     })
   }
 
+  const onGenerateResultHandler = (e) => {
+    const match = {
+        firstClub: firstClub,
+        secondClub: secondClub,
+    }
+    axios.post("http://localhost:5000/matches", match).then(
+        (res) => {
+            console.log(res);
+        }
+    ).catch(
+        (err) => {
+            console.log(err);
+        }
+    );
+  }
+
   return (
     <div>
       {clubs.loading ? (
         <Spinner /> ) : 
         (
-        <form>
+        <form onSubmit={onGenerateResultHandler}>
           <label>Drużyna 1</label>
           <Select options={clubs.list} onChange={onFirstClubChange}/>
           {firstClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
@@ -63,7 +79,7 @@ const Match = () => {
           {secondClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
 
           <button>Wynik Manualny</button>
-          <button>Wynik Generowany</button>
+          <button type="submit">Wynik Generowany</button>
         </form>
       )}
     </div>

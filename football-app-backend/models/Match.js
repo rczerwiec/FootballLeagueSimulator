@@ -20,4 +20,4 @@ const MatchSchema = mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('Match', MatchSchema);
+export default mongoose.model('Match', MatchSchema);
