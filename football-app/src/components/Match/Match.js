@@ -11,24 +11,23 @@ const Match = () => {
     loading: true,
   });
 
-  const [matches,setMatches] = useState({
+  const [matches, setMatches] = useState({
     list: [],
-  })
+  });
 
   const [firstClub, setFirstClub] = useState(null);
   const [secondClub, setSecondClub] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/matches").then(
-      (res) => {
+    axios
+      .get("http://localhost:5000/matches")
+      .then((res) => {
         console.log(res.data);
-        setMatches({list:res.data})
-      }
-    ).catch(
-      (err) => {
+        setMatches({ list: res.data });
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
     axios
       .get("http://localhost:5000/clubs")
       .then((res) => {
@@ -47,61 +46,63 @@ const Match = () => {
       .catch((err) => {
         console.log(err);
       });
-  },[clubs.loading]);
+  }, [clubs.loading]);
 
   const onFirstClubChange = (e) => {
     console.log(e);
     setFirstClub({
-        id: e.value,
-        name: e.label,
-        players: e.players
+      id: e.value,
+      name: e.label,
+      players: e.players,
     });
-  }
+  };
 
   const onSecondClubChange = (e) => {
     setSecondClub({
-        id: e.value,
-        name: e.label,
-        players: e.players
-    })
-  }
+      id: e.value,
+      name: e.label,
+      players: e.players,
+    });
+  };
 
   const onGenerateResultHandler = (e) => {
-    const match = {
-        firstClub: firstClub,
-        secondClub: secondClub,
-    }
-    axios.post("http://localhost:5000/matches", match).then(
-        (res) => {
+    if (firstClub != null && secondClub != null) {
+      if (firstClub.name !== secondClub.name) {
+        const match = {
+          firstClub: firstClub,
+          secondClub: secondClub,
+        };
+        axios
+          .post("http://localhost:5000/matches", match)
+          .then((res) => {
             console.log(res);
-        }
-    ).catch(
-        (err) => {
+          })
+          .catch((err) => {
             console.log(err);
-        }
-    );
-  }
+          });
+      }
+    }
+  };
 
   return (
     <div>
       {clubs.loading ? (
-        <Spinner /> ) : 
-        (
+        <Spinner />
+      ) : (
         <form onSubmit={onGenerateResultHandler}>
           <label>Drużyna 1</label>
-          <Select options={clubs.list} onChange={onFirstClubChange}/>
+          <Select options={clubs.list} onChange={onFirstClubChange} />
           {firstClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
 
           <label>Drużyna 2</label>
-          <Select options={clubs.list} onChange={onSecondClubChange}/>
+          <Select options={clubs.list} onChange={onSecondClubChange} />
           {secondClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
 
           <button>Wynik Manualny</button>
           <button type="submit">Wynik Generowany</button>
         </form>
       )}
-
-    <ListOfMatches matches={matches}/>
+      {matches.list.length > 0 ? <ListOfMatches matches={matches} /> : <span />}
     </div>
   );
 };

@@ -8,7 +8,7 @@ const ClubCard = (props) => {
   return (
     <InformationCard>
       <ClubInfo name={props.name} showSelectedClub={props.showSelectedClub} _id={props._id}/>
-      <CardButtons firstButtonText="Edit" secondButtonText="Delete" edit={props.edit} remove={props.remove}></CardButtons>
+      <CardButtons firstButtonText="Edit" secondButtonText="Delete" id={props._id} edit={props.edit} remove={props.remove}></CardButtons>
     </InformationCard>
 
   );

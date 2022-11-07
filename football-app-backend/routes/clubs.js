@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 const router = express.Router();
 import Club from '../models/Club.js';
+import Match from "../models/Match.js";
 
 
 //GET BACK ALL THE CLUBS
@@ -16,6 +17,19 @@ router.get('/', async (req,res) => {
         res.json({message:err});
     }
 });
+
+//GET CLUB'S MATCHES
+router.get('/:clubId/matches', async (req,res) => {
+    try{
+        const matches = await Club.findById(req.params.clubId).populate("matches");
+        console.log("getClubsMatches>>".blue,"Pomyślnie pobrano wszystkie mecze klubu".green);
+        res.json(matches);
+    }
+    catch(err){
+        console.log("getClubsMatches>>".blue,"Blad podczas pobierania meczy klubu".red, err);
+        res.json({message:err});
+    }
+})
 
 //SUBMITS A CLUB
 router.post('/', async (req,res) => {
@@ -68,14 +82,16 @@ router.get('/:clubId', async (req,res) => {
 //DELETE CLUB
 router.delete('/:clubId', async (req,res) => {
     try{
-        const club = await Club.findById(req.params.clubId).populate("players");
+        const club = await Club.findById(req.params.clubId).populate("players").populate("matches");
+        //console.log(club);
         club.players.forEach((e) => {
             console.log(e.club);
             e.club = undefined;
             e.save();
         })
-
-
+        club.matches.forEach(async (e) => {
+            await Match.deleteOne({_id: e._id});
+        })
 
         const removedClub = await Club.remove({_id: req.params.clubId});
         console.log("deleteClub>>".blue,"Pomyslnie usunieto klub".green)

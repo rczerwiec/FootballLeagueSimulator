@@ -7,20 +7,40 @@ const ClubFullInfo = (props) => {
     list: [],
   });
 
+  const [matches, setMatches] = useState({
+    list: [],
+  })
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/clubs/" + props.id + "/players")
-      .then((response) => {
+      .then((res) => {
         setPlayers({
-          list: response.data,
+          list: res.data,
         })
-        console.log(players.list)
-      })
+        //console.log(players.list)
+      });
+    axios.get("http://localhost:5000/clubs/" + props.id + "/matches").then(
+      (res) => {
+        setMatches({
+          list: res.data.matches,
+        })
+        console.log(res.data.matches);
+      }
+    ).catch(
+      (err) => {
+        console.log(err)
+      }
+    )
   }, [props.id])
 
   const clubPlayers = players.list.map((player, index) => {
     return <div className={styles.Player} key={player._id}>- {player.name} (OV:{player.overall})</div>;
   });
+
+  const matchesList = matches.list.map((m) => {
+    return <div className={styles.Player} key={m._id}>{m.clubHomeName} {m.scoreHome}:{m.scoreAway} {m.clubAwayName}</div>
+  })
 
   return (
     <div className={styles.ClubDetails}>
@@ -33,6 +53,10 @@ const ClubFullInfo = (props) => {
       <div className={styles.Players}>
         <h4>Zawodnicy:</h4>
         {players.list !== null ? (clubPlayers) : (<div>Brak</div>)}
+      </div>
+      <div className={styles.Matches}>
+        <h4>Rozegrane Mecze</h4>
+        {matchesList}
       </div>
     </div>
   );

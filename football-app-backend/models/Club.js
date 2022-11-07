@@ -29,7 +29,15 @@ const ClubSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0
-    }
+    },
+    overall: {
+        type: Number,
+        default: 0
+    },
+    matches: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Match"
+    }]
 })
 
 export default mongoose.model('Clubs', ClubSchema);
