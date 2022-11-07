@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 
 const MatchSchema = mongoose.Schema({
+    matchType:{
+        type:String,
+        required:true,
+    },
     clubHome: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Clubs",
@@ -32,6 +36,9 @@ const MatchSchema = mongoose.Schema({
     scoreAway: {
         type: Number,
     },
+    complete: {
+        type: Boolean
+    }
 })
 
 export default mongoose.model('Match', MatchSchema);

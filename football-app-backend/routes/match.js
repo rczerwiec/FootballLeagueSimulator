@@ -19,6 +19,7 @@ router.post("/", async(req,res)=>{
     console.log(req);
     try{
             const match =new Match({
+            matchType: req.body.matchType,
             clubHome: req.body.firstClub.id,
             clubHomeName: req.body.firstClub.name,
             clubHomePlayers: req.body.firstClub.players,
@@ -26,7 +27,8 @@ router.post("/", async(req,res)=>{
             clubAwayName: req.body.secondClub.name,
             clubAwayPlayers: req.body.secondClub.players,
             scoreHome: Math.floor(Math.random() * (5- 1 + 1) + 1),
-            scoreAway: Math.floor(Math.random() * (5- 1 + 1) + 1)
+            scoreAway: Math.floor(Math.random() * (5- 1 + 1) + 1),
+            complete: true,
         })
 
         const firstClub = await Club.findById(req.body.firstClub.id);

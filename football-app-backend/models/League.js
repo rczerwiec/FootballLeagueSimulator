@@ -21,6 +21,8 @@ const LeagueSchema = mongoose.Schema({
         default: 8
     },
     matches:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Match"
     }],
     complete: {
         type: Boolean,

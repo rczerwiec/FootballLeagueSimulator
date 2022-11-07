@@ -35,11 +35,11 @@ const ClubFullInfo = (props) => {
   }, [props.id])
 
   const clubPlayers = players.list.map((player, index) => {
-    return <div className={styles.Player} key={player._id}>- {player.name} (OV:{player.overall})</div>;
+    return <div className={styles.Player} key={player._id}>- {player.name} (OV:{player.overall} )</div>;
   });
 
   const matchesList = matches.list.map((m) => {
-    return <div className={styles.Player} key={m._id}>{m.clubHomeName} {m.scoreHome}:{m.scoreAway} {m.clubAwayName}</div>
+    return <div className={styles.Player} key={m._id}>{m.clubHomeName} {m.scoreHome}:{m.scoreAway} {m.clubAwayName} ({m.matchType})</div>
   })
 
   return (

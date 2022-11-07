@@ -1,5 +1,6 @@
 import React from 'react';
 import LeagueCreator from './LeagueCreator';
+import LeagueList from './LeagueList';
 import { useState } from 'react';
 
 const Leagues = (props) =>{
@@ -22,6 +23,7 @@ const Leagues = (props) =>{
             {actionState.action !== null ? (actionState.action):(<div/>)}
             <h2>Ligi</h2>
             <button onClick={newLeagueHandler}>Utwórz Ligę</button>
+            <LeagueList />
             
         </div>
     )

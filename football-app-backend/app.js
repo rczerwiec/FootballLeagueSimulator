@@ -5,6 +5,7 @@ import colors from "colors";
 import clubsRoute from './routes/clubs.js';
 import playersRoute from './routes/players.js';
 import matchesRoute from "./routes/match.js";
+import leaguesRoute from "./routes/leagues.js";
 
 import 'dotenv/config';
 
@@ -22,6 +23,7 @@ app.use(express.json()) //parse our request to json
 app.use('/clubs', clubsRoute);
 app.use('/players', playersRoute);
 app.use('/matches', matchesRoute);
+app.use('/leagues', leaguesRoute);
 
 //Routes
 app.get('/', (req,res) => res.send(`You're on home page`));

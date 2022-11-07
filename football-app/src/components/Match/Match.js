@@ -71,6 +71,7 @@ const Match = () => {
         const match = {
           firstClub: firstClub,
           secondClub: secondClub,
+          matchType: "Towarzyski",
         };
         axios
           .post("http://localhost:5000/matches", match)
