@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
 import Spinner from "../Spinner/Spinner";
+import ListOfMatches from "./ListOfMatches";
 
 const Match = () => {
   const [clubs, setClubs] = useState({
@@ -9,14 +11,28 @@ const Match = () => {
     loading: true,
   });
 
+  const [matches,setMatches] = useState({
+    list: [],
+  })
+
   const [firstClub, setFirstClub] = useState(null);
   const [secondClub, setSecondClub] = useState(null);
 
   useEffect(() => {
+    axios.get("http://localhost:5000/matches").then(
+      (res) => {
+        console.log(res.data);
+        setMatches({list:res.data})
+      }
+    ).catch(
+      (err) => {
+        console.log(err);
+      }
+    );
     axios
       .get("http://localhost:5000/clubs")
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         const options = res.data.map((club) => ({
           value: club._id,
           label: club.name,
@@ -38,6 +54,7 @@ const Match = () => {
     setFirstClub({
         id: e.value,
         name: e.label,
+        players: e.players
     });
   }
 
@@ -45,6 +62,7 @@ const Match = () => {
     setSecondClub({
         id: e.value,
         name: e.label,
+        players: e.players
     })
   }
 
@@ -82,6 +100,8 @@ const Match = () => {
           <button type="submit">Wynik Generowany</button>
         </form>
       )}
+
+    <ListOfMatches matches={matches}/>
     </div>
   );
 };
