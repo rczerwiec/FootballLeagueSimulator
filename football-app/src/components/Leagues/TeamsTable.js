@@ -68,7 +68,7 @@ const Table = ({ columns, data, initialState }) => {
 }
 
 const TeamsTable = (props) => {
-  
+  console.log(props.data)
   const data = useMemo(() => props.tableList, [props.tableList])
   const columns = useMemo(
     () => [
@@ -114,7 +114,12 @@ const TeamsTable = (props) => {
 
   return (
     <div>
-      Tabela druzyn
+      <div>
+        <h4>
+          {props.data.name}
+      </h4>
+      
+      </div>
       <Table
         columns={columns}
         data={data}
@@ -122,30 +127,6 @@ const TeamsTable = (props) => {
           sortBy: [
             {
               id: "points",
-              desc: true
-            },
-            {
-              id: "goalsDif",
-              desc: true
-            },
-            {
-              id: "goalsShot",
-              desc: true
-            },
-            {
-              id: "goalsLost",
-              desc: true
-            },
-            {
-              id: "drawGames",
-              desc: true
-            },
-            {
-              id: "wonGames",
-              desc: true
-            },
-            {
-              id: "lostGames",
               desc: true
             },
           ]

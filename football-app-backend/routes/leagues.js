@@ -78,7 +78,7 @@ const generateMatches = (clubs,level,id) => {
         await table.save();
         tablesList.push(table);
         clubs.map(async (away,i) => {
-            if(x!=i){
+            if(x!==i){
                 const match = new Match({
                     matchType: level,
                     clubHome: home._id,
@@ -94,20 +94,13 @@ const generateMatches = (clubs,level,id) => {
                 })
                 await home.matches.push(match);
                 await away.matches.push(match);
-                matchList.push(match);
-                
-                //console.log(match);
+                await matchList.push(match);
                 await match.save();
             }
             
         });
-        
-        await home.save();
         await League.updateOne({_id: id}, {$set : {matches:matchList, tables:tablesList}})
     })
-    
-
-  
 }
 
 router.patch('/:leagueId', async(req,res)=>{

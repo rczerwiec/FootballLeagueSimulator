@@ -61,7 +61,6 @@ router.patch('/:leagueId/:clubId', async(req,res) => {
                 goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreLoser))-(parseInt(table.goalsLost)+parseInt(req.body.scoreWinner)),
             }})
         }
-        console.log("BLAD");
         res.json(table);
     }
     catch(err){

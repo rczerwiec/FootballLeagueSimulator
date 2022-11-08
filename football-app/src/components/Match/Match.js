@@ -99,8 +99,7 @@ const Match = () => {
           <Select options={clubs.list} onChange={onSecondClubChange} />
           {secondClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
 
-          <button>Wynik Manualny</button>
-          <button type="submit">Wynik Generowany</button>
+          <SimpleButton text="Zagraj"></SimpleButton>
         </form>
       )}
       {matches.list.length > 0 ? <ListOfMatches matches={matches} /> : <span />}
