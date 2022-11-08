@@ -15,8 +15,8 @@ const LeagueMatch = (props) => {
         complete: props.matchData.complete,
     })
 
-    const [newScoreHome, setScoreHome] = useState(null);
-    const [newScoreAway, setScoreAway] = useState(null);
+    const [newScoreHome, setScoreHome] = useState(0);
+    const [newScoreAway, setScoreAway] = useState(0);
 
     const updateMatch = () => {
         if(newScoreHome>newScoreAway){
@@ -42,7 +42,7 @@ const LeagueMatch = (props) => {
                 }
             )
         }
-        if(newScoreHome === newScoreAway){
+        else if(newScoreHome === newScoreAway){
             const match = {
                 scoreAway: newScoreAway,
                 scoreHome: newScoreHome,

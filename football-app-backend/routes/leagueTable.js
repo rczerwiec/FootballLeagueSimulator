@@ -36,19 +36,19 @@ router.patch('/:leagueId/:clubId', async(req,res) => {
             await LeagueTable.updateOne({_id:table._id},{$set:{
                 playedGames:table.playedGames+1,
                 wonGames:table.wonGames+1,
-                goalsShot:table.goalsShot+req.body.scoreHome,
-                goalsLost:table.goalsLost+req.body.scoreAway,
-                goalsDif: (table.goalsShot+req.body.scoreHome)-(table.goalsLost+req.body.scoreAway),
+                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreHome)),
+                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
+                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreHome))-(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
                 points: table.points+3,
             }})
         }
-        if(req.body.winner === null){
+        else if(req.body.winner === null){
             await LeagueTable.updateOne({_id:table._id},{$set:{
                 playedGames:table.playedGames+1,
                 drawGames:table.drawGames+1,
-                goalsShot:table.goalsShot+req.body.scoreAway,
-                goalsLost:table.goalsLost+req.body.scoreHome,
-                goalsDif: (table.goalsShot+req.body.scoreAway)-(table.goalsLost+req.body.scoreHome),
+                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreAway)),
+                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreHome)),
+                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreAway))-(parseInt(table.goalsLost)+parseInt(req.body.scoreHome)),
                 points: table.points+1,
             }})
         }
@@ -56,9 +56,9 @@ router.patch('/:leagueId/:clubId', async(req,res) => {
             await LeagueTable.updateOne({_id:table._id},{$set:{
                 playedGames:table.playedGames+1,
                 lostGames:table.lostGames+1,
-                goalsShot:table.goalsShot+req.body.scoreAway,
-                goalsLost:table.goalsLost+req.body.scoreHome,
-                goalsDif: (table.goalsShot+req.body.scoreAway)-(table.goalsLost+req.body.scoreHome),
+                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreHome)),
+                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
+                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreHome))-(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
             }})
         }
         
