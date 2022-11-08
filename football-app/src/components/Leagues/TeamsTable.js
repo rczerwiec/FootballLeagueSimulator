@@ -1,6 +1,71 @@
 import axios from "axios";
 import React, { useEffect,useState,useMemo } from "react";
-import { useTable } from "react-table";
+import { useSortBy, useTable } from "react-table";
+
+
+const Table = ({ columns, data, initialState }) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState
+    },
+    useSortBy
+  );
+
+  // We don't want to render all 2000 rows for this example, so cap
+  // it at 20 for this use case
+  const firstPageRows = rows.slice(0, 20);
+
+  return (
+    <>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                // Add the sorting props to control sorting. For this example
+                // we can add them into the header props
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  {/* Add a sort direction indicator */}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {firstPageRows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <br />
+    </>
+  );
+}
 
 const TeamsTable = (props) => {
   
@@ -46,63 +111,46 @@ const TeamsTable = (props) => {
     ],
     []
   );
-  
-  const tableInstance = useTable({ columns, data,initialState:{
-    sortBy:[{ }]
-  } });
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = tableInstance
 
   return (
     <div>
       Tabela druzyn
-      <table {...getTableProps()}>
-     <thead>
-       {// Loop over the header rows
-       headerGroups.map(headerGroup => (
-         // Apply the header row props
-         <tr {...headerGroup.getHeaderGroupProps()}>
-           {// Loop over the headers in each row
-           headerGroup.headers.map(column => (
-             // Apply the header cell props
-             <th {...column.getHeaderProps()}>
-               {// Render the header
-               column.render('Header')}
-             </th>
-           ))}
-         </tr>
-       ))}
-     </thead>
-     {/* Apply the table body props */}
-     <tbody {...getTableBodyProps()}>
-       {// Loop over the table rows
-       rows.map(row => {
-         // Prepare the row for display
-         prepareRow(row)
-         return (
-           // Apply the row props
-           <tr {...row.getRowProps()}>
-             {// Loop over the rows cells
-             row.cells.map(cell => {
-               // Apply the cell props
-               return (
-                 <td {...cell.getCellProps()}>
-                   {// Render the cell contents
-                   cell.render('Cell')}
-                 </td>
-               )
-             })}
-           </tr>
-         )
-       })}
-     </tbody>
-   </table>
+      <Table
+        columns={columns}
+        data={data}
+        initialState={{
+          sortBy: [
+            {
+              id: "points",
+              desc: true
+            },
+            {
+              id: "goalsDif",
+              desc: true
+            },
+            {
+              id: "goalsShot",
+              desc: true
+            },
+            {
+              id: "goalsLost",
+              desc: true
+            },
+            {
+              id: "drawGames",
+              desc: true
+            },
+            {
+              id: "wonGames",
+              desc: true
+            },
+            {
+              id: "lostGames",
+              desc: true
+            },
+          ]
+        }}
+      />
     </div>
   );
 };

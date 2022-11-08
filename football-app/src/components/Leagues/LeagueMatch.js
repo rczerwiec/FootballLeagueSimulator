@@ -21,8 +21,8 @@ const LeagueMatch = (props) => {
     const updateMatch = () => {
         if(newScoreHome>newScoreAway){
             const match = {
-                scoreAway: newScoreAway,
-                scoreHome: newScoreHome,
+                scoreWinner: newScoreHome,
+                scoreLoser: newScoreAway,
                 complete: true,
                 winner:matchInfo.clubHome,
             }
@@ -44,8 +44,8 @@ const LeagueMatch = (props) => {
         }
         else if(newScoreHome === newScoreAway){
             const match = {
-                scoreAway: newScoreAway,
-                scoreHome: newScoreHome,
+                scoreWinner: newScoreHome,
+                scoreLoser: newScoreAway,
                 complete: true,
                 winner:null,
             }
@@ -67,8 +67,8 @@ const LeagueMatch = (props) => {
         }
         else{
             const match = {
-                scoreAway: newScoreAway,
-                scoreHome: newScoreHome,
+                scoreWinner: newScoreAway,
+                scoreLoser: newScoreHome,
                 complete: true,
                 winner:matchInfo.clubAway,
             }

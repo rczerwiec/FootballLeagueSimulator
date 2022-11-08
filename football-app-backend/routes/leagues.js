@@ -20,7 +20,7 @@ router.get('/', async(req,res) => {
 router.get('/:leagueId/matches', async(req,res) => {
     try{
         const league = await League.findById(req.params.leagueId).populate("matches");
-        console.log(league);
+        //console.log(league);
         console.log("getLeagueMatches>>".cyan,"Pomyslnie pobrano mecze dla danej ligi".green);
         res.json(league.matches);
     }

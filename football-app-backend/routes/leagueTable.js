@@ -36,9 +36,9 @@ router.patch('/:leagueId/:clubId', async(req,res) => {
             await LeagueTable.updateOne({_id:table._id},{$set:{
                 playedGames:table.playedGames+1,
                 wonGames:table.wonGames+1,
-                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreHome)),
-                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
-                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreHome))-(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
+                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreWinner)),
+                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreLoser)),
+                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreWinner))-(parseInt(table.goalsLost)+parseInt(req.body.scoreLoser)),
                 points: table.points+3,
             }})
         }
@@ -46,9 +46,9 @@ router.patch('/:leagueId/:clubId', async(req,res) => {
             await LeagueTable.updateOne({_id:table._id},{$set:{
                 playedGames:table.playedGames+1,
                 drawGames:table.drawGames+1,
-                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreAway)),
-                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreHome)),
-                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreAway))-(parseInt(table.goalsLost)+parseInt(req.body.scoreHome)),
+                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreWinner)),
+                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreLoser)),
+                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreLoser))-(parseInt(table.goalsLost)+parseInt(req.body.scoreWinner)),
                 points: table.points+1,
             }})
         }
@@ -56,15 +56,16 @@ router.patch('/:leagueId/:clubId', async(req,res) => {
             await LeagueTable.updateOne({_id:table._id},{$set:{
                 playedGames:table.playedGames+1,
                 lostGames:table.lostGames+1,
-                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreHome)),
-                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
-                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreHome))-(parseInt(table.goalsLost)+parseInt(req.body.scoreAway)),
+                goalsShot:(parseInt(table.goalsShot)+parseInt(req.body.scoreLoser)),
+                goalsLost:(parseInt(table.goalsLost)+parseInt(req.body.scoreWinner)),
+                goalsDif: (parseInt(table.goalsShot)+parseInt(req.body.scoreLoser))-(parseInt(table.goalsLost)+parseInt(req.body.scoreWinner)),
             }})
         }
-        
+        console.log("BLAD");
         res.json(table);
     }
     catch(err){
+        console.log(err);
         res.json({message:err});
     }
 })
