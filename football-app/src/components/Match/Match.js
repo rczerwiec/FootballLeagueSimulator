@@ -20,7 +20,7 @@ const Match = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/matches")
+      .get("http://localhost:5000/matches/friendly")
       .then((res) => {
         console.log(res.data);
         setMatches({ list: res.data });

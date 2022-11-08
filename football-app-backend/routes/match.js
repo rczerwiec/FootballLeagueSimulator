@@ -15,6 +15,19 @@ router.get("/", async (req,res) => {
     }
 })
 
+router.get("/friendly",async (req,res) => {
+    try{
+        const matches = await Match.find({matchType: "Towarzyski"});
+        
+        console.log(matches);
+
+        res.json(matches);
+    }
+    catch(err){
+        res.json(err);
+    }
+})
+
 router.patch("/:matchId", async(req,res) => {
     try{
         if(req.body.winner === req.params.clubId){
