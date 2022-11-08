@@ -12,7 +12,7 @@ const LeagueGenerator = (props) => {
   const [teams, setTeams] = useState({
     list: [],
   });
-  console.log(teams);
+  //console.log(teams);
 
   useEffect(() => {
     axios

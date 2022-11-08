@@ -15,8 +15,21 @@ router.get("/", async (req,res) => {
     }
 })
 
+router.patch("/:matchId", async(req,res) => {
+    try{
+        await Match.updateOne({_id: req.params.matchId}, {$set : {
+            scoreHome: req.body.scoreHome,
+            scoreAway: req.body.scoreAway,
+            complete: req.body.complete
+        }})
+    }
+    catch(err){
+        res.json({message:err})
+    }
+})
+
 router.post("/", async(req,res)=>{
-    console.log(req);
+    //console.log(req);
     try{
             const match =new Match({
             matchType: req.body.matchType,
@@ -38,6 +51,7 @@ router.post("/", async(req,res)=>{
         await secondClub.matches.push(match)
         await secondClub.save();
         //console.log(firstClub);
+        
 
         await match.save();
         console.log("generateMatch>>".magenta,"Pomyslnie wygenerowano mecz towarzyski".green);

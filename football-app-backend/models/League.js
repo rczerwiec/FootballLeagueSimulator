@@ -24,6 +24,10 @@ const LeagueSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Match"
     }],
+    tables:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "LeagueTable"
+    }],
     complete: {
         type: Boolean,
         required: true,

@@ -29,12 +29,6 @@ const LeagueList = (props) => {
       });
   }, [leagues.loading]);
 
-  const onLeagueCardClick = (e) => {
-    console.log("klick");
-    console.log(e);
-
-  };
-
   const mapLeagues = leagues.list.map((e) => {
     return (
         <LeagueCard key={e._id} data={e} clickLeagueCard={
