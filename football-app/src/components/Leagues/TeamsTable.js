@@ -26,17 +26,17 @@ const Table = ({ columns, data, initialState }) => {
 
   return (
     <>
-      <table {...getTableProps()}>
+      <table style={{backgroundColor: 'gray'}} {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 // Add the sorting props to control sorting. For this example
                 // we can add them into the header props
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <th{...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
                   {/* Add a sort direction indicator */}
-                  <span>
+                  <span >
                     {column.isSorted
                       ? column.isSortedDesc
                         ? " 🔽"
@@ -48,18 +48,37 @@ const Table = ({ columns, data, initialState }) => {
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+        <tbody  {...getTableBodyProps()}>
           {firstPageRows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
+            if (i==0){
+              prepareRow(row);
+              return (
+                <tr style={{backgroundColor: 'green'}}{...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                   return (
+                        <td style={{border: '1px solid black'}} {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+  
+  
+                  })}
+                </tr>
+              );
+            }
+            else{
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                   return (
+                        <td style={{border: '1px solid black'}} {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+  
+  
+                  })}
+                </tr>
+              );
+            }
+
           })}
         </tbody>
       </table>

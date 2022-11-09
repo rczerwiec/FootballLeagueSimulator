@@ -12,6 +12,7 @@ const LeagueCreator = () =>{
     })
 
     const onLeagueSubmit= () =>{
+        console.log("tworze lige")
         axios.post('http://localhost:5000/leagues',league).catch(
             (err) => {
                 console.log(err)

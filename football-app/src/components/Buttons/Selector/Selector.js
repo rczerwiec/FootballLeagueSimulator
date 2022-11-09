@@ -43,7 +43,7 @@ const customStyles = {
 const Selector = (props) => {
     return(
         <div className={styles.Selector}>
-            <label>{props.text}</label>
+            <label className={styles.Label}>{props.text}</label>
             <Select styles={customStyles} placeholder={props.placeholder} options={props.options} onChange={props.onChange}></Select>
         </div>
     )

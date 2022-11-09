@@ -2,3 +2,10 @@
     display: flex;
     justify-content: center;
 }
+
+.Label{
+    display:flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-right: 10px;
+}

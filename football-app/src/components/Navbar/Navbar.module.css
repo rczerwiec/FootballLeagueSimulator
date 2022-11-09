@@ -1,4 +1,5 @@
 .NavbarFlex{
+    position: fixed;
     display: flex;
     flex-direction: column;
     background-color: #242424;
