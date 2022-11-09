@@ -29,7 +29,9 @@ router.patch("/:matchId", async(req,res) => {
                 scoreAway: req.body.scoreLoser,
                 complete: req.body.complete
             }})
-            await Club.find()
+            const club = await Club.findById(req.body.winner)
+            club.matches.push(match);
+            club.save();
         }
         else if(req.body.winner === null){
             console.log("remis")
@@ -38,6 +40,9 @@ router.patch("/:matchId", async(req,res) => {
                 scoreAway: req.body.scoreLoser,
                 complete: req.body.complete
             }})
+            const club = await Club.findById(req.body.winner)
+            club.matches.push(match);
+            club.save();
         }
         else{
             console.log("Wygral wyjazd")
@@ -46,6 +51,9 @@ router.patch("/:matchId", async(req,res) => {
                 scoreAway: req.body.scoreWinner,
                 complete: req.body.complete
             }})
+            const club = await Club.findById(req.body.winner)
+            club.matches.push(match);
+            club.save();
 
         }
 

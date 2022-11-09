@@ -5,7 +5,7 @@ const LeagueMatches = (props) => {
     
     const matches = props.matchList.map((e) => {
         return (
-            <LeagueMatch data={props.data} matchData={e}/>
+            <LeagueMatch key={e._id} data={props.data} matchData={e}/>
         )
     })
     
