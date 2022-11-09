@@ -25,7 +25,6 @@ const Leagues = (props) =>{
             <h2>Ligi</h2>
             <SimpleButton onClick={newLeagueHandler} text="Nowa Liga"></SimpleButton>
             <LeagueList />
-            
         </div>
     )
 }

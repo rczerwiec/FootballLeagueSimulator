@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react";
 import axios from "axios";
-import Select from 'react-select';
+import Selector from "../../../Buttons/Selector/Selector";
 import styles from '../PlayerFullInfo.module.css';
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
 import TextField from "../../../Buttons/TextField/TextField";
@@ -52,12 +52,7 @@ const PlayerEditor = (props) =>{
                 <TextField text={"Nazwa"} value={name} placeholder="Zmień Nazwa Gracza" onChange={(e) => setName(e.target.value)}></TextField>
                 <TextField text={"Narodowość"} value={nationality} placeholder=" ZmieńNarodowość Gracza" onChange={(e) => setNationality(e.target.value)}></TextField>
                 <TextField text={"Overall"} value={overall} placeholder="Zmień Overall Gracza" onChange={(e) => setOverall(e.target.value)}></TextField>
-                Klub:<Select
-                className = {styles.Button}
-                    placeholder="Wybierz Klub Do Zmiany"
-                    options={clubs.clubs}
-                    onChange={(e) => setClub(e.value)}
-                />
+                <Selector text={"Klub"} placeholder="Wybierz Klub Do Zmiany" options={clubs.clubs} onChange={(e) => setClub(e.value)}/>
                 <SubmitButton className = {styles.Button} type="submit">Edytuj</SubmitButton>
             </form>
 

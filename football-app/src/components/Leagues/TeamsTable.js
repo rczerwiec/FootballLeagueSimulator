@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect,useState,useMemo } from "react";
 import { useSortBy, useTable } from "react-table";
+import styles from "./Leagues.module.css";
 
 
 const Table = ({ columns, data, initialState }) => {
@@ -114,12 +115,11 @@ const TeamsTable = (props) => {
 
   return (
     <div>
-      <div>
-        <h4>
-          {props.data.name}
-      </h4>
-      
-      </div>
+    <h4>
+      {props.data.name}
+  </h4>
+
+    <div className={styles.LeagueTable}>
       <Table
         columns={columns}
         data={data}
@@ -132,6 +132,7 @@ const TeamsTable = (props) => {
           ]
         }}
       />
+    </div>
     </div>
   );
 };

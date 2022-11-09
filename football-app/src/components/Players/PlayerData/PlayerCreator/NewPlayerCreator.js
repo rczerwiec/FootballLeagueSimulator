@@ -4,6 +4,7 @@ import Select from 'react-select';
 import styles from '../PlayerFullInfo.module.css';
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
+import Selector from "../../../Buttons/Selector/Selector";
 
 const NewPlayerCreator = (props) =>{
 
@@ -54,11 +55,7 @@ const NewPlayerCreator = (props) =>{
                 <TextField text={"Nazwa"} value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></TextField>
                 <TextField text={"Narodowość"} value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></TextField>
                 <TextField text={"Overall"} value={overall} placeholder="Overall Gracza" onChange={(e) => setOverall(e.target.value)}></TextField>
-                <Select className = {styles.Button}
-                    placeholder="Wybierz Klub"
-                    options={clubs.clubs}
-                    onChange={(e) => setClub(e.value)}
-                />
+                <Selector text={"Klub"} placeholder="Wybierz Klub" options={clubs.clubs} onChange={(e) => setClub(e.value)}/>
                 <SubmitButton>Stwórz</SubmitButton>
 
             </form>

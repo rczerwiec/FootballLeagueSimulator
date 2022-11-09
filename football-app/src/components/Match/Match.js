@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import Selector from "../Buttons/Selector/Selector";
 import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import Spinner from "../Spinner/Spinner";
@@ -92,12 +93,10 @@ const Match = () => {
         <Spinner />
       ) : (
         <form onSubmit={onGenerateResultHandler}>
-          <label>Drużyna 1</label>
-          <Select options={clubs.list} onChange={onFirstClubChange} />
+          <Selector text="Drużyna 1" options={clubs.list} onChange={onFirstClubChange}/>
           {firstClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
-
-          <label>Drużyna 2</label>
-          <Select options={clubs.list} onChange={onSecondClubChange} />
+          
+          <Selector text="Drużyna 2" options={clubs.list} onChange={onSecondClubChange}/>
           {secondClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
 
           <SubmitButton>Zagraj</SubmitButton>

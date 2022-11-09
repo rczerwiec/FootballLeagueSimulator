@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Selector from "react-select";
+import Selector from "../Buttons/Selector/Selector";
 import axios from "axios";
+import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 
 const LeagueGenerator = (props) => {
   
@@ -57,7 +58,7 @@ const LeagueGenerator = (props) => {
       Wybierz kluby do ligi
       <form onSubmit={generateLeague}>
       {generateSelectors}
-      <button>generuj</button>
+      <SubmitButton>generuj</SubmitButton>
       </form>
 
 
