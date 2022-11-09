@@ -7,39 +7,31 @@ import ClubEditor from "./ClubData/ClubEditor/ClubEditor";
 import styles from "./ClubsMenu.module.css";
 import Spinner from "../Spinner/Spinner";
 
-const Clubs = (props) => {
-  const [actionState, setActionState] = useState({
-    action: null,
-  });
-  const [clubState, setClubState] = useState({
-    clubs: [],
-    loading:true,
-  });
+class Clubs extends React.Component {
 
-  useEffect(() => {
+  state = {action: null, clubs: [], loading: true}
+
+  componentDidMount = () =>{
     axios.get("http://localhost:5000/clubs", null).then((response) => {
       //const firstTenEmployees = response.data.slice(0,10);
 
       const clubs = response;
-      setClubState({
-        clubs: clubs.data,
-        loading: false,
-      });
+      this.setState({clubs: clubs.data, loading:false})
+      console.log(this.state.clubs);
     });
-    //console.log(clubState.clubs);
-  },[props]);
-
-  const newClubHandler = () => {
-    setActionState({
+    
+  }
+  
+  newClubHandler = () => {
+    this.setState({
       action: <NewClubCreator />,
-    });
+    })
   };
 
-  const showSelectedClubHandler = (id) => {
-    console.log("Club ID" + id);
+  showSelectedClubHandler = (id) => {
     axios.get("http://localhost:5000/clubs/" + id).then((response) => {
       //console.log("działa");
-      setActionState({
+      this.setState({
         action: (
           <div>
             <ClubFullInfo
@@ -53,10 +45,10 @@ const Clubs = (props) => {
     });
   };
 
-  const editClubHandler = (id) => {
+  editClubHandler = (id) => {
     if (id !== null) {
       axios.get("http://localhost:5000/clubs/" + id, null).then((response) => {
-        setActionState({
+        this.setState({
           action: (
             <ClubEditor
               id={response.data._id}
@@ -69,12 +61,12 @@ const Clubs = (props) => {
     }
   };
 
-  const removeClubHandler = (id) => {
+  removeClubHandler = (id) => {
     if (id !== null) {
       axios
         .delete("http://localhost:5000/clubs/" + id, null)
         .then((response) => {
-          setActionState({
+          this.setState({
             action: (
               <div>
                 <h3>Pomyślnie usunięto</h3>
@@ -85,40 +77,48 @@ const Clubs = (props) => {
     }
   };
 
-  const clubs = clubState.clubs.map((club, index) => {
+
+
+  
+
+  render(){
+    const getAllClubs = this.state.clubs.map((club, index) => {
+      console.log(index);
+      return (
+        <div key={club._id}>
+          <ClubCard
+            showSelectedClub={this.showSelectedClubHandler}
+            _id={club._id}
+            name={club.name}
+            edit={this.editClubHandler}
+            remove={this.removeClubHandler}
+          ></ClubCard>
+        </div>
+      );
+    });
+
     return (
-      <div key={club._id}>
-        <ClubCard
-          showSelectedClub={showSelectedClubHandler}
-          _id={club._id}
-          name={club.name}
-          edit={editClubHandler}
-          remove={removeClubHandler}
-        ></ClubCard>
+      <div>
+        {this.state.action !==null ?
+          (<div className={styles.Action}>{this.state.action}</div>):(<div/>)
+        }
+        { this.state.loading ? (<Spinner/>) :
+        (
+          <div>
+          <div className={styles.Header}>Lista Klubów</div>
+          <button className={styles.Button} onClick={this.newClubHandler}>
+            Nowy Klub
+          </button>
+          <div className={styles.Clubs}>{getAllClubs}</div>
+          </div>
+        )
+  
+        }
+  
       </div>
     );
-  });
+  }
 
-  return (
-    <div>
-      {actionState.action !==null ?
-        (<div className={styles.Action}>{actionState.action}</div>):(<div/>)
-      }
-      { clubState.loading ? (<Spinner/>) :
-      (
-        <div>
-        <div className={styles.Header}>Lista Klubów</div>
-        <button className={styles.Button} onClick={newClubHandler}>
-          Nowy Klub
-        </button>
-        <div className={styles.Clubs}>{clubs}</div>
-        </div>
-      )
-
-      }
-
-    </div>
-  );
 };
 
 export default Clubs;
