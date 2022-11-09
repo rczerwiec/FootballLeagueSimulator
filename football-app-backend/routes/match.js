@@ -30,14 +30,22 @@ router.get("/friendly",async (req,res) => {
 
 router.patch("/:matchId", async(req,res) => {
     try{
-        if(req.body.winner === req.params.clubId){
+
+        const match = await Match.findById(req.params.matchId);
+
+        //console.log(match.clubHome);
+        //console.log(req.body.winner);
+        if(req.body.winner === match.clubHome.toString()){
+            console.log("Wygral dom")
             await Match.updateOne({_id: req.params.matchId}, {$set : {
                 scoreHome: req.body.scoreWinner,
                 scoreAway: req.body.scoreLoser,
                 complete: req.body.complete
             }})
+            await Club.find()
         }
         else if(req.body.winner === null){
+            console.log("remis")
             await Match.updateOne({_id: req.params.matchId}, {$set : {
                 scoreHome: req.body.scoreWinner,
                 scoreAway: req.body.scoreLoser,
@@ -45,6 +53,7 @@ router.patch("/:matchId", async(req,res) => {
             }})
         }
         else{
+            console.log("Wygral wyjazd")
             await Match.updateOne({_id: req.params.matchId}, {$set : {
                 scoreHome: req.body.scoreLoser,
                 scoreAway: req.body.scoreWinner,
@@ -53,10 +62,11 @@ router.patch("/:matchId", async(req,res) => {
 
         }
 
-
-
+        console.log("updateMatch>>".magenta,"Pomyslnie zaaktualizowano mecz ligowy".green);
+        res.json(match)
     }
     catch(err){
+        console.log("updateMatch>>".magenta,"Blad podczas aktualizacji meczu ligowego".red, err);
         res.json({message:err})
     }
 })
