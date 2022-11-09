@@ -101,8 +101,6 @@ const generateMatches = (clubs,level,id) => {
             }
             
         });
-        
-        await home.save();
         await League.updateOne({_id: id}, {$set : {matches:matchList, tables:tablesList}})
     })
     

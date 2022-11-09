@@ -20,6 +20,7 @@ const LeagueMatch = (props) => {
 
     const updateMatch = () => {
         if(newScoreHome>newScoreAway){
+            console.log("DOM WYGRYWA")
             const match = {
                 scoreWinner: newScoreHome,
                 scoreLoser: newScoreAway,
