@@ -45,6 +45,9 @@ router.patch("/:matchId", async(req,res) => {
             const club = await Club.findById(req.body.winner)
             club.matches.push(match);
             club.save();
+            const club2 = await Club.findById(req.body.loser)
+            club2.matches.push(match);
+            club2.save()
         }
         else if(req.body.winner === null){
             console.log("remis")
@@ -53,9 +56,12 @@ router.patch("/:matchId", async(req,res) => {
                 scoreAway: req.body.scoreLoser,
                 complete: req.body.complete
             }})
-            const club = await Club.findById(req.body.winner)
+            const club = await Club.findById(req.body.team1)
             club.matches.push(match);
             club.save();
+            const club2 = await Club.findById(req.body.team2)
+            club2.matches.push(match);
+            club2.save()
         }
         else{
             console.log("Wygral wyjazd")
@@ -67,7 +73,11 @@ router.patch("/:matchId", async(req,res) => {
             const club = await Club.findById(req.body.winner)
             club.matches.push(match);
             club.save();
-
+            console.log(club)
+            const club2 = await Club.findById(req.body.loser)
+            club2.matches.push(match);
+            club2.save()
+            console.log(club2);
         }
 
         console.log("updateMatch>>".magenta,"Pomyslnie zaaktualizowano mecz ligowy".green);

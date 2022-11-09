@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
+import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import Spinner from "../Spinner/Spinner";
 import ListOfMatches from "./ListOfMatches";
 
@@ -99,7 +100,7 @@ const Match = () => {
           <Select options={clubs.list} onChange={onSecondClubChange} />
           {secondClub ? <div>Wybrany</div> : <div>Nie Wybrany</div>}
 
-          <SimpleButton text="Zagraj"></SimpleButton>
+          <SubmitButton>Zagraj</SubmitButton>
         </form>
       )}
       {matches.list.length > 0 ? <ListOfMatches matches={matches} /> : <span />}

@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, {useState} from "react";
+import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
+import TextField from "../Buttons/TextField/TextField";
 
 const LeagueCreator = () =>{
 
@@ -20,8 +22,7 @@ const LeagueCreator = () =>{
     return(
         <div>Tworzenie ligi
              <form onSubmit={onLeagueSubmit}>
-                <label>Nazwa</label>
-                <input value={league.name} onChange={
+                <TextField text={"Nazwa"} value={league.name} onChange={
                     (e) => {
                         setLeague({
                             name: e.target.value,
@@ -29,9 +30,8 @@ const LeagueCreator = () =>{
                             maxTeams: league.maxTeams,
                         })
                         console.log(league);
-                }}></input>
-                <label>Waga ligi</label>
-                <input value={league.level} onChange={
+                }}/>
+                <TextField text={"Waga ligi"} value={league.level} onChange={
                     (e) => {
                         setLeague({
                             name: league.name,
@@ -39,18 +39,16 @@ const LeagueCreator = () =>{
                             maxTeams: league.maxTeams,
                         })
                         console.log(league);
-                }}></input>
-                <label>Ilość drużyn</label>
-                <input value={league.maxTeams} onChange={
+                }}/>
+                <TextField text="Ilość drużyn" value={league.maxTeams} onChange={
                     (e) => {
                         setLeague({
                             name: league.name,
                             level: league.level,
                             maxTeams: e.target.value,
                         })
-                        console.log(league);
-                }}></input>
-                <button>Utworz!</button>
+                }}/>
+                <SubmitButton>Utworz!</SubmitButton>
             </form> 
         </div>
        

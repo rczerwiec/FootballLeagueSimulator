@@ -26,6 +26,7 @@ const LeagueMatch = (props) => {
                 scoreLoser: newScoreAway,
                 complete: true,
                 winner:matchInfo.clubHome,
+                loser:matchInfo.clubAway,
             }
             axios.patch("http://localhost:5000/matches/"+props.matchData._id, match).catch(
                 (err) => {
@@ -49,6 +50,8 @@ const LeagueMatch = (props) => {
                 scoreLoser: newScoreAway,
                 complete: true,
                 winner:null,
+                team1:matchInfo.clubHome,
+                team2:matchInfo.clubAway,
             }
             axios.patch("http://localhost:5000/matches/"+props.matchData._id, match).catch(
                 (err) => {
@@ -72,6 +75,7 @@ const LeagueMatch = (props) => {
                 scoreLoser: newScoreHome,
                 complete: true,
                 winner:matchInfo.clubAway,
+                loser:matchInfo.clubHome,
             }
             axios.patch("http://localhost:5000/matches/"+props.matchData._id, match).catch(
                 (err) => {

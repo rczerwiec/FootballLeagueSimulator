@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Select from 'react-select';
 import styles from '../PlayerFullInfo.module.css';
+import TextField from "../../../Buttons/TextField/TextField";
+import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
 
 const NewPlayerCreator = (props) =>{
 
@@ -48,15 +50,16 @@ const NewPlayerCreator = (props) =>{
         <div className={styles.CreateNewPlayer}>
             <h3>Nowy Gracz</h3>
             <form className={styles.PlayerForm} onSubmit={handleSubmit}>
-                <input className={styles.PlayerInput} value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></input>
-                <input  className={styles.PlayerInput} value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></input>
-                <input  className={styles.PlayerInput} value={overall} placeholder="Overall Gracza" onChange={(e) => setOverall(e.target.value)}></input>
+                
+                <TextField text={"Nazwa"} value={name} placeholder="Nazwa Gracza" onChange={(e) => setName(e.target.value)}></TextField>
+                <TextField text={"Narodowość"} value={nationality} placeholder="Narodowość Gracza" onChange={(e) => setNationality(e.target.value)}></TextField>
+                <TextField text={"Overall"} value={overall} placeholder="Overall Gracza" onChange={(e) => setOverall(e.target.value)}></TextField>
                 <Select className = {styles.Button}
                     placeholder="Wybierz Klub"
                     options={clubs.clubs}
                     onChange={(e) => setClub(e.value)}
                 />
-                <button className = {styles.Button} type="submit">Stwórz</button>
+                <SubmitButton>Stwórz</SubmitButton>
 
             </form>
         </div>

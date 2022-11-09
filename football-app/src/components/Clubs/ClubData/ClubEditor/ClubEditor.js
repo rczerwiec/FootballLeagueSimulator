@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import styles from "../ClubFullInfo.module.css"
 import axios from "axios";
+import TextField from "../../../Buttons/TextField/TextField";
+import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
 
 const ClubEditor = (props) =>{
 
@@ -22,9 +24,9 @@ const ClubEditor = (props) =>{
         <div className={styles.CreateNewClub}>
             <h3>Edytuj Klub</h3>
             <form className={styles.ClubForm} onSubmit={saveNewData}>
-                Nazwa:<input className={styles.ClubInput} value={name} onChange={(e) => setName(e.target.value)}></input>
-                Typ:<input className={styles.ClubInput} value={type} onChange={(e) => setType(e.target.value)}></input>
-                <button className = {styles.Button} type="submit">Edytuj</button>
+                <TextField text={"Nazwa"} value={name} onChange={(e) => setName(e.target.value)}/>
+                <TextField text={"Typ"} value={type} onChange={(e) => setType(e.target.value)}/>
+                <SubmitButton>Edytuj</SubmitButton>
             </form>
 
         </div>
