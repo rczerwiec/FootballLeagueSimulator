@@ -94,15 +94,18 @@ const generateMatches = (clubs,level,id) => {
                 })
                 await home.matches.push(match);
                 await away.matches.push(match);
-                await matchList.push(match);
+                matchList.push(match);
                 await match.save();
+                await League.updateOne({_id: id}, {$set : {matches:matchList, tables:tablesList}})
             }
             
         });
         
         //await home.save();
-        await League.updateOne({_id: id}, {$set : {matches:matchList, tables:tablesList}})
+        
     })
+    console.log(matchList);
+    
 }
 
 router.patch('/:leagueId', async(req,res)=>{
