@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import styles from "../ClubFullInfo.module.css"
-import axios from "axios";
+import api from "../../../../api/api";
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
+
 
 const ClubEditor = (props) =>{
 
@@ -15,9 +16,7 @@ const ClubEditor = (props) =>{
             type: type,
         }
     
-        axios.patch('http://localhost:5000/clubs/'+props.id,toSave).then(response =>{
-            console.log(response);
-        });
+        api.patch('clubs/'+props.id,toSave);
     }
 
     return(

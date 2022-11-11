@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import api from "../../api/api";
 import ClubCard from "./ClubCard/ClubCard";
 import ClubFullInfo from "./ClubData/ClubFullInfo";
 import NewClubCreator from "./ClubData/ClubCreator/NewClubCreator";
@@ -9,80 +10,63 @@ import Spinner from "../Spinner/Spinner";
 
 class Clubs extends React.Component {
 
-  state = {action: null, clubs: [], loading: true}
+  state = {action: null}
 
-  componentDidMount = () =>{
-    axios.get("http://localhost:5000/clubs", null).then((response) => {
-      //const firstTenEmployees = response.data.slice(0,10);
-
-      const clubs = response;
-      this.setState({clubs: clubs.data, loading:false})
-      console.log(this.state.clubs);
-    });
-    
-  }
-  
   newClubHandler = () => {
     this.setState({
       action: <NewClubCreator />,
     })
   };
 
-  showSelectedClubHandler = (id) => {
-    axios.get("http://localhost:5000/clubs/" + id).then((response) => {
-      //console.log("działa");
-      this.setState({
-        action: (
-          <div>
-            <ClubFullInfo
-              id={id}
-              name={response.data.name}
-              type={response.data.type}
-            />
-          </div>
-        ),
-      });
+  showSelectedClubHandler = async(id) => {
+    const selectedClub = await api.get("/clubs/" + id)
+
+    this.setState({
+      action: (
+        <div>
+          <ClubFullInfo
+            id={id}
+            name={selectedClub.data.name}
+            type={selectedClub.data.type}
+          />
+        </div>
+      ),
     });
   };
 
-  editClubHandler = (id) => {
+  editClubHandler = async(id) => {
     if (id !== null) {
-      axios.get("http://localhost:5000/clubs/" + id, null).then((response) => {
-        this.setState({
-          action: (
-            <ClubEditor
-              id={response.data._id}
-              name={response.data.name}
-              type={response.data.type}
-            />
-          ),
-        });
+      const selectedClub = await api.get("/clubs/" + id, null);
+
+      this.setState({
+        action: (
+          <ClubEditor
+            id={selectedClub.data._id}
+            name={selectedClub.data.name}
+            type={selectedClub.data.type}
+          />
+        ),
       });
     }
   };
 
-  removeClubHandler = (id) => {
+  removeClubHandler = async(id) => {
     if (id !== null) {
-      axios
-        .delete("http://localhost:5000/clubs/" + id, null)
-        .then((response) => {
-          this.setState({
-            action: (
-              <div>
-                <h3>Pomyślnie usunięto</h3>
-              </div>
-            ),
-          });
+      const deletedClub = await api.delete("/clubs/" + id, null);
+      
+      this.setState({
+          action: (
+            <div>
+              <h3>Usunięto {deletedClub.data.name}</h3>
+            </div>
+          ),
         });
     }
   };
 
-
-
-  
-
   render(){
-    const getAllClubs = this.state.clubs.map((club, index) => {
+    console.log(this.props)
+    const getAllClubs = this.props.clubs.clubsList.map((club, index) => {
       console.log(index);
       return (
         <div key={club._id}>

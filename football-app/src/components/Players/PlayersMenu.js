@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState} from "react";
+import api from "../../api/api";
 import PlayerCard from "./PlayerCard/PlayerCard";
 import NewPlayerCreator from "./PlayerData/PlayerCreator/NewPlayerCreator";
 import PlayersFullInfo from "./PlayerData/PlayerFullInfo";
@@ -8,93 +8,63 @@ import styles from "./PlayersMenu.module.css";
 import Spinner from "../Spinner/Spinner";
 
 const PlayersMenu = (props) => {
-  const [playersState, setPlayersState] = useState({
-    players: [],
-    loading: true,
-  });
-
-  const [actionState, setActionState] = useState({
-    action: null,
-  });
-
-  //Wczytywanie listy graczy
-  useEffect(() => {
-    axios.get("http://localhost:5000/players", null).then((response) => {
-      //const firstTenEmployees = response.data.slice(0,10);
-
-      const players = response;
-      setPlayersState({
-        players: players.data,
-        loading: false,
-      });
-    });
-  },[props]);
+  const [actionState, setActionState] = useState(<div></div>);
 
   //Otworzenie okna z tworzeniem nowego gracza
   const newPlayerHandler = (id) => {
-    setActionState({
-      action: <NewPlayerCreator />,
-    });
+    setActionState( <NewPlayerCreator />,
+    );
   };
 
-  const removePlayerHandler = (id) => {
+  const removePlayerHandler = async(id) => {
     if (id !== null) {
-      axios
-        .delete("http://localhost:5000/players/" + id, null)
-        .then((response) => {
-          setActionState({
-            action: (
-              <div>
-                <h2>Pomyślnie usunięto</h2>
-              </div>
-            ),
-          });
-        });
+      const deletedPlayer = await api.delete("/players/" + id, null)
+
+        setActionState(
+            <div>
+              <h2>Pomyślnie usunięto {deletedPlayer.name}</h2>
+            </div>
+          );
     }
   };
 
-  const editPlayerHandler = (id) => {
-    console.log(id);
+  const editPlayerHandler = async(id) => {
     if (id !== null) {
-      axios
-        .get("http://localhost:5000/players/" + id, null)
-        .then((response) => {
-          setActionState({
-            action: (
-              <PlayerEditor
-                id={response.data._id}
-                name={response.data.name}
-                nationality={response.data.nationality}
-                club={response.data.club}
-                age={response.data.age}
-                overall={response.data.overall}
-              />
-            ),
-          });
-        });
+      const selectedPlayer = await api.get("/players/" + id, null)
+      setActionState(
+
+          <PlayerEditor
+            id={selectedPlayer.data._id}
+            name={selectedPlayer.data.name}
+            nationality={selectedPlayer.data.nationality}
+            club={selectedPlayer.data.club}
+            age={selectedPlayer.data.age}
+            overall={selectedPlayer.data.overall}
+          />
+        );
     }
   };
 
   //Wybieranie gracza po wciśnięciu na niego
-  const selectPlayerHandler = (id) => {
-    axios.get("http://localhost:5000/players/" + id, null).then((response) => {
-      setActionState({
-        action: (
-          <PlayersFullInfo
-            playerName={response.data.name}
-            playerNationality={response.data.nationality}
-            playerClub={response.data.club}
-            playerOverall={response.data.overall}
-            playerAge={response.data.age}
+  const selectPlayerHandler = async(id) => {
+    
+    if (id !== null) {
+      const selectedPlayer = await api.get("/players/" + id, null)
 
+      setActionState(
+        <PlayersFullInfo
+          playerName={selectedPlayer.data.name}
+          playerNationality={selectedPlayer.data.nationality}
+          playerClub={selectedPlayer.data.club}
+          playerOverall={selectedPlayer.data.overall}
+          playerAge={selectedPlayer.data.age}
           />
-        ),
-      });
-    });
+        );
+    }
   };
 
   //Mapowanie graczy
-  const players = playersState.players.map((player, index) => {
+  const players = props.players.map((player, index) => {
     return (
       <PlayerCard
         key={player._id}
@@ -112,10 +82,10 @@ const PlayersMenu = (props) => {
 
   return (
     <div>
-      {actionState.action !==null ?
-        (<div className={styles.Action}>{actionState.action}</div>):(<div/>)
+      {actionState !==null ?
+        (<div className={styles.Action}>{actionState}</div>):(<div/>)
       }
-      {playersState.loading ? (<Spinner/>) :
+      {props.players.loading ? (<Spinner/>) :
         (      <div>
       <div className={styles.Header}>Lista Graczy</div>
       <button className={styles.Button} onClick={newPlayerHandler}>

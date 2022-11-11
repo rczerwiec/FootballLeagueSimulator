@@ -95,7 +95,7 @@ router.delete('/:clubId', async (req,res) => {
 
         const removedClub = await Club.remove({_id: req.params.clubId});
         console.log("deleteClub>>".blue,"Pomyslnie usunieto klub".green)
-        res.json(removedClub);
+        res.json(club);
     }
     catch(err){
         console.log("deleteClub>>".blue,"Blad podczas usuwania klubu".red);

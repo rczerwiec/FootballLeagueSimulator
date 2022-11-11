@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from "../ClubFullInfo.module.css"
-import axios from "axios";
+import api from "../../../../api/api";
+
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
 
@@ -15,9 +16,7 @@ let handleSubmit = async (e) =>{
         type: type,
       }
   
-      axios.post('http://localhost:5000/clubs',clubToSave).then(response =>{
-        console.log(response);
-      });
+      api.post('/clubs',clubToSave);
 }
 
     return(

@@ -1,4 +1,5 @@
 import "./App.css";
+import api from "./api/api";
 import ClubsMenu from "./components/Clubs/ClubsMenu";
 import Players from "./components/Players/PlayersMenu";
 import Leagues from "./components/Leagues/Leagues";
@@ -8,25 +9,48 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Match from "./components/Match/Match";
+import Spinner from "./components/Spinner/Spinner";
 
 const App = () => {
 
+  const [clubs, setClubs] = useState({
+    clubsList: [],
+    loading: true,
+  });
+
+  const [players, setPlayers] = useState([]);
+
+  useEffect(async() => {
+    const allPlayers = await api.get("/players", null)
+    const allClubs = await api.get("/clubs", null);
+    setPlayers(allPlayers.data);
+    setClubs({
+      clubsList: allClubs.data,
+      loading:false
+    });
+    console.log("KLUBY",clubs);
+    console.log("GRACZE",players);
+  },[clubs.loading])
+  
     return (
       <div className="AppFlex">
         <Router>
             <Navbar/>
-            <div className="Content">
+            {clubs.loading ?  (<Spinner/>):
+            (<div className="Content">
               <Routes>
-                <Route path="/kluby" element={<ClubsMenu />} />
-                <Route path="/zawodnicy" element={<Players />} />
+                <Route path="/kluby" element={<ClubsMenu clubs={clubs}/>} />
+                <Route path="/zawodnicy" element={<Players players={players}/>} />
                 <Route path="/ligi" element={<Leagues />} />
                 <Route path="/pojedynek" element={<Match/>}/> 
                 <Route path="/ustawienia" element={<Settings />} />
               </Routes>
-            </div>
+            </div>)}
+            
           </Router>
 
       </div>
+      
     );
   }
 
