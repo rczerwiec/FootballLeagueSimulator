@@ -20,12 +20,11 @@ class Clubs extends React.Component {
 
   showSelectedClubHandler = async(id) => {
     const selectedClub = await api.get("/clubs/" + id)
-
     this.setState({
       action: (
         <div>
           <ClubFullInfo
-            id={id}
+            id={selectedClub.data._id}
             name={selectedClub.data.name}
             type={selectedClub.data.type}
           />
@@ -65,9 +64,9 @@ class Clubs extends React.Component {
   };
 
   render(){
-    console.log(this.props)
+    //console.log(this.props)
     const getAllClubs = this.props.clubs.clubsList.map((club, index) => {
-      console.log(index);
+      //console.log(index);
       return (
         <div key={club._id}>
           <ClubCard
@@ -83,11 +82,7 @@ class Clubs extends React.Component {
 
     return (
       <div>
-        {this.state.action !==null ?
-          (<div className={styles.Action}>{this.state.action}</div>):(<div/>)
-        }
-        { this.state.loading ? (<Spinner/>) :
-        (
+          <div className={styles.Action}>{this.state.action}</div>
           <div>
           <div className={styles.Header}>Lista Klubów</div>
           <button className={styles.Button} onClick={this.newClubHandler}>
@@ -95,9 +90,6 @@ class Clubs extends React.Component {
           </button>
           <div className={styles.Clubs}>{getAllClubs}</div>
           </div>
-        )
-  
-        }
   
       </div>
     );

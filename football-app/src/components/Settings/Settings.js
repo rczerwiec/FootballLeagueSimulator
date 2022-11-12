@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
 import api from "../../api/api";
 

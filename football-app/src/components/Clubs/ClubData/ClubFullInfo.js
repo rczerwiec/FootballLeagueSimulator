@@ -4,17 +4,17 @@ import styles from "./ClubFullInfo.module.css";
 import Spinner from "../../Spinner/Spinner";
 
 const ClubFullInfo =  (props) => {
-  const [players, setPlayers] = useState([0]);
-  const [matches, setMatches] = useState([0]);
+  const [players, setPlayers] = useState([]);
+  const [matches, setMatches] = useState([]);
 
   useEffect(async() => {
     const p = await api.get("/clubs/" + props.id + "/players").catch(err => console.log(err));
     const m = await api.get("/clubs/" + props.id + "/matches").catch(err => console.log(err));
-    setPlayers(p);
-    setMatches(m);
+    setPlayers(p.data);
+    setMatches(m.data.matches);
       
   }, [props.id])
-  
+
   const clubPlayers = players.map(({_id, name, overall}) => {
     return <div className={styles.Player} key={_id}>- {name} (OV:{overall} )</div>;
   });
@@ -25,7 +25,7 @@ const ClubFullInfo =  (props) => {
 
   return (
     <div className={styles.ClubDetails}>
-      {players.length>0 ? (<div><div className={styles.ClubInfo}>
+      <div><div className={styles.ClubInfo}>
         <h3>{props.name}</h3>
         <div className={styles.clubDetailsDiv}>Typ klubu: {props.type}</div>
         <div className={styles.clubDetailsDiv}>Mistrzostwo Kraju: 0</div>
@@ -38,7 +38,7 @@ const ClubFullInfo =  (props) => {
       <div className={styles.Matches}>
         <h4>Rozegrane Mecze</h4>
         {matchesList}
-      </div> </div>): (<Spinner/>)}
+      </div> </div>
       
     </div>
   );

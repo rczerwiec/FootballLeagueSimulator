@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../../../api/api";
 import React, { useEffect, useState } from "react";
 import styles from "../PlayerData/PlayerFullInfo.module.css"
 
@@ -7,7 +8,7 @@ const PlayerFullInfo = (props) =>{
 
 
     useEffect(() =>{
-        axios.get("http://localhost:5000/clubs/"+props.playerClub,null).then((response) =>{
+        api.get("/clubs/"+props.playerClub,null).then((response) =>{
             setClub(response.data.name);
             //console.log(response);
         })

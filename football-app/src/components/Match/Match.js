@@ -1,8 +1,7 @@
 import axios from "axios";
+import api from "../../api/api";
 import React, { useEffect, useState } from "react";
-import Select from "react-select";
 import Selector from "../Buttons/Selector/Selector";
-import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import Spinner from "../Spinner/Spinner";
 import ListOfMatches from "./ListOfMatches";
@@ -21,8 +20,8 @@ const Match = () => {
   const [secondClub, setSecondClub] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/matches/friendly")
+    api
+      .get("/matches/friendly")
       .then((res) => {
         console.log(res.data);
         setMatches({ list: res.data });
@@ -30,8 +29,8 @@ const Match = () => {
       .catch((err) => {
         console.log(err);
       });
-    axios
-      .get("http://localhost:5000/clubs")
+      api
+      .get("/clubs")
       .then((res) => {
         //console.log(res.data);
         const options = res.data.map((club) => ({
@@ -75,11 +74,8 @@ const Match = () => {
           secondClub: secondClub,
           matchType: "Towarzyski",
         };
-        axios
-          .post("http://localhost:5000/matches", match)
-          .then((res) => {
-            console.log(res);
-          })
+        api
+          .post("/matches", match)
           .catch((err) => {
             console.log(err);
           });
