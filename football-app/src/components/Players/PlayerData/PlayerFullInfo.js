@@ -2,17 +2,16 @@ import axios from "axios";
 import api from "../../../api/api";
 import React, { useEffect, useState } from "react";
 import styles from "../PlayerData/PlayerFullInfo.module.css"
+import { getOneClub } from "../../../api/clubs";
 
 const PlayerFullInfo = (props) =>{
     const [club, setClub] = useState();
 
 
-    useEffect(() =>{
-        api.get("/clubs/"+props.playerClub,null).then((response) =>{
-            setClub(response.data.name);
-            //console.log(response);
-        })
-        
+    useEffect(async() =>{
+        const playerClub = await getOneClub(props.playerClub);
+
+        setClub(playerClub.name);
     }) 
 
     return(

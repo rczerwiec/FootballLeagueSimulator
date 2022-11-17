@@ -2,6 +2,7 @@ import api from "../../api/api";
 import React, {useState} from "react";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import TextField from "../Buttons/TextField/TextField";
+import { createLeague } from "../../api/leagues";
 
 const LeagueCreator = () =>{
 
@@ -11,8 +12,8 @@ const LeagueCreator = () =>{
         maxTeams: 0,
     })
 
-    const onLeagueSubmit= () =>{
-        api.post('/leagues',league).catch(err => console.log(err));
+    const onLeagueSubmit= async() =>{
+        await createLeague(league);
     }
 
     return(

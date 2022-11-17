@@ -1,6 +1,6 @@
 import React from 'react';
 import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
-import api from "../../api/api";
+import { generateMultiplePlayers } from '../../api/players';
 
 const Settings = (props) => {
 
@@ -11,9 +11,7 @@ const Settings = (props) => {
             howMuchToGenerate: 10,
         }
     
-        api.post('/players/generateMultiple',stats).then(response =>{
-            console.log("Odpowiedź",response);
-        });
+        await generateMultiplePlayers(stats);
     }
 
     return(

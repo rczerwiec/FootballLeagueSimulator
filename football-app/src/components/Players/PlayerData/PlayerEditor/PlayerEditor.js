@@ -4,6 +4,8 @@ import Selector from "../../../Buttons/Selector/Selector";
 import styles from '../PlayerFullInfo.module.css';
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
 import TextField from "../../../Buttons/TextField/TextField";
+import { getAllClubs } from "../../../../api/clubs";
+import { patchPlayer } from "../../../../api/players";
 
 const PlayerEditor = (props) =>{
 
@@ -15,34 +17,26 @@ const PlayerEditor = (props) =>{
         clubs:[],
     })
         
-    useEffect(() => {
+    useEffect(async() => {
         if(clubs.clubs.length === 0){
-            api.get("/clubs", null).then((response) => {
-        
-                const options = response.data.map(d =>({
-                    "value": d._id,
-                    "label": d.name
-                }))
-                setClubs({
-                    clubs: options,
-                });
-                });
+            const res = await getAllClubs();
+            const options = res.map(d =>({
+                "value": d._id,
+                "label": d.name
+            }))
+            setClubs({clubs:options})
         }
         //console.log(clubs);
     });
 
     let saveNewData = async (e) =>{
-
         const playerToSave = {
             name: name,
             nationality: nationality,
             club: club,
             overall: overall,
         }
-    
-        api.patch('/players/'+props.id,playerToSave).then(response =>{
-            console.log(response);
-        });
+        await patchPlayer(props.id,playerToSave);
     }
 
     return(

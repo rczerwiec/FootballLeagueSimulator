@@ -5,6 +5,8 @@ import Selector from "../Buttons/Selector/Selector";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import Spinner from "../Spinner/Spinner";
 import ListOfMatches from "./ListOfMatches";
+import { getFriendlyMatches } from "../../api/match";
+import { getAllClubs } from "../../api/clubs";
 
 const Match = () => {
   const [clubs, setClubs] = useState({
@@ -19,34 +21,21 @@ const Match = () => {
   const [firstClub, setFirstClub] = useState(null);
   const [secondClub, setSecondClub] = useState(null);
 
-  useEffect(() => {
-    api
-      .get("/matches/friendly")
-      .then((res) => {
-        console.log(res.data);
-        setMatches({ list: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      api
-      .get("/clubs")
-      .then((res) => {
-        //console.log(res.data);
-        const options = res.data.map((club) => ({
-          value: club._id,
-          label: club.name,
-          players: club.players,
-        }));
+  useEffect(async() => {
+    const friendlyMatches = await getFriendlyMatches()
+    setMatches({ list: friendlyMatches });
+    const allClubs = await getAllClubs();
+    
+    const options = allClubs.map((club) => ({
+      value: club._id,
+      label: club.name,
+      players: club.players,
+    }));
 
-        setClubs({
-          list: options,
-          loading: false,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setClubs({
+      list: options,
+      loading: false,
+    });
   }, [clubs.loading]);
 
   const onFirstClubChange = (e) => {

@@ -4,6 +4,8 @@ import styles from '../PlayerFullInfo.module.css';
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
 import Selector from "../../../Buttons/Selector/Selector";
+import { createPlayer } from "../../../../api/players";
+import { getAllClubs } from "../../../../api/clubs";
 
 const NewPlayerCreator = (props) =>{
 
@@ -16,24 +18,19 @@ const NewPlayerCreator = (props) =>{
     })
         
     //Lista klubów do wyboru w select
-    useEffect(() => {
+    useEffect(async() => {
         if(clubs.clubs.length === 0){
-            api.get("/clubs", null).then((response) => {
-        
-                const options = response.data.map(d =>({
-                    "value": d._id,
-                    "label": d.name
-                }))
-                setClubs({
-                    clubs: options,
-                });
-                });
+            const res = await getAllClubs();
+            const options = res.map(d =>({
+                "value": d._id,
+                "label": d.name
+            }))
+            setClubs({clubs:options})
         }
         //console.log(clubs);
     });
 
     let handleSubmit = async (e) =>{
-        console.log(club);
         const playerToSave = {
             name: name,
             nationality: nationality,
@@ -41,9 +38,7 @@ const NewPlayerCreator = (props) =>{
             overall: overall,
         }
     
-        api.post('/players',playerToSave).then(response =>{
-            console.log("Odpowiedź",response);
-        });
+        await createPlayer(playerToSave);
     }
 
     return(

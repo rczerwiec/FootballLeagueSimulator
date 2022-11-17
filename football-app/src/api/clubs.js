@@ -1,5 +1,11 @@
 import api from "./api";
 
+export const getAllClubs = async()=> {
+    const res = await api.get('/clubs');
+
+    return res.data;
+}
+
 export const getOneClub = async(id) => {
     const res = await api.get('/clubs/'+id);
 

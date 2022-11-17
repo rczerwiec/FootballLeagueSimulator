@@ -6,8 +6,9 @@ import PlayersFullInfo from "./PlayerData/PlayerFullInfo";
 import PlayerEditor from "./PlayerData/PlayerEditor/PlayerEditor";
 import styles from "./PlayersMenu.module.css";
 import Spinner from "../Spinner/Spinner";
+import { getPlayer, removePlayer } from "../../api/players";
 
-const PlayersMenu = (props) => {
+function PlayersMenu (props){
   const [actionState, setActionState] = useState(<div></div>);
 
   //Otworzenie okna z tworzeniem nowego gracza
@@ -18,7 +19,7 @@ const PlayersMenu = (props) => {
 
   const removePlayerHandler = async(id) => {
     if (id !== null) {
-      const deletedPlayer = await api.delete("/players/" + id, null)
+      const deletedPlayer = await removePlayer(id);
 
         setActionState(
             <div>
@@ -30,16 +31,15 @@ const PlayersMenu = (props) => {
 
   const editPlayerHandler = async(id) => {
     if (id !== null) {
-      const selectedPlayer = await api.get("/players/" + id, null)
+      const selectedPlayer = await getPlayer(id);
       setActionState(
-
           <PlayerEditor
-            id={selectedPlayer.data._id}
-            name={selectedPlayer.data.name}
-            nationality={selectedPlayer.data.nationality}
-            club={selectedPlayer.data.club}
-            age={selectedPlayer.data.age}
-            overall={selectedPlayer.data.overall}
+            id={selectedPlayer._id}
+            name={selectedPlayer.name}
+            nationality={selectedPlayer.nationality}
+            club={selectedPlayer.club}
+            age={selectedPlayer.age}
+            overall={selectedPlayer.overall}
           />
         );
     }
@@ -49,15 +49,15 @@ const PlayersMenu = (props) => {
   const selectPlayerHandler = async(id) => {
     
     if (id !== null) {
-      const selectedPlayer = await api.get("/players/" + id, null)
+      const selectedPlayer = await getPlayer(id);
 
       setActionState(
         <PlayersFullInfo
-          playerName={selectedPlayer.data.name}
-          playerNationality={selectedPlayer.data.nationality}
-          playerClub={selectedPlayer.data.club}
-          playerOverall={selectedPlayer.data.overall}
-          playerAge={selectedPlayer.data.age}
+          playerName={selectedPlayer.name}
+          playerNationality={selectedPlayer.nationality}
+          playerClub={selectedPlayer.club}
+          playerOverall={selectedPlayer.overall}
+          playerAge={selectedPlayer.age}
           />
         );
     }

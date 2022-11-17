@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TeamsTable from "./TeamsTable";
 import LeagueMatches from "./LeagueMatches";
 import api from "../../api/api";
+import { getLeagueMatches, getLeagueTable } from "../../api/leagues";
 
 const LeagueTable= (props) => {
     const [matches, setMatches] = useState({
@@ -13,25 +14,16 @@ const LeagueTable= (props) => {
         loading: true,
     })
 
-    useEffect(() => {
-        api.get("/leagues/"+props.data._id+"/matches").then((res) => {
-            //console.log(res.data);
-            setMatches({
-                list: res.data,
-                loading:false,
-            })
-        }).catch(
-            (err)=>{
-                console.log(err);
+    useEffect(async() => {
+        const matches = await getLeagueMatches(props.data._id);
+        setMatches({
+            list: matches,
+            loading:false,
         })
-        api.get("/leagues/"+props.data._id+"/tables").then((res) => {
-            setTables({
-                list: res.data,
-                loading:false,
-            })
-        }).catch(
-            (err)=>{
-                console.log(err);
+        const tables = await getLeagueTable(props.data._id);
+        setTables({
+            list: tables,
+            loading:false,
         })
     },[matches.loading])
 

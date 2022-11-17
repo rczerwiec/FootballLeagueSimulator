@@ -1,5 +1,6 @@
 import api from "../../api/api";
 import React, { useState } from "react";
+import { updateTable } from "../../api/leagues";
 
 const LeagueMatch = (props) => {
     const [matchInfo, setMatchInfo] = useState({
@@ -18,7 +19,7 @@ const LeagueMatch = (props) => {
     const [newScoreHome, setScoreHome] = useState(0);
     const [newScoreAway, setScoreAway] = useState(0);
 
-    const updateMatch = () => {
+    const updateMatch = async() => {
         if(newScoreHome>newScoreAway){
             const match = {
                 scoreWinner: newScoreHome,
@@ -32,16 +33,8 @@ const LeagueMatch = (props) => {
                     console.log(err);
                 }
             )
-            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
-                (err) => {
-                    console.log(err);
-                }
-            )
-            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
-                (err) => {
-                    console.log(err);
-                }
-            )
+            await updateTable(props.data._id,props.matchData.clubHome, match)
+            await updateTable(props.data._id,props.matchData.clubAway, match)
         }
         else if(newScoreHome === newScoreAway){
             const match = {
@@ -57,16 +50,8 @@ const LeagueMatch = (props) => {
                     console.log(err);
                 }
             )
-            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
-                (err) => {
-                    console.log(err);
-                }
-            )
-            api.patch("tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
-                (err) => {
-                    console.log(err);
-                }
-            )
+            await updateTable(props.data._id,props.matchData.clubHome, match)
+            await updateTable(props.data._id,props.matchData.clubAway, match)
         }
         else{
             const match = {
@@ -81,17 +66,10 @@ const LeagueMatch = (props) => {
                     console.log(err);
                 }
             )
-            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
-                (err) => {
-                    console.log(err);
-                }
-            )
-            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
-                (err) => {
-                    console.log(err);
-                }
-            )
+            await updateTable(props.data._id,props.matchData.clubHome, match)
+            await updateTable(props.data._id,props.matchData.clubAway, match)
         }
+        
 
      
         

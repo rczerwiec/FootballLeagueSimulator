@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import LeagueTable from "./LeagueTable";
 import LeagueCard from "./LeagueCard";
 import LeagueGenerator from "./LeagueGenerator";
+import { getAllLeagues } from "../../api/leagues";
 
 const LeagueList = (props) => {
   const [leagues, setLeagues] = useState({
@@ -15,12 +16,10 @@ const LeagueList = (props) => {
   });
 
   useEffect(async () => {
-    const allLeagues = await api
-      .get("/leagues")
-      .catch((err) => console.log(err));
+    const allLeagues = await getAllLeagues();
 
     setLeagues({
-      list: allLeagues.data,
+      list: allLeagues,
       loading: false,
     });
   }, [leagues.loading]);
