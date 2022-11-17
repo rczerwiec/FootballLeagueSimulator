@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api/api";
 import React, { useEffect, useState } from "react";
 import LeagueTable from "./LeagueTable";
 import LeagueCard from "./LeagueCard";
@@ -14,47 +14,43 @@ const LeagueList = (props) => {
     action: null,
   });
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/leagues")
-      .then((res) => {
-        setLeagues({
-          list: res.data,
-          loading: false,
-        });
-        console.log(leagues);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  useEffect(async () => {
+    const allLeagues = await api
+      .get("/leagues")
+      .catch((err) => console.log(err));
+
+    setLeagues({
+      list: allLeagues.data,
+      loading: false,
+    });
   }, [leagues.loading]);
 
   const mapLeagues = leagues.list.map((e) => {
     return (
-        <LeagueCard key={e._id} data={e} clickLeagueCard={
-            () => {
-            if(e.clubs.length===0){
-                setActionState({
-                    action: <LeagueGenerator key={e._id} data={e}/>
-                })
-            }
-            else{
-                setActionState({
-                    action: <LeagueTable key={e._id} data={e}/>,
-                  });
-            }
-        }}/>
+      <LeagueCard
+        key={e._id}
+        data={e}
+        clickLeagueCard={() => {
+          e.clubs.length === 0
+            ? setActionState({
+                action: <LeagueGenerator key={e._id} data={e} />,
+              })
+            : setActionState({
+                action: <LeagueTable key={e._id} data={e} />,
+              });
+        }}
+      />
     );
   });
   return (
     <div>
-    {actionState.action ? (
-      <div>{actionState.action}</div>
-    ) : (
-      <div>{mapLeagues}</div>
-    )}
-  </div>
-  )
+      {actionState.action ? (
+        <div>{actionState.action}</div>
+      ) : (
+        <div>{mapLeagues}</div>
+      )}
+    </div>
+  );
 };
 
 export default LeagueList;

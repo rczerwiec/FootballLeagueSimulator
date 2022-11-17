@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
+import api from "../../api/api";
 
 const Settings = (props) => {
 
@@ -11,7 +11,7 @@ const Settings = (props) => {
             howMuchToGenerate: 10,
         }
     
-        axios.post('http://localhost:5000/players/generateMultiple',stats).then(response =>{
+        api.post('/players/generateMultiple',stats).then(response =>{
             console.log("Odpowiedź",response);
         });
     }

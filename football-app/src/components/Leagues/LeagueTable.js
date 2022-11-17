@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TeamsTable from "./TeamsTable";
 import LeagueMatches from "./LeagueMatches";
-import axios from "axios";
+import api from "../../api/api";
 
 const LeagueTable= (props) => {
     const [matches, setMatches] = useState({
@@ -14,7 +14,7 @@ const LeagueTable= (props) => {
     })
 
     useEffect(() => {
-        axios.get("http://localhost:5000/leagues/"+props.data._id+"/matches").then((res) => {
+        api.get("/leagues/"+props.data._id+"/matches").then((res) => {
             //console.log(res.data);
             setMatches({
                 list: res.data,
@@ -24,7 +24,7 @@ const LeagueTable= (props) => {
             (err)=>{
                 console.log(err);
         })
-        axios.get("http://localhost:5000/leagues/"+props.data._id+"/tables").then((res) => {
+        api.get("/leagues/"+props.data._id+"/tables").then((res) => {
             setTables({
                 list: res.data,
                 loading:false,

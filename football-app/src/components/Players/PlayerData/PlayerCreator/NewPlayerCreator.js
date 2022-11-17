@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
-import Select from 'react-select';
+import api from "../../../../api/api";
 import styles from '../PlayerFullInfo.module.css';
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
@@ -19,7 +18,7 @@ const NewPlayerCreator = (props) =>{
     //Lista klubów do wyboru w select
     useEffect(() => {
         if(clubs.clubs.length === 0){
-            axios.get("http://localhost:5000/clubs", null).then((response) => {
+            api.get("/clubs", null).then((response) => {
         
                 const options = response.data.map(d =>({
                     "value": d._id,
@@ -42,7 +41,7 @@ const NewPlayerCreator = (props) =>{
             overall: overall,
         }
     
-        axios.post('http://localhost:5000/players',playerToSave).then(response =>{
+        api.post('/players',playerToSave).then(response =>{
             console.log("Odpowiedź",response);
         });
     }

@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api/api";
 import React, {useState} from "react";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import TextField from "../Buttons/TextField/TextField";
@@ -12,12 +12,7 @@ const LeagueCreator = () =>{
     })
 
     const onLeagueSubmit= () =>{
-        console.log("tworze lige")
-        axios.post('http://localhost:5000/leagues',league).catch(
-            (err) => {
-                console.log(err)
-            }
-        )
+        api.post('/leagues',league).catch(err => console.log(err));
     }
 
     return(

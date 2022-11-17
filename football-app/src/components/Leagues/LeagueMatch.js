@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api/api";
 import React, { useState } from "react";
 
 const LeagueMatch = (props) => {
@@ -20,7 +20,6 @@ const LeagueMatch = (props) => {
 
     const updateMatch = () => {
         if(newScoreHome>newScoreAway){
-            console.log("DOM WYGRYWA")
             const match = {
                 scoreWinner: newScoreHome,
                 scoreLoser: newScoreAway,
@@ -28,17 +27,17 @@ const LeagueMatch = (props) => {
                 winner:matchInfo.clubHome,
                 loser:matchInfo.clubAway,
             }
-            axios.patch("http://localhost:5000/matches/"+props.matchData._id, match).catch(
+            api.patch("/matches/"+props.matchData._id, match).catch(
                 (err) => {
                     console.log(err);
                 }
             )
-            axios.patch("http://localhost:5000/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
+            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
                 (err) => {
                     console.log(err);
                 }
             )
-            axios.patch("http://localhost:5000/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
+            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
                 (err) => {
                     console.log(err);
                 }
@@ -53,17 +52,17 @@ const LeagueMatch = (props) => {
                 team1:matchInfo.clubHome,
                 team2:matchInfo.clubAway,
             }
-            axios.patch("http://localhost:5000/matches/"+props.matchData._id, match).catch(
+            api.patch("/matches/"+props.matchData._id, match).catch(
                 (err) => {
                     console.log(err);
                 }
             )
-            axios.patch("http://localhost:5000/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
+            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
                 (err) => {
                     console.log(err);
                 }
             )
-            axios.patch("http://localhost:5000/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
+            api.patch("tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
                 (err) => {
                     console.log(err);
                 }
@@ -77,17 +76,17 @@ const LeagueMatch = (props) => {
                 winner:matchInfo.clubAway,
                 loser:matchInfo.clubHome,
             }
-            axios.patch("http://localhost:5000/matches/"+props.matchData._id, match).catch(
+            api.patch("/matches/"+props.matchData._id, match).catch(
                 (err) => {
                     console.log(err);
                 }
             )
-            axios.patch("http://localhost:5000/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
+            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubHome, match).catch(
                 (err) => {
                     console.log(err);
                 }
             )
-            axios.patch("http://localhost:5000/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
+            api.patch("/tables/"+props.data._id+"/"+props.matchData.clubAway, match).catch(
                 (err) => {
                     console.log(err);
                 }

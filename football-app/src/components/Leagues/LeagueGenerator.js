@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Selector from "../Buttons/Selector/Selector";
-import axios from "axios";
+import api from "../../api/api";
+
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
+import Selector from "../Buttons/Selector/Selector";
 
 const LeagueGenerator = (props) => {
   
@@ -10,47 +11,39 @@ const LeagueGenerator = (props) => {
     loading: true,
   });
 
-  const [teams, setTeams] = useState({
-    list: [],
-  });
+  const [teams, setTeams] = useState([]);
   //console.log(teams);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/clubs")
-      .then((res) => {
-        //console.log(res.data);
-        const options = res.data.map((club) => ({
-          value: club._id,
-          label: club.name,
-          players: club.players,
-        }));
-
-        setClubs({
-          list: options,
-          loading: false,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+  useEffect(async() => {
+    const allClubs = await api.get("/clubs").catch(err => console.log(err));
+    const options = allClubs.data.map((club) => ({
+        value: club._id,
+        label: club.name,
+        players: club.players,
+      }));
+    console.log(options)
+    setClubs({
+        list: options,
+        loading: false,
       });
+
+
   }, [clubs.loading]);
 
   const generateSelectors = [...Array(props.data.maxTeams)].map((_, i) => {
-
-    return <Selector options={clubs.list} onChange={(e)=> {
-        const newList = teams.list;
+    return <Selector key={i} options={clubs.list} onChange={(e)=> {
+        const newList = teams;
         newList[i] = e.value;
-
-        setTeams({list: newList,})
+        console.log(e);
+        setTeams(newList)
     }}/>;
   });
 
   const generateLeague = () => {
     const newLeague = {
-        clubs: teams.list,
+        clubs: teams,
     }
-    axios.patch("http://localhost:5000/leagues/"+props.data._id, newLeague);
+    api.patch("/leagues/"+props.data._id, newLeague);
   }
 
   return (
