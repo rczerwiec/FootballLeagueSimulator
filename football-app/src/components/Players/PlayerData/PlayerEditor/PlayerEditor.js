@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-import axios from "axios";
+import api from "../../../../api/api";
 import Selector from "../../../Buttons/Selector/Selector";
 import styles from '../PlayerFullInfo.module.css';
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
@@ -17,7 +17,7 @@ const PlayerEditor = (props) =>{
         
     useEffect(() => {
         if(clubs.clubs.length === 0){
-            axios.get("http://localhost:5000/clubs", null).then((response) => {
+            api.get("/clubs", null).then((response) => {
         
                 const options = response.data.map(d =>({
                     "value": d._id,
@@ -40,7 +40,7 @@ const PlayerEditor = (props) =>{
             overall: overall,
         }
     
-        axios.patch('http://localhost:5000/players/'+props.id,playerToSave).then(response =>{
+        api.patch('/players/'+props.id,playerToSave).then(response =>{
             console.log(response);
         });
     }

@@ -17,7 +17,7 @@ const LeagueList = (props) => {
   useEffect(async () => {
     const allLeagues = await api
       .get("/leagues")
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     setLeagues({
       list: allLeagues.data,

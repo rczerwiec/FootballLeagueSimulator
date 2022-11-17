@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import styles from "../ClubFullInfo.module.css"
 import api from "../../../../api/api";
+import styles from "../ClubFullInfo.module.css"
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
+import { patchClub } from "../../../../api/clubs";
 
 
 const ClubEditor = (props) =>{
@@ -16,7 +17,7 @@ const ClubEditor = (props) =>{
             type: type,
         }
     
-        api.patch('clubs/'+props.id,toSave);
+        patchClub(props.id,toSave);
     }
 
     return(

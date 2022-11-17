@@ -4,6 +4,7 @@ import api from "../../../../api/api";
 
 import TextField from "../../../Buttons/TextField/TextField";
 import SubmitButton from "../../../Buttons/SubmitButton/SubmitButton";
+import { createClub } from "../../../../api/clubs";
 
 const NewClubCreator = () =>{
 
@@ -16,7 +17,7 @@ let handleSubmit = async (e) =>{
         type: type,
       }
   
-      api.post('/clubs',clubToSave);
+      await createClub(clubToSave)
 }
 
     return(

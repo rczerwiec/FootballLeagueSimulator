@@ -2,18 +2,19 @@ import api from "../../../api/api";
 import React, { useEffect, useState } from "react";
 import styles from "./ClubFullInfo.module.css";
 import Spinner from "../../Spinner/Spinner";
+import { getClubPlayers, getClubMatches } from "../../../api/clubs";
 
-const ClubFullInfo =  (props) => {
+const ClubFullInfo =  ({id,name,type}) => {
   const [players, setPlayers] = useState([]);
   const [matches, setMatches] = useState([]);
 
   useEffect(async() => {
-    const p = await api.get("/clubs/" + props.id + "/players").catch(err => console.log(err));
-    const m = await api.get("/clubs/" + props.id + "/matches").catch(err => console.log(err));
-    setPlayers(p.data);
-    setMatches(m.data.matches);
+    const p = await getClubPlayers(id)
+    const m = await getClubMatches(id)
+    setPlayers(p);
+    setMatches(m);
       
-  }, [props.id])
+  }, [id])
 
   const clubPlayers = players.map(({_id, name, overall}) => {
     return <div className={styles.Player} key={_id}>- {name} (OV:{overall} )</div>;
@@ -26,8 +27,8 @@ const ClubFullInfo =  (props) => {
   return (
     <div className={styles.ClubDetails}>
       <div><div className={styles.ClubInfo}>
-        <h3>{props.name}</h3>
-        <div className={styles.clubDetailsDiv}>Typ klubu: {props.type}</div>
+        <h3>{name}</h3>
+        <div className={styles.clubDetailsDiv}>Typ klubu: {type}</div>
         <div className={styles.clubDetailsDiv}>Mistrzostwo Kraju: 0</div>
         <div className={styles.clubDetailsDiv}>Liga Mistrzów: 0</div>
       </div>

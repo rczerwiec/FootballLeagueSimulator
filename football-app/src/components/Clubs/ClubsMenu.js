@@ -7,85 +7,71 @@ import NewClubCreator from "./ClubData/ClubCreator/NewClubCreator";
 import ClubEditor from "./ClubData/ClubEditor/ClubEditor";
 import styles from "./ClubsMenu.module.css";
 import Spinner from "../Spinner/Spinner";
+import { getOneClub, deleteClub } from "../../api/clubs";
 
-class Clubs extends React.Component {
+function Clubs(props){
+  //console.log(props);
+  const [action, setAction] = useState(null);
 
-  state = {action: null}
-
-  newClubHandler = () => {
-    this.setState({
-      action: <NewClubCreator />,
-    })
+  const newClubHandler = () => {
+    setAction(<NewClubCreator />)
   };
 
-  showSelectedClubHandler = async(id) => {
-    const selectedClub = await api.get("/clubs/" + id)
-    this.setState({
-      action: (
-        <div>
-          <ClubFullInfo
-            id={selectedClub.data._id}
-            name={selectedClub.data.name}
-            type={selectedClub.data.type}
-          />
-        </div>
-      ),
-    });
+  const showSelectedClubHandler = async(id) => {
+    const {_id,name,type} = await getOneClub(id);
+    
+    setAction(<div>
+      <ClubFullInfo
+        id={_id}
+        name={name}
+        type={type}
+      />
+    </div>)
   };
 
-  editClubHandler = async(id) => {
+  const editClubHandler = async(id) => {
     if (id !== null) {
-      const selectedClub = await api.get("/clubs/" + id, null);
+      const {_id,name,type} = await getOneClub(id);
 
-      this.setState({
-        action: (
-          <ClubEditor
-            id={selectedClub.data._id}
-            name={selectedClub.data.name}
-            type={selectedClub.data.type}
-          />
-        ),
-      });
+      setAction(<ClubEditor
+            id={_id}
+            name={name}
+            type={type}
+          />)
     }
   };
 
-  removeClubHandler = async(id) => {
+  const removeClubHandler = async(id) => {
     if (id !== null) {
-      const deletedClub = await api.delete("/clubs/" + id, null);
+      const {name} = await deleteClub(id);
       
-      this.setState({
-          action: (
-            <div>
-              <h3>Usunięto {deletedClub.data.name}</h3>
-            </div>
-          ),
-        });
+      setAction(<div>
+        <h3>Usunięto {name}</h3>
+      </div>)
     }
   };
-
-  render(){
     //console.log(this.props)
-    const getAllClubs = this.props.clubs.clubsList.map((club, index) => {
+  const getAllClubs = props.clubs.clubsList.map((club, index) => {
       //console.log(index);
       return (
         <div key={club._id}>
           <ClubCard
-            showSelectedClub={this.showSelectedClubHandler}
+            showSelectedClub={showSelectedClubHandler}
             _id={club._id}
             name={club.name}
-            edit={this.editClubHandler}
-            remove={this.removeClubHandler}
+            edit={editClubHandler}
+            remove={removeClubHandler}
           ></ClubCard>
         </div>
       );
     });
 
-    return (
+  return (
       <div>
-          <div className={styles.Action}>{this.state.action}</div>
+          <div className={styles.Action}>{action}</div>
           <div>
           <div className={styles.Header}>Lista Klubów</div>
-          <button className={styles.Button} onClick={this.newClubHandler}>
+          <button className={styles.Button} onClick={newClubHandler}>
             Nowy Klub
           </button>
           <div className={styles.Clubs}>{getAllClubs}</div>
@@ -93,8 +79,6 @@ class Clubs extends React.Component {
   
       </div>
     );
-  }
-
-};
+  };
 
 export default Clubs;
