@@ -35,5 +35,7 @@ export const patchClub = async(id, patchedObject) => {
 }
 
 export const createClub = async(createdObject) => {
-    await api.post('/clubs',createdObject);
+    const res = await api.post('/clubs',createdObject);
+
+    return res;
 }

@@ -1,6 +1,7 @@
 import "./App.css";
 import api from "./api/api";
 import ClubsMenu from "./components/Clubs/ClubsMenu";
+import Clubs from "./components/ClubsPage/Clubs";
 import Players from "./components/Players/PlayersMenu";
 import Leagues from "./components/Leagues/Leagues";
 import Settings from "./components/Settings/Settings";
@@ -28,8 +29,6 @@ const App = () => {
       clubsList: allClubs.data,
       loading:false
     });
-    console.log("KLUBY",clubs);
-    console.log("GRACZE",players);
   },[clubs.loading])
   
     return (
@@ -40,6 +39,7 @@ const App = () => {
             (<div className="Content">
               <Routes>
                 <Route path="/kluby" element={<ClubsMenu clubs={clubs}/>} />
+                <Route path="/kluby2" element={<Clubs/>} />
                 <Route path="/zawodnicy" element={<Players players={players}/>} />
                 <Route path="/ligi" element={<Leagues />} />
                 <Route path="/pojedynek" element={<Match/>}/> 
