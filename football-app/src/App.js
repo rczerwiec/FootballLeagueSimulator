@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Match from "./components/Match/Match";
 import Spinner from "./components/Spinner/Spinner";
+import {ClubsProvider} from "./context/clubs";
 
 const App = () => {
 
@@ -39,7 +40,7 @@ const App = () => {
             (<div className="Content">
               <Routes>
                 <Route path="/kluby" element={<ClubsMenu clubs={clubs}/>} />
-                <Route path="/kluby2" element={<Clubs/>} />
+                <Route path="/kluby2" element={<ClubsProvider><Clubs/></ClubsProvider>} />
                 <Route path="/zawodnicy" element={<Players players={players}/>} />
                 <Route path="/ligi" element={<Leagues />} />
                 <Route path="/pojedynek" element={<Match/>}/> 

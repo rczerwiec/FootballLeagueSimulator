@@ -13,7 +13,9 @@ export const getPlayer = async(id) => {
 }
 
 export const patchPlayer = async(id, playerToSave) => {
-    await api.patch('/players/'+id,playerToSave);
+    const res = await api.patch('/players/'+id,playerToSave);
+
+    return res.data
 }
 
 export const createPlayer = async(playerToSave) => {

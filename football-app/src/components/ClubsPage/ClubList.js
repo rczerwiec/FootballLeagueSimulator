@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import ClubInfo from "./ClubInfo"
 import ClubCard from "./ClubCard"
+import ClubsContext from "../../context/clubs"
 
-function ClubList({clubs, onRemove}){
+function ClubList(){
+    const {clubs} = useContext(ClubsContext);
 
     const [action,setAction] = useState(true)
     const [selectedClub, setSelectedClub] = useState();
@@ -13,7 +15,7 @@ function ClubList({clubs, onRemove}){
     }
 
     const renderClubs = clubs.map((club) => {
-        return <ClubCard key={club._id} setInfo={setInfo} onRemove={onRemove} club={club}/>
+        return <ClubCard key={club._id} setInfo={setInfo} club={club}/>
     })
 
     let content  = renderClubs;

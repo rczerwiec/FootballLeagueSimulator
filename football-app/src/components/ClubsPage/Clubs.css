@@ -30,6 +30,7 @@
 }
 
 .cardTeamName{
+    width: 100%;
     padding:12px;
 }
 
@@ -50,6 +51,11 @@
 .action-button:hover{
     background-color: #505050;
     cursor: pointer;
+}
+
+.match-results{
+    display: flex;
+    justify-content: center;
 }
 
 

@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import ClubsContext from "../../context/clubs";
 import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
 import TextField from "../Buttons/TextField/TextField";
 
-
-function CreateClub({onCreate}){
+function CreateClub({changeAction}){
+    const {handleClubCreate} = useContext(ClubsContext);
     const [name, setName] = useState("");
     const [type, setType] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        onCreate(name,type);
+        handleClubCreate(name,type);
+        changeAction();
     }
 
     return(

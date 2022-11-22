@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {FiEdit3, FiTrash} from "react-icons/fi"
+import ClubsContext from "../../context/clubs";
 import ClubEdit from "./ClubEdit";
 
-function ClubCard({club, setInfo, onRemove}){
-
+function ClubCard({club, setInfo}){
+    const {handleRemoveClub} = useContext(ClubsContext);
     const [edit, setEdit] = useState(false);
 
     let content = <div>{club.name}</div>
@@ -13,12 +14,16 @@ function ClubCard({club, setInfo, onRemove}){
     }
 
     return <div className="club-card">
-        <div onClick={() => {setInfo(club)}} className="cardTeamName">
+        <div onClick={() => {
+            if(edit===false){
+                setInfo(club)
+            }
+            }} className="cardTeamName">
         {content}
         </div>
         <div className="card-action-buttons">
             <div onClick={() => setEdit(!edit)} className="card-ation-button"><FiEdit3/></div>
-            <div onClick={() => {onRemove(club._id)}} className="card-ation-button"><FiTrash/></div>
+            <div onClick={() => {handleRemoveClub(club._id)}} className="card-ation-button"><FiTrash/></div>
         </div>
         
     </div>

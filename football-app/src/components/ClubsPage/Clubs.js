@@ -1,47 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ClubList from "./ClubList";
 import CreateClub from "./CreateClub";
-import {createClub, deleteClub, getAllClubs} from "../../api/clubs";
+
 import {IoMdAdd, IoMdArrowBack} from "react-icons/io";
+import ClubsContext from "../../context/clubs";
 
 function Clubs() {
+    const {fetchAllClubs} = useContext(ClubsContext)
+
     const [action, setAction] = useState(true);
-    const [clubs, setClubs] = useState([]);
 
     useEffect(async() => {
-        const res = await getAllClubs();
-
-        setClubs(res);
+        fetchAllClubs();
     },[])
 
-    const handleRemoveClub = async(id) => {
-        await deleteClub(id)
-        const updatedClubs =  clubs.filter((club) => {
-            return club._id !== id;
-        })
+    const changeAction = () => {setAction(!action)}
 
-        setClubs(updatedClubs);
-    }
-
-    let content = <ClubList onRemove={handleRemoveClub} clubs={clubs}/>
+    let content = <ClubList/>
     let actionIcon = <IoMdAdd/>
 
-
-
-    const handleClubCreate = async (name,type) =>{
-        const res = await createClub({name,type})
-
-        if(res.data.message === undefined){
-            setAction(true);
-            setClubs([...clubs, res.data])
-        }
-        
-    }
-
-
-
     if(action===false){
-        content = <CreateClub onCreate={handleClubCreate}/>
+        content = <CreateClub changeAction={changeAction}/>
         actionIcon=<IoMdArrowBack/>
     }
 
@@ -50,7 +29,7 @@ function Clubs() {
         {content}
 
         <div className="action-button-div">
-            <button onClick={() => {setAction(!action)}} className="action-button">{actionIcon}</button>
+            <button onClick={changeAction} className="action-button">{actionIcon}</button>
         </div>
 
     </div>
