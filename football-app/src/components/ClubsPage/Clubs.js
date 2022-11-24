@@ -4,6 +4,7 @@ import CreateClub from "./CreateClub";
 
 import {IoMdAdd, IoMdArrowBack} from "react-icons/io";
 import ClubsContext from "../../context/clubs";
+import Button from "../ReusableComponents/Button";
 
 function Clubs() {
     const {fetchAllClubs} = useContext(ClubsContext)
@@ -11,8 +12,8 @@ function Clubs() {
     const [action, setAction] = useState(true);
 
     useEffect(async() => {
-        fetchAllClubs();
-    },[])
+        await fetchAllClubs();
+    },[fetchAllClubs])
 
     const changeAction = () => {setAction(!action)}
 
@@ -29,7 +30,7 @@ function Clubs() {
         {content}
 
         <div className="action-button-div">
-            <button onClick={changeAction} className="action-button">{actionIcon}</button>
+            <Button primary rounded border fontxl onClick={changeAction}>{actionIcon}</Button>
         </div>
 
     </div>

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ClubsContext from "../../context/clubs";
-import SubmitButton from "../Buttons/SubmitButton/SubmitButton";
-import TextField from "../Buttons/TextField/TextField";
+import Button from "../ReusableComponents/Button";
+import Input from "../ReusableComponents/Input";
 
 function CreateClub({changeAction}){
     const {handleClubCreate} = useContext(ClubsContext);
@@ -15,12 +15,14 @@ function CreateClub({changeAction}){
     }
 
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <h2>Utwórz Drużynę</h2>
-                <TextField text="Nazwa" value={name} onChange={(e)=>{setName(e.target.value)}} placeholder="Wprowadź nazwę drużyny"></TextField>
-                <TextField text="Rodzaj" value={type} onChange={(e)=>{setType(e.target.value)}} placeholder="Kontynent/Państwo"></TextField>
-                <SubmitButton>Utwórz!</SubmitButton>
+        <div className="flex justify-center">
+            <form className="justify-center bg-zinc-600 p-6 rounded-lg rounded-br-lg m-2.5 drop-shadow-lg" onSubmit={handleSubmit}>
+                <h1 className="text-2xl">Utwórz Drużynę</h1>
+                <label>Nazwa</label>
+                <div><Input placeholder="Wprowadź nazwę drużyny" value={name} onChange={(e)=>{setName(e.target.value)}}/></div>
+                <label>Rodzaj</label>
+                <div><Input placeholder="Wprowadź nazwę drużyny" value={type} onChange={(e)=>{setType(e.target.value)}}/></div>
+                <Button secondary rounded>Utwórz</Button>
             </form>
         </div>
     )

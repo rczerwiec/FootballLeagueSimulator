@@ -1,10 +1,10 @@
 .club-card{
     display: flex;
+    flex-wrap: wrap;
     cursor: pointer;
     margin:20px;
     background-color: #464646;
     border:1px solid #464646;
-    justify-content: space-between;
     -webkit-box-shadow: 1px 7px 7px -8px rgba(0, 0, 0, 1);
     -moz-box-shadow: 1px 7px 7px -8px rgba(0, 0, 0, 1);
     box-shadow: 1px 7px 7px -8px rgba(0, 0, 0, 1);
@@ -16,21 +16,21 @@
 }
 
 
-.card-action-buttons{
-    display: flex;
-}
-
 .card-ation-button{
+    margin: auto;
     padding:12px;
-    border-left: 1px solid black;
+    color:rgb(17, 17, 17);
+    border-left: 1px solid rgb(56, 56, 56);
+    
 }
 
 .card-ation-button:hover{
+    border-radius: 5px;
     background-color: #14A76C;
 }
 
-.cardTeamName{
-    width: 100%;
+.card-team-name{
+    flex-grow:1;
     padding:12px;
 }
 

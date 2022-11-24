@@ -18,13 +18,12 @@ function ClubCard({club, setInfo}){
             if(edit===false){
                 setInfo(club)
             }
-            }} className="cardTeamName">
+            }} className="card-team-name">
         {content}
         </div>
-        <div className="card-action-buttons">
-            <div onClick={() => setEdit(!edit)} className="card-ation-button"><FiEdit3/></div>
-            <div onClick={() => {handleRemoveClub(club._id)}} className="card-ation-button"><FiTrash/></div>
-        </div>
+        <div onClick={() => setEdit(!edit)} className="card-ation-button"><FiEdit3/></div>
+        <div onClick={() => {handleRemoveClub(club._id)}} className="card-ation-button"><FiTrash/></div>
+
         
     </div>
 }

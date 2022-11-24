@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useCallback } from "react"
 import {createClub, deleteClub, getAllClubs, patchClub} from "../api/clubs";
 
 const ClubsContext = createContext();
@@ -6,11 +6,12 @@ const ClubsContext = createContext();
 function ClubsProvider({children}){
     const [clubs, setClubs] = useState([]);
 
-    const fetchAllClubs = async() =>{
+    const fetchAllClubs = useCallback(async() =>{
         const res = await getAllClubs();
 
         setClubs(res);
-    }
+    },[])
+    
 
     const handleRemoveClub = async(id) => {
         await deleteClub(id)
