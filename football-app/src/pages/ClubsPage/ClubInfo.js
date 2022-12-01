@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getClubMatches, getClubPlayers } from "../../api/clubs";
-import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
+import Button from "../../components/ReusableComponents/Button";
 
 function ClubInfo({ onClick, club }) {
   const [players, setPlayers] = useState([]);
@@ -72,7 +72,7 @@ function ClubInfo({ onClick, club }) {
           {matchesList}
         </div>{" "}
       </div>
-      <SimpleButton onClick={onClick} text="WRÓĆ" />
+      <Button primary rounded onClick={onClick} >POWRÓT</Button>
     </div>
   );
 }

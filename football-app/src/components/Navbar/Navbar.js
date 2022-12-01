@@ -21,7 +21,6 @@ const Navbar = (props) => {
       <div className={styles.NavbarLogo}><img width="250px" src="https://i.imgur.com/DT87WfU.png" alt=""></img></div>
       <div className={styles.NavbarOptions}>
         <NavbarOption icon={icons.club} destination="/kluby" name = "Kluby"/>
-        <NavbarOption icon={icons.club} destination="/kluby2" name = "Kluby REMAKE"/>
         <NavbarOption icon={icons.players} destination="/zawodnicy" name = "Zawodnicy"/>
         <NavbarOption icon={icons.match} destination="/pojedynek" name = "Pojedynczy Mecz"/>
         <NavbarOption icon={icons.leagues} destination="/ligi" name = "Ligi"/>

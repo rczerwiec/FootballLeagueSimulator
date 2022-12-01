@@ -7,7 +7,7 @@ function ClubCard({club, setInfo}){
     const {handleRemoveClub} = useContext(ClubsContext);
     const [edit, setEdit] = useState(false);
 
-    let content = <div>{club.name}</div>
+    let content = <div >{club.name}</div>
 
     if(edit===true){
         content = <ClubEdit club={club}/>

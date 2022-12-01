@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ClubsContext from "../../context/clubs";
-import Button from "../ReusableComponents/Button";
-import Input from "../ReusableComponents/Input";
+import Button from "../../components/ReusableComponents/Button";
+import Input from "../../components/ReusableComponents/Input";
 
 function CreateClub({changeAction}){
     const {handleClubCreate} = useContext(ClubsContext);
@@ -15,9 +15,9 @@ function CreateClub({changeAction}){
     }
 
     return(
-        <div className="flex justify-center">
-            <form className="justify-center bg-zinc-600 p-6 rounded-lg rounded-br-lg m-2.5 drop-shadow-lg" onSubmit={handleSubmit}>
-                <h1 className="text-2xl">Utwórz Drużynę</h1>
+        <div className="create-club-container">
+            <form className="create-club-form" onSubmit={handleSubmit}>
+                <h1>Utwórz Drużynę</h1>
                 <label>Nazwa</label>
                 <div><Input placeholder="Wprowadź nazwę drużyny" value={name} onChange={(e)=>{setName(e.target.value)}}/></div>
                 <label>Rodzaj</label>

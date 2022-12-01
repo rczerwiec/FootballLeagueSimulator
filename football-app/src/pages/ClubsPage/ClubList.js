@@ -26,8 +26,8 @@ function ClubList(){
 
 
     return(
-        <div className="justify-center bg-zinc-600 p-6 rounded-bl-lg rounded-br-lg ml-2.5 mr-2.5 drop-shadow-lg">
-            <h1 className="text-2xl">Wszystkie Kluby</h1>
+        <div className="club-list-container">
+            <h1>Wszystkie Kluby</h1>
             {content}
         </div>
     )
