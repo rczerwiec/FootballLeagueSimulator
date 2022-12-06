@@ -6,6 +6,12 @@ export const removePlayer = async(id) => {
     return res;
 }
 
+export const getAllPlayers = async(id) => {
+    const res = await api.get("/players/", null);
+
+    return res;
+}
+
 export const getPlayer = async(id) => {
     const res = await api.get("/players/" + id, null);
 
@@ -19,7 +25,9 @@ export const patchPlayer = async(id, playerToSave) => {
 }
 
 export const createPlayer = async(playerToSave) => {
-    await api.post('/players',playerToSave)
+    const res  = await api.post('/players',playerToSave)
+
+    return res;
 }
 
 export const generateMultiplePlayers = async(stats) => {

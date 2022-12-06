@@ -2,8 +2,8 @@ $gray-secondary: #464646;
 $green-primary: #14A76C;
 $shadow-primary: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 
-/* ClubCard.js*/
-.club-card{
+/* ClubCard.js , PlayersCard.js*/
+.card{
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
@@ -16,11 +16,11 @@ $shadow-primary: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px
     border-radius: 5px;
 }
 
-.club-card:hover{
+.card:hover{
     border:1px solid #0c6e47
 }
 
-.card-team-name{
+.card-name{
     flex-grow:1;
     padding:12px;
 }
@@ -39,10 +39,8 @@ $shadow-primary: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px
     background-color: $green-primary;
 }
 
-
-
-/* ClubEdit.js*/
-.club-edit-container{
+/* ClubEdit.js, PlayerEdit.js*/
+.edit-container{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -53,15 +51,15 @@ $shadow-primary: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px
         margin-right: 10px;
     }
 }
-/* ClubInfo.js*/
+/* ClubInfo.js , PlayerInfo.js*/
 
 .match-results{
     display: flex;
     justify-content: center;
 }
 
-/* ClubList.js*/
-.club-list-container{
+/* ClubList.js ,PlayerInfo.js*/
+.list-container{
     background-color: rgb(82 82 91);
     padding:1.5rem;
     border-bottom-left-radius: 0.5rem;
@@ -74,14 +72,14 @@ $shadow-primary: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px
     }
 }
 
-/* CreateClub.js*/
-.create-club-container{
+/* CreateClub.js, CreatePlayer.js*/
+.create-container{
     display: flex;
     justify-content: center;
     
 }
 
-.create-club-form{
+.create-form{
     background-color: rgb(82 82 91);
     padding: 1.5rem;
     border-radius: 0.5rem;
@@ -94,7 +92,7 @@ $shadow-primary: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px
    
 }
 
-/* Clubs.js*/
+/* Clubs.js, Players.js*/
 .action-button-div{
     position: fixed;
     right: 50px;

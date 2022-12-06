@@ -26,7 +26,7 @@ function ClubList(){
 
 
     return(
-        <div className="club-list-container">
+        <div className="list-container">
             <h1>Wszystkie Kluby</h1>
             {content}
         </div>

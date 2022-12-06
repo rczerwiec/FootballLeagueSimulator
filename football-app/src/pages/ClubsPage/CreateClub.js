@@ -15,8 +15,8 @@ function CreateClub({changeAction}){
     }
 
     return(
-        <div className="create-club-container">
-            <form className="create-club-form" onSubmit={handleSubmit}>
+        <div className="create-container">
+            <form className="create-form" onSubmit={handleSubmit}>
                 <h1>Utwórz Drużynę</h1>
                 <label>Nazwa</label>
                 <div><Input placeholder="Wprowadź nazwę drużyny" value={name} onChange={(e)=>{setName(e.target.value)}}/></div>

@@ -9,7 +9,7 @@ function ClubEdit({club}){
     
     return(
         <div >
-            <form className="club-edit-container" onSubmit={()=>{
+            <form className="edit-container" onSubmit={()=>{
                 handleEditClub(club._id, {name:value});
             }}>
                 <label>Nazwa</label>

@@ -7,7 +7,7 @@ import ClubsContext from "../../context/clubs";
 import Button from "../../components/ReusableComponents/Button";
 
 function Clubs() {
-    const {fetchAllClubs} = useContext(ClubsContext)
+    const {fetchAllClubs} = useContext(ClubsContext);
 
     const [action, setAction] = useState(true);
 

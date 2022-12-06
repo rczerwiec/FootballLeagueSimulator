@@ -13,12 +13,12 @@ function ClubCard({club, setInfo}){
         content = <ClubEdit club={club}/>
     }
 
-    return <div className="club-card">
+    return <div className="card">
         <div onClick={() => {
             if(edit===false){
                 setInfo(club)
             }
-            }} className="card-team-name">
+            }} className="card-name">
         {content}
         </div>
         <div onClick={() => setEdit(!edit)} className="card-ation-button"><FiEdit3/></div>
