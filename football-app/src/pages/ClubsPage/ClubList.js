@@ -1,7 +1,7 @@
-import { useContext, useState } from "react"
-import ClubInfo from "./ClubInfo"
-import ClubCard from "./ClubCard"
-import ClubsContext from "../../context/clubs"
+import { useContext, useState } from "react";
+import ClubInfo from "./ClubInfo";
+import ClubCard from "./ClubCard";
+import ClubsContext from "../../context/clubs";
 
 function ClubList(){
     const {clubs} = useContext(ClubsContext);
