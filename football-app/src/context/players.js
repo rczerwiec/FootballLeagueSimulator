@@ -16,7 +16,6 @@ function PlayersProvider({children}){
             "label": d.name
         }))
         setClubsForSelector(options)
-
     } 
 
     return(

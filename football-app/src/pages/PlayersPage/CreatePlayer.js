@@ -4,30 +4,39 @@ import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
 import Selector from "../../components/Buttons/Selector/Selector";
 import {useCreatePlayerMutation} from '../../store/index';
+import {useFetchClubsQuery} from '../../store';
 
 function CreatePlayer({changeAction}){
     const [createPlayer, results] = useCreatePlayerMutation();
-
-    const {getClubsForSelector, clubsForSelector} = useContext(PlayersContext);
+    const {data, error, isLoading} = useFetchClubsQuery();
     const [name, setName] = useState("");
     const [nationality, setNationality] = useState("");
     const [club, setClub] = useState(undefined);
     const [overall, setOverall] = useState("");
 
-    useEffect(async() => {
-        await getClubsForSelector();
-    },[])
+    let options;
+    if(!isLoading){
+        options = data.map(d =>({
+            "value": d._id,
+            "label": d.name
+        }))
+    }
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const playerToSave = {
-            name: name,
-            nationality: nationality,
-            club: club,
-            overall: overall,
+        if(!isLoading){
+            const playerToSave = {
+                name: name,
+                nationality: nationality,
+                club: club,
+                overall: overall,
+            }
+            createPlayer(playerToSave);
+            changeAction();
         }
-        createPlayer(playerToSave);
-        changeAction();
+
+
     }
 
 
@@ -41,7 +50,7 @@ function CreatePlayer({changeAction}){
         <label>Overall</label>
         <div><Input placeholder="Wprowadź overall gracza" value={overall} onChange={(e)=>{setOverall(e.target.value)}}/></div>
         <label>Przypisz klub</label>
-        <Selector placeholder="Wybierz Klub" options={clubsForSelector} onChange={(e) => setClub(e.value)}/>
+        <Selector placeholder="Wybierz Klub" options={options} onChange={(e) => setClub(e.value)}/>
         <Button secondary rounded>Utwórz</Button>
     </form>
 </div>

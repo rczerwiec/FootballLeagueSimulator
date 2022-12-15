@@ -18,7 +18,7 @@ function ClubsProvider({children}){
         const updatedClubs =  clubs.filter((club) => {
             return club._id !== id;
         })
-
+        
         setClubs(updatedClubs);
     }
 

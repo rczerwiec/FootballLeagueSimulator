@@ -1,6 +1,7 @@
 import {useState } from "react";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
+import Spinner from "../../components/Spinner/Spinner";
 import {useEditPlayerMutation} from "../../store";
 
 function PlayerEdit({player, handleSetEdit}){
@@ -8,6 +9,7 @@ function PlayerEdit({player, handleSetEdit}){
     //console.log(results)
    
     const [value, setValue] = useState(player.name);
+    const [buttonTitle, setButtonTitle] = useState("Zmień")
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -17,9 +19,12 @@ function PlayerEdit({player, handleSetEdit}){
             club: player.club,
             overall: player.overall,
         }
+        setButtonTitle(<Spinner/>);
+        editPlayer({id:player._id, player:playerToSave}).then(() => {
+            handleSetEdit();
+        }
+        );
         
-        editPlayer({id:player._id, player:playerToSave});
-        handleSetEdit();
     }
 
     return(
@@ -27,7 +32,7 @@ function PlayerEdit({player, handleSetEdit}){
             <form className="edit-container" onSubmit={onSubmit}>
                 <label>Nazwa</label>
                 <Input value={value} onChange={(e) =>setValue(e.target.value)}/>
-                <Button secondary rounded>Zmień</Button>
+                <Button secondary rounded>{buttonTitle}</Button>
             </form>
             
         </div>

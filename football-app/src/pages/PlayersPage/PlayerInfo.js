@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
-import { getOneClub } from "../../api/clubs";
 import Button from "../../components/ReusableComponents/Button";
+import { useGetOneClubQuery } from "../../store/apis/clubsApi";
 
 function PlayerInfo({ onClick, player }){
 
-    const [club, setClub] = useState();
-
-    useEffect(async() =>{
-        const playerClub = await getOneClub(player.club);
-
-        setClub(playerClub.name);
-    },[]) 
+    const {data, error, isLoading} = useGetOneClubQuery(player.club)
+    console.log(data);
 
     return(
         <div>
@@ -19,7 +13,7 @@ function PlayerInfo({ onClick, player }){
             <div>Pochodzenie:{player.nationality}</div>
             <div>Overall:{player.overall}</div>
             <div>Wiek:{player.age}</div>
-            <div>Klub:{club}</div>
+            <div>Klub:{data?.name || "Brak"}</div>
             <Button primary rounded onClick={onClick} >POWRÓT</Button>
         </div>
     );
