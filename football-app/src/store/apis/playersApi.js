@@ -51,6 +51,7 @@ const playersApi = createApi({
                     const tags = result.map(player => {
                         return {type: 'Player', id: player._id}
                     })
+                    console.log(tags);
                     return tags;
                 },
                 query: () => {

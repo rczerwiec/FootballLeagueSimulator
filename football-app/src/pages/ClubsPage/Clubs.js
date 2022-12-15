@@ -1,20 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import './Clubs.scss';
 import ClubList from "./ClubList";
 import CreateClub from "./CreateClub";
 import {IoMdAdd, IoMdArrowBack} from "react-icons/io";
-import ClubsContext from "../../context/clubs";
 import Button from "../../components/ReusableComponents/Button";
 
 function Clubs() {
-    const {fetchAllClubs} = useContext(ClubsContext);
-
     const [action, setAction] = useState(true);
-
-    useEffect(async() => {
-        await fetchAllClubs();
-    },[fetchAllClubs])
-
     const changeAction = () => {setAction(!action)}
 
     let content = <ClubList/>

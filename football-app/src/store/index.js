@@ -16,4 +16,4 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 
 export {useFetchPlayersQuery, useRemovePlayerMutation,useCreatePlayerMutation, useEditPlayerMutation} from './apis/playersApi';
-export {useFetchClubsQuery} from './apis/clubsApi';
+export {useFetchClubsQuery,useGetOneClubQuery,useCreateClubMutation,useEditClubMutation, useRemoveClubMutation} from './apis/clubsApi';

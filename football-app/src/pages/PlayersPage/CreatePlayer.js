@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import PlayersContext from "../../context/players";
+import { useState } from "react";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
 import Selector from "../../components/Buttons/Selector/Selector";

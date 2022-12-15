@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
-import ClubsContext from "../../context/clubs";
+import {useState } from "react";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
+import { useCreateClubMutation } from "../../store";
 
 function CreateClub({changeAction}){
-    const {handleClubCreate} = useContext(ClubsContext);
+    const [createClub, results] = useCreateClubMutation();
     const [name, setName] = useState("");
     const [type, setType] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        handleClubCreate(name,type);
+        createClub({name,type});
         changeAction();
     }
 

@@ -1,5 +1,5 @@
 import Button from "../../components/ReusableComponents/Button";
-import { useGetOneClubQuery } from "../../store/apis/clubsApi";
+import { useGetOneClubQuery } from "../../store";
 
 function PlayerInfo({ onClick, player }){
 

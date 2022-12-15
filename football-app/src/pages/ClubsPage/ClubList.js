@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import {useState } from "react";
 import ClubInfo from "./ClubInfo";
 import ClubCard from "./ClubCard";
-import ClubsContext from "../../context/clubs";
+import { useFetchClubsQuery } from "../../store";
+import Spinner from "../../components/Spinner/Spinner";
 
 function ClubList(){
-    const {clubs} = useContext(ClubsContext);
+    const {data, error, isLoading} = useFetchClubsQuery();
 
     const [action,setAction] = useState(true)
     const [selectedClub, setSelectedClub] = useState();
@@ -14,16 +15,22 @@ function ClubList(){
         setSelectedClub(club);
     }
 
-    const renderClubs = clubs.map((club) => {
-        return <ClubCard key={club._id} setInfo={setInfo} club={club}/>
-    })
-
-    let content  = renderClubs;
+    let content;
+    if (error){
+        content = <div>Error while loading clubs</div>
+    }
+    else if(isLoading){
+        content = <Spinner/>
+    }
+    else(
+        content = data.map((club) => {
+            return <ClubCard key={club._id} setInfo={setInfo} club={club}/>
+        })
+    )
 
     if(action===false){
         content = <ClubInfo club={selectedClub} onClick={() => {setAction(!action)}}/>
     }
-
 
     return(
         <div className="list-container">
