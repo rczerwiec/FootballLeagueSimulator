@@ -31,9 +31,13 @@ export const getClubMatches = async(id) => {
 }
 
 export const patchClub = async(id, patchedObject) => {
-    await api.patch('clubs/'+id,patchedObject);
+    const res = await api.patch('clubs/'+id,patchedObject);
+
+    return res.data;
 }
 
 export const createClub = async(createdObject) => {
-    await api.post('/clubs',createdObject);
+    const res = await api.post('/clubs',createdObject);
+
+    return res;
 }

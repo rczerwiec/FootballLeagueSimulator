@@ -137,6 +137,7 @@ router.delete('/:playerId', async (req,res) =>{
 
 router.patch('/:playerId', async(req,res)=>{
     try{
+        console.log(req.params.playerId)
         const oldPlayer = await Player.findById(req.params.playerId).populate("club");
         if(oldPlayer.club!=null){
             oldPlayer.club.players.splice(oldPlayer.club.players.indexOf(req.params.playerId),1);
