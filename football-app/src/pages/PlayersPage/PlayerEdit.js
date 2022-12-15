@@ -1,21 +1,25 @@
-import { useContext, useState } from "react";
-import PlayersContext from "../../context/players";
+import {useState } from "react";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
+import {useEditPlayerMutation} from "../../store";
 
-function PlayerEdit({player}){
-    const {handleEditPlayer} = useContext(PlayersContext);
+function PlayerEdit({player, handleSetEdit}){
+    const [editPlayer, results] = useEditPlayerMutation(player);
+    //console.log(results)
+   
     const [value, setValue] = useState(player.name);
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         const playerToSave = {
             name: value,
             nationality: player.nationality,
             club: player.club,
             overall: player.overall,
         }
-
-        handleEditPlayer(player._id, playerToSave);
+        
+        editPlayer({id:player._id, player:playerToSave});
+        handleSetEdit();
     }
 
     return(

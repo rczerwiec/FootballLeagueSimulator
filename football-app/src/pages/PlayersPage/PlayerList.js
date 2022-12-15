@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import {useState } from "react";
 import PlayerInfo from "./PlayerInfo";
 import PlayerCard from "./PlayerCard";
-import PlayersContext from "../../context/players";
-
+import Spinner from "../../components/Spinner/Spinner";
+import {useFetchPlayersQuery} from '../../store/index';
 
 function PlayerList(){
-    const {players} = useContext(PlayersContext);
 
+    const {data, error, isLoading} = useFetchPlayersQuery();
+    
     const [action,setAction] = useState(true)
     const [selectedPlayer, setSelectedPlayer] = useState();
 
@@ -15,11 +16,19 @@ function PlayerList(){
         setSelectedPlayer(player);
     }
 
-    const renderPlayers = players.map((player) => {
-        return <PlayerCard key={player._id} setInfo={setInfo} player={player}/>
-    })
+    let content;
 
-    let content  = renderPlayers;
+    if(isLoading){
+        content = <Spinner/>
+    }
+    else if(error){
+        content = <div>There is an error</div>
+    }
+    else{
+        content = data.map((player) => {
+            return <PlayerCard key={player._id} setInfo={setInfo} player={player}/>
+        })
+    }
 
     if(action===false){
         content = <PlayerInfo player={selectedPlayer} onClick={() => {setAction(!action)}}/>

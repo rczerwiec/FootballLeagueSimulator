@@ -3,9 +3,12 @@ import PlayersContext from "../../context/players";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
 import Selector from "../../components/Buttons/Selector/Selector";
+import {useCreatePlayerMutation} from '../../store/index';
 
 function CreatePlayer({changeAction}){
-    const {handlePlayerCreate ,getClubsForSelector, clubsForSelector} = useContext(PlayersContext);
+    const [createPlayer, results] = useCreatePlayerMutation();
+
+    const {getClubsForSelector, clubsForSelector} = useContext(PlayersContext);
     const [name, setName] = useState("");
     const [nationality, setNationality] = useState("");
     const [club, setClub] = useState(undefined);
@@ -23,7 +26,7 @@ function CreatePlayer({changeAction}){
             club: club,
             overall: overall,
         }
-        handlePlayerCreate(playerToSave);
+        createPlayer(playerToSave);
         changeAction();
     }
 

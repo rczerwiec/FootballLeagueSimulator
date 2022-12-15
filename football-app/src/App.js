@@ -18,13 +18,14 @@ function App () {
             <Navbar/>
             <div className="Content">
               <Routes>
+                <Route path="/" element={<ClubsProvider><Clubs/></ClubsProvider>} />
                 <Route path="/kluby" element={<ClubsProvider><Clubs/></ClubsProvider>} />
                 <Route path="/zawodnicy" element={<PlayersProvider><Players2/></PlayersProvider>} />
                 <Route path="/ligi" element={<Leagues />} />
                 <Route path="/pojedynek" element={<Match/>}/> 
                 <Route path="/ustawienia" element={<Settings />} />
               </Routes>
-            </div>)
+            </div>
             
           </Router>
 

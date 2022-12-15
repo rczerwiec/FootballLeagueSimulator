@@ -1,17 +1,23 @@
-import { useContext, useState } from "react";
+import {useState } from "react";
 import {FiEdit3, FiTrash} from "react-icons/fi"
-import PlayersContext from "../../context/players";
+import { useRemovePlayerMutation } from "../../store";
 import PlayerEdit from "./PlayerEdit";
 
 function PlayerCard({player, setInfo}){
-    const {handleRemovePlayer} = useContext(PlayersContext);
+    const [removeUser, results] = useRemovePlayerMutation(player);
     const [edit, setEdit] = useState(false);
 
     let content = <div >{player.name}</div>
 
-    if(edit===true){
-        content = <PlayerEdit player={player}/>
+
+    const handleSetEdit = () => {
+        setEdit(!edit);
     }
+
+    if(edit===true){
+        content = <PlayerEdit handleSetEdit={handleSetEdit} player={player}/>
+    }
+
 
 
     return <div className="card">
@@ -22,8 +28,8 @@ function PlayerCard({player, setInfo}){
         }} className="card-name">
     {content}
     </div>
-    <div onClick={() => setEdit(!edit)} className="card-ation-button"><FiEdit3/></div>
-    <div onClick={() => {handleRemovePlayer(player._id)}} className="card-ation-button"><FiTrash/></div>
+    <div onClick={handleSetEdit} className="card-ation-button"><FiEdit3/></div>
+    <div onClick={() => {removeUser(player)}} className="card-ation-button"><FiTrash/></div>
 
     
 </div>
