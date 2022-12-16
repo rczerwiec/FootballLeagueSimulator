@@ -1,5 +1,6 @@
 import {useState } from "react";
 import {FiEdit3, FiTrash} from "react-icons/fi"
+import Card from "../../components/Layout/Card";
 import { useRemoveClubMutation } from "../../store";
 import ClubEdit from "./ClubEdit";
 
@@ -17,20 +18,25 @@ function ClubCard({club, setInfo}){
     }
 
 
+    const cardData=[
+        {buttonIcon: <FiEdit3/>, 
+        func:handleSetEdit,
+        name:"Edit"
+    },
+    {
+        buttonIcon: <FiTrash/>, 
+        func:() => {removeClub(club._id)},
+        name:"Remove"
+    }
+    ]
 
-    return <div className="card">
-        <div onClick={() => {
-            if(edit===false){
-                setInfo(club)
-            }
-            }} className="card-name">
-        {content}
-        </div>
-        <div onClick={handleSetEdit} className="card-ation-button"><FiEdit3/></div>
-        <div onClick={() => {removeClub(club._id)}} className="card-ation-button"><FiTrash/></div>
+    const handleOnContentClick = () => {
+        if(edit===false){
+            setInfo(club)
+        }
+    }
 
-        
-    </div>
+    return <Card onContentClick={handleOnContentClick} cardData={cardData} content={content}/>
 }
 
 export default ClubCard;

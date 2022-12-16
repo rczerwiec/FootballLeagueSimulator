@@ -48,15 +48,23 @@ router.get('/:leagueId/tables', async(req,res) => {
 
 //CREATE League and wait for clubs assignment
 router.post('/', async(req,res) => {
+        
     try{
-        const league = new League({
+        let league = new League({
             name: req.body.name,
             level: req.body.level,
             maxTeams: req.body.maxTeams,
-            complete: false
+            complete: false,
+            matches: [],
+            clubs: req.body.clubs,
         })
-        console.log("createLeague>>".cyan,"Pomyslnie wygenerowano lige".green);
+        
+        
         await league.save();
+        league=await league.populate('clubs')
+        generateMatches(league.clubs, league.level, league._id);
+
+        console.log("createLeague>>".cyan,"Pomyslnie wygenerowano lige i mecze dla niej".green);
         res.json(league)
     }
     catch(err){
@@ -107,24 +115,6 @@ const generateMatches = (clubs,level,id) => {
     console.log(matchList);
     
 }
-
-router.patch('/:leagueId', async(req,res)=>{
-    
-    try{
-        
-        await League.updateOne({_id: req.params.leagueId}, {$set : {matches:[], clubs: req.body.clubs}})
-        const league = await League.findById(req.params.leagueId).populate("clubs");
-        generateMatches(league.clubs, league.level, req.params.leagueId);
-
-        
-        console.log("generateMatches>>".cyan,"Pomyslnie wygenerowano mecze dla ligi!".green);
-        res.json();
-    }
-    catch(err){
-        console.log("generateMatches>>".cyan,"Blad podczas generowania meczow".red,err);
-        res.json({message:err})
-    }
-})
 
 //If max clubs are assigment, generate matches and wait for them complete
 

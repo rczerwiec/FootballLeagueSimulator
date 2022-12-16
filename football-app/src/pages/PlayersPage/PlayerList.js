@@ -4,6 +4,9 @@ import PlayerCard from "./PlayerCard";
 import Spinner from "../../components/Spinner/Spinner";
 import {useFetchPlayersQuery} from '../../store/index';
 
+//propably will be moved to context
+import {FiEdit3, FiTrash} from "react-icons/fi"
+
 function PlayerList(){
 
     const {data, error, isLoading} = useFetchPlayersQuery();

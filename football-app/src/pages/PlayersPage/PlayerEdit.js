@@ -19,7 +19,7 @@ function PlayerEdit({player, handleSetEdit}){
             club: player.club,
             overall: player.overall,
         }
-        setButtonTitle(<Spinner/>);
+        setButtonTitle(<Spinner className="w-1 h-1"/>);
         editPlayer({id:player._id, player:playerToSave}).then(() => {
             handleSetEdit();
         }
