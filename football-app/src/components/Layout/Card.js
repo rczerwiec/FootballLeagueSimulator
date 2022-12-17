@@ -1,13 +1,18 @@
 import './Card.scss';
 
 function Card({ cardData, content, onContentClick }) {
-  const buttons = cardData.map((b) => {
-    return (
-      <div key={b.name} onClick={b.func} className="card-ation-button">
-        {b.buttonIcon}
-      </div>
-    );
-  });
+
+  let buttons;
+  if(cardData){
+    buttons = cardData.map((b) => {
+      return (
+        <div key={b.name} onClick={b.func} className="card-ation-button">
+          {b.buttonIcon}
+        </div>
+      );
+    });
+  }
+
 
   return (
     <div className="card">

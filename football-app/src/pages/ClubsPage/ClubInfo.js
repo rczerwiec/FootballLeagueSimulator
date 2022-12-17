@@ -1,45 +1,55 @@
-import { useState, useEffect } from "react";
-import { getClubMatches, getClubPlayers } from "../../api/clubs";
+import Spinner from "../../components/Spinner/Spinner";
 import Button from "../../components/ReusableComponents/Button";
+import { useFetchClubMatchesQuery, useFetchClubPlayersQuery } from "../../store";
 
 function ClubInfo({ onClick, club }) {
-  const [players, setPlayers] = useState([]);
-  const [matches, setMatches] = useState([]);
+  console.log(club);
+  const players = useFetchClubPlayersQuery(club._id);
+  const matches = useFetchClubMatchesQuery(club._id);
+  console.log(players);
+  console.log(matches);
 
-  useEffect(async () => {
-    const p = await getClubPlayers(club._id);
-    const m = await getClubMatches(club._id);
-    setPlayers(p);
-    setMatches(m);
-  }, []);
 
-  const clubPlayers = players.map(({ _id, name, overall }) => {
-    return (
-      <div key={_id}>
-        - {name} (OV:{overall} )
-      </div>
-    );
-  });
+  let playersContent;
+  let matchesContent;
 
-  const matchesList = matches.map(
-    ({ _id, clubAwayName, clubHomeName, scoreHome, scoreAway, matchType }) => {
+  if(players.isFetching || matches.isFetching){
+    playersContent = <Spinner/>
+  }
+  else if(players.error || matches.error){
+    playersContent = <div>Error while loading players and matches</div>
+  }
+  else{
+    console.log(players);
+    playersContent= players.data.players.map(({ _id, name, overall }) => {
       return (
         <div key={_id}>
-            <div className="match-results">
-              <div>
-                {clubHomeName} {scoreHome}
-              </div>
-              {" - "}
-              <div>
-                {scoreAway} {clubAwayName}
-              </div>
-              ({matchType})
-            </div>
-         
+          - {name} (OV:{overall} )
         </div>
       );
-    }
-  );
+    });
+
+    matchesContent = matches.data.matches.map(
+      ({ _id, clubAwayName, clubHomeName, scoreHome, scoreAway, matchType }) => {
+        return (
+          <div key={_id}>
+              <div className="match-results">
+                <div>
+                  {clubHomeName} {scoreHome}
+                </div>
+                {" - "}
+                <div>
+                  {scoreAway} {clubAwayName}
+                </div>
+                ({matchType})
+              </div>
+           
+          </div>
+        );
+      }
+    );
+  }
+
 
   return (
     <div>
@@ -53,11 +63,11 @@ function ClubInfo({ onClick, club }) {
         </div>
         <div>
           <h4>Zawodnicy:</h4>
-          {players !== null ? clubPlayers : <div>Brak</div>}
+          {players !== null ? playersContent : <div>Brak</div>}
         </div>
         <div>
           <h4>Rozegrane Mecze</h4>
-          {matchesList}
+          {matchesContent}
         </div>{" "}
       </div>
       <Button primary rounded onClick={onClick} >POWRÓT</Button>

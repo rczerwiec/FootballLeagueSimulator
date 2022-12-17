@@ -22,8 +22,8 @@ const Navbar = (props) => {
       <div className={styles.NavbarOptions}>
         <NavbarOption icon={icons.club} destination="/kluby" name = "Kluby"/>
         <NavbarOption icon={icons.players} destination="/zawodnicy" name = "Zawodnicy"/>
-        <NavbarOption icon={icons.match} destination="/pojedynek" name = "Pojedynczy Mecz"/>
         <NavbarOption icon={icons.leagues} destination="/ligi" name = "Ligi"/>
+        <NavbarOption icon={icons.match} destination="/pojedynek" name = "Pojedynczy Mecz"/>
         <NavbarOption icon={icons.settings}  destination="/ustawienia" name = "Ustawienia"/>
       </div>
       <div className={styles.NavbarFotter}>© 2022 Radoslaw Czerwiec</div>

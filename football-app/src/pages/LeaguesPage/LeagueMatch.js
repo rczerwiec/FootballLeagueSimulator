@@ -8,8 +8,8 @@ function LeagueMatch({match,league}) {
 
     const [scoreHome,setScoreHome] = useState(match.scoreHome);
     const [scoreAway,setScoreAway] = useState(match.scoreAway);
-    const [patchMatch,patchMatchResults] = usePatchMatchMutation();
-    const [patchTable, patchTableResults] = usePatchLeagueTablesMutation();
+    const [patchMatch] = usePatchMatchMutation();
+    const [patchTable] = usePatchLeagueTablesMutation();
     //console.log(match);
     //console.log(league);
 

@@ -58,7 +58,7 @@ router.post("/", async(req,res)=>{
     //console.log(req);
     try{
             const match =new Match({
-            matchType: req.body.matchType,
+            matchType: "Towarzyski",
             clubHome: req.body.firstClub.id,
             clubHomeName: req.body.firstClub.name,
             clubHomePlayers: req.body.firstClub.players,

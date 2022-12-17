@@ -4,8 +4,8 @@ import Clubs from "./pages/ClubsPage/Clubs";
 import Players from "./pages/PlayersPage/Players";
 import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
-import Match from "./components/Match/Match";
 import Leagues from "./pages/LeaguesPage/Leagues";
+import FriendlyMatch from "./pages/FriendlyMatchPage/FriendlyMatch";
 
 function App () {
 
@@ -19,7 +19,7 @@ function App () {
                 <Route path="/kluby" element={<Clubs/>} />
                 <Route path="/zawodnicy" element={<Players/>}/>
                 <Route path="/ligi" element={<Leagues />} />
-                <Route path="/pojedynek" element={<Match/>}/> 
+                <Route path="/pojedynek" element={<FriendlyMatch/>}/> 
                 <Route path="/ustawienia" element={<Settings />} />
               </Routes>
             </div>

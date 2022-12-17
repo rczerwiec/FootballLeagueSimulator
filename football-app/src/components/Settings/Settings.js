@@ -1,17 +1,10 @@
 import React from 'react';
 import SimpleButton from "../Buttons/SimpleButton/SimpleButton";
-import { generateMultiplePlayers } from '../../api/players';
 
 const Settings = (props) => {
 
     let generatePlayers = async (e) => {
-        console.log("Generowanie graczy")    
-        
-        const stats = {
-            howMuchToGenerate: 10,
-        }
-    
-        await generateMultiplePlayers(stats);
+        //Generowanie graczy
     }
 
     return(
