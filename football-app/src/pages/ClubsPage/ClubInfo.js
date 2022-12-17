@@ -25,29 +25,17 @@ function ClubInfo({ onClick, club }) {
     ({ _id, clubAwayName, clubHomeName, scoreHome, scoreAway, matchType }) => {
       return (
         <div key={_id}>
-          {scoreHome > scoreAway ? (
             <div className="match-results">
-              <div style={{color:"green"}}>
+              <div>
                 {clubHomeName} {scoreHome}
               </div>
               {" - "}
-              <div style={{color:"red"}}>
+              <div>
                 {scoreAway} {clubAwayName}
               </div>
               ({matchType})
             </div>
-          ) : (
-            <div className="match-results">
-              <div style={{color:"red"}}>
-                <div>{clubHomeName} {scoreHome}</div>
-              </div>
-              {" - "}
-              <div style={{color:"green"}}>
-                <div>{scoreAway} {clubAwayName}</div>
-              </div>
-              ({matchType})
-            </div>
-          )}
+         
         </div>
       );
     }

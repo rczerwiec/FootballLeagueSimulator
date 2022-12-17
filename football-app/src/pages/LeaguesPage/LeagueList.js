@@ -14,7 +14,7 @@ function LeagueList({handleOnCardClick}) {
     }
     else{
         content = data.map((l) => {
-            return <LeagueCard onClick={handleOnCardClick} league={l}/>
+            return <LeagueCard key={l._id} onClick={handleOnCardClick} league={l}/>
         })
     }
 

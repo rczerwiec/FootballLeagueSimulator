@@ -7,7 +7,7 @@ function LeagueCard({ league, onClick }) {
   const cardData = [{ buttonIcon: <FiTrash />, func: () => {}, name:"Remove"}];
 
   const handleOnContentClick = () => {
-    onClick();
+    onClick(league);
   };
 
   return (

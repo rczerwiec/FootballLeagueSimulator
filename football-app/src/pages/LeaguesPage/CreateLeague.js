@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
 import Selector from "../../components/Buttons/Selector/Selector";
-import { createLeague } from "../../api/leagues";
-import { generateNewLeague } from "../../api/leagues";
-import { useFetchClubsQuery } from "../../store";
+import { useCreateLeagueMutation, useFetchClubsQuery } from "../../store";
 import Spinner from "../../components/Spinner/Spinner";
 
-function CreateLeague() {
+function CreateLeague({onLeagueCreate}) {
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
   const [maxTeams, setMaxTeams] = useState("");
+  const [createLeague, results] = useCreateLeagueMutation();
 
   const [teamsInLeague, setTeamsInLeague] = useState([]);
   console.log(maxTeams);
   const { data, error, isLoading } = useFetchClubsQuery();
 
-  const onLeagueSubmit = async () => {
-    console.log(teamsInLeague);
+  const onLeagueSubmit = (e) => {
+    e.preventDefault()
     const league = {
       name,
       level,
@@ -25,8 +24,8 @@ function CreateLeague() {
       clubs: teamsInLeague,
     };
 
-    //Do naprawy!
-    await createLeague(league);
+    createLeague(league)
+    onLeagueCreate();
   };
 
   const onSelectorChange = (e, i) => {
@@ -34,6 +33,7 @@ function CreateLeague() {
     updatedList[i] = e.value;
     setTeamsInLeague(updatedList);
   };
+
 
   let generateSelectors;
   if (error) {

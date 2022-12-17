@@ -1,6 +1,8 @@
-function LeagueInfo(){
+import LeagueTable from "./LeagueTable";
+
+function LeagueInfo({league}){
     return (<div>
-        LeagueInfo
+        <LeagueTable league={league}/>
     </div>)
 }
 

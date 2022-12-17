@@ -8,14 +8,15 @@ import LeagueInfo from "./LeagueInfo";
 function Leagues() {
 
   const [action, setAction] = useState("list");
+  const [selectedLeague, setSelectedLeague] = useState();
 
     
   const handleOnClick = () => {
     action === "list" ? setAction("create") : setAction("list")
   }
 
-  const handleOnCardClick = () =>{
-    console.log(action)
+  const handleOnCardClick = (league) =>{
+    setSelectedLeague(league);
     action === "list" ? setAction("info") : setAction("list")
   }
 
@@ -23,12 +24,12 @@ function Leagues() {
   let buttonIcon = <IoMdAdd/>
 
   if (action === "create"){
-    content = <CreateLeague/>
+    content = <CreateLeague onLeagueCreate={handleOnClick}/>
     buttonIcon=<IoMdArrowBack/>
 
   }
   else if(action === "info"){
-    content = <LeagueInfo/>
+    content = <LeagueInfo league={selectedLeague}/>
     buttonIcon=<IoMdArrowBack/>
   }
 

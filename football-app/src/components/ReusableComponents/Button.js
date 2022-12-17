@@ -5,6 +5,7 @@ function Button({
   primary,
   secondary,
   rounded,
+  unclickable,
   border,
   fontxl,
   ...rest
@@ -14,7 +15,8 @@ function Button({
     "bg-slate-400 hover:bg-slate-300 p-3": secondary,
     "rounded-full ": rounded,
     "border border-black": border,
-    "text-2xl": fontxl
+    "text-2xl": fontxl,
+    "bg-emerald-800": unclickable,
   });
 
   return (
