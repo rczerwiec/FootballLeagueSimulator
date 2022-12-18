@@ -11,8 +11,8 @@ const leaguesApi = createApi({
     "Leagues",
     "ClubMatches",
     "ClubPlayers",
-    "Player",
-    "Club",
+    "Players",
+    "Clubs",
   ],
   endpoints(builder) {
     return {

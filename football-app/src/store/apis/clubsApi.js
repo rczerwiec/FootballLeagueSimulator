@@ -4,10 +4,7 @@ const clubsApi = leaguesApi.injectEndpoints({
   endpoints(builder) {
     return {
       removeClub: builder.mutation({
-        invalidatesTags: (result, error, args) => {
-          //console.log(args);
-          return [{ type: "Club", id: args }];
-        },
+        invalidatesTags:['Clubs'],
         query: (clubId) => {
           return {
             url: `/clubs/${clubId}`,
@@ -16,9 +13,7 @@ const clubsApi = leaguesApi.injectEndpoints({
         },
       }),
       editClub: builder.mutation({
-        invalidatesTags: (result, error, args) => {
-          return [{ type: "Club", id: args.id }];
-        },
+        invalidatesTags:['Clubs'],
         query: ({ clubId, club }) => {
           return {
             url: `/clubs/${clubId}`,
@@ -28,13 +23,7 @@ const clubsApi = leaguesApi.injectEndpoints({
         },
       }),
       fetchClubs: builder.query({
-        providesTags: (result, error, args) => {
-          const tags = result.map((club) => {
-            return { type: "Club", id: club._id };
-          });
-          //console.log(tags);
-          return tags;
-        },
+        providesTags:['Clubs'],
         query: () => {
           return {
             url: "/clubs",
@@ -75,9 +64,7 @@ const clubsApi = leaguesApi.injectEndpoints({
         },
       }),
       createClub: builder.mutation({
-        invalidatesTags: (result, error, args) => {
-          return [{ type: "Club", id: args.id }];
-        },
+        invalidatesTags:['Clubs'],
         query: (club) => {
           return {
             url: "/clubs",

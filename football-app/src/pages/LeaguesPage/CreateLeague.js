@@ -8,11 +8,10 @@ import Spinner from "../../components/Spinner/Spinner";
 function CreateLeague({onLeagueCreate}) {
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
-  const [maxTeams, setMaxTeams] = useState("");
+  const [maxTeams, setMaxTeams] = useState(2);
   const [createLeague, results] = useCreateLeagueMutation();
 
   const [teamsInLeague, setTeamsInLeague] = useState([]);
-  console.log(maxTeams);
   const { data, error, isLoading } = useFetchClubsQuery();
 
   const onLeagueSubmit = (e) => {
@@ -48,6 +47,7 @@ function CreateLeague({onLeagueCreate}) {
       }));
       generateSelectors = [...Array(parseInt(maxTeams))].map((_, i) => {
         return (
+          <span className="flex flex-col justify-center p-2">
           <Selector
             key={i}
             placeholder="Wybierz klub"
@@ -56,9 +56,15 @@ function CreateLeague({onLeagueCreate}) {
               onSelectorChange(e, i);
             }}
           />
+          </span>
         );
       });
     }
+  }
+
+  const handleLeagueSize = (e) => {
+
+    e.target.value >1 && e.target.value <31 ? setMaxTeams(e.target.value) : setMaxTeams(2);
   }
 
   return (
@@ -88,11 +94,10 @@ function CreateLeague({onLeagueCreate}) {
         <label>Ilość drużyn</label>
         <div>
           <Input
-            placeholder="Wprowadź stopień ligi"
+            number
+            placeholder="Ilość drużyn w lidze"
             value={maxTeams}
-            onChange={(e) => {
-              setMaxTeams(e.target.value);
-            }}
+            onChange={handleLeagueSize}
           />
         </div>
         {generateSelectors}

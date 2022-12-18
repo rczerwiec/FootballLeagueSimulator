@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Clubs from "./pages/ClubsPage/Clubs";
 import Players from "./pages/PlayersPage/Players";
-import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import Leagues from "./pages/LeaguesPage/Leagues";
 import FriendlyMatch from "./pages/FriendlyMatchPage/FriendlyMatch";
+import SettingsPage from "./pages/SettingsPage";
 
 function App () {
 
@@ -20,7 +20,7 @@ function App () {
                 <Route path="/zawodnicy" element={<Players/>}/>
                 <Route path="/ligi" element={<Leagues />} />
                 <Route path="/pojedynek" element={<FriendlyMatch/>}/> 
-                <Route path="/ustawienia" element={<Settings />} />
+                <Route path="/ustawienia" element={<SettingsPage />} />
               </Routes>
             </div>
             
@@ -30,9 +30,5 @@ function App () {
       
     );
   }
-
-/*
-
-*/
 
 export default App;
