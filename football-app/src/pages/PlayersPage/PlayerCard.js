@@ -1,5 +1,6 @@
 import {useState } from "react";
 import {FiEdit3, FiTrash} from "react-icons/fi"
+import Card from "../../components/Layout/Card";
 import { useRemovePlayerMutation } from "../../store";
 import PlayerEdit from "./PlayerEdit";
 
@@ -18,21 +19,28 @@ function PlayerCard({player, setInfo}){
         content = <PlayerEdit handleSetEdit={handleSetEdit} player={player}/>
     }
 
+    //context
+    const cardData = [
+        {
+            buttonIcon: <FiEdit3/>,
+            func:handleSetEdit,
+            name:"Edit",
+        },
+        {
+            buttonIcon: <FiTrash/>,
+            func:() => {removeUser(player)},
+            name:"Remove",
+        },
+    ]
 
-
-    return <div className="card">
-    <div onClick={() => {
+    const handleOnContentClick = () => {
         if(edit===false){
             setInfo(player)
         }
-        }} className="card-name">
-    {content}
-    </div>
-    <div onClick={handleSetEdit} className="card-ation-button"><FiEdit3/></div>
-    <div onClick={() => {removeUser(player)}} className="card-ation-button"><FiTrash/></div>
+        }
 
-    
-</div>
+
+    return <Card cardData={cardData} content={content} onContentClick={handleOnContentClick}/>
 }
 
 export default PlayerCard;

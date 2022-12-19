@@ -54,10 +54,12 @@ router.post('/', async (req,res) => {
 //ALL CLUB PLAYERS
 router.get('/:clubId/players', async (req,res) =>{
     try{
+        console.log(req.params.clubId);
         const club = await Club.findById(req.params.clubId).populate("players");
         //console.log(club);
         console.log("getAllPlayersInClub>>".blue,"Pomyślnie pobrano wszystkich graczy z klubu".green)
-        res.json(club.players);
+        console.log(club);
+        res.json(club);
     }
     catch(err){
         console.log("getAllPlayersInClub>>".blue,"Blad podczas pobierania graczy z danego klubu".red);

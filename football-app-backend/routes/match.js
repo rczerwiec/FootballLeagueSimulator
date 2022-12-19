@@ -30,58 +30,23 @@ router.get("/friendly",async (req,res) => {
 
 router.patch("/:matchId", async(req,res) => {
     try{
-
-        const match = await Match.findById(req.params.matchId);
-
-        //console.log(match.clubHome);
-        //console.log(req.body.winner);
-        if(req.body.winner === match.clubHome.toString()){
-            console.log("Wygral dom")
-            await Match.updateOne({_id: req.params.matchId}, {$set : {
-                scoreHome: req.body.scoreWinner,
-                scoreAway: req.body.scoreLoser,
-                complete: req.body.complete
-            }})
-            const club = await Club.findById(req.body.winner)
-            club.matches.push(match);
-            club.save();
-            const club2 = await Club.findById(req.body.loser)
-            club2.matches.push(match);
-            club2.save()
-        }
-        else if(req.body.winner === null){
-            console.log("remis")
-            await Match.updateOne({_id: req.params.matchId}, {$set : {
-                scoreHome: req.body.scoreWinner,
-                scoreAway: req.body.scoreLoser,
-                complete: req.body.complete
-            }})
-            const club = await Club.findById(req.body.team1)
-            club.matches.push(match);
-            club.save();
-            const club2 = await Club.findById(req.body.team2)
-            club2.matches.push(match);
-            club2.save()
-        }
-        else{
-            console.log("Wygral wyjazd")
-            await Match.updateOne({_id: req.params.matchId}, {$set : {
-                scoreHome: req.body.scoreLoser,
-                scoreAway: req.body.scoreWinner,
-                complete: req.body.complete
-            }})
-            const club = await Club.findById(req.body.winner)
-            club.matches.push(match);
-            club.save();
-            console.log(club)
-            const club2 = await Club.findById(req.body.loser)
-            club2.matches.push(match);
-            club2.save()
-            console.log(club2);
-        }
-
+        const match = await Match.updateOne({_id: req.params.matchId}, {$set : {
+            scoreHome: req.body.scoreHome,
+            scoreAway: req.body.scoreAway,
+            complete: req.body.complete
+        }})
+        const clubHome = await Club.findById(req.body.clubHome);
+        clubHome.matches.push(req.body);
+        clubHome.save();
+        const clubAway = await Club.findById(req.body.clubAway);
+        clubAway.matches.push(req.body);
+        clubAway.save();
+        console.log(clubHome)
+        console.log(clubAway)
+        console.log(match);
+        console.log(req.body)
         console.log("updateMatch>>".magenta,"Pomyslnie zaaktualizowano mecz ligowy".green);
-        res.json(match)
+        res.json(req.body)
     }
     catch(err){
         console.log("updateMatch>>".magenta,"Blad podczas aktualizacji meczu ligowego".red, err);
@@ -93,7 +58,7 @@ router.post("/", async(req,res)=>{
     //console.log(req);
     try{
             const match =new Match({
-            matchType: req.body.matchType,
+            matchType: "Towarzyski",
             clubHome: req.body.firstClub.id,
             clubHomeName: req.body.firstClub.name,
             clubHomePlayers: req.body.firstClub.players,

@@ -1,11 +1,6 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { leaguesApi } from './leaguesApi';
 
-
-const playersApi = createApi({
-    reducerPath: 'players',
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5000'
-    }),
+const playersApi = leaguesApi.injectEndpoints({
     endpoints(builder){
         return{
             editPlayer: builder.mutation({
@@ -24,7 +19,7 @@ const playersApi = createApi({
             }),
             createPlayer: builder.mutation({
                 invalidatesTags: (result, error, player) =>{
-                    return [{type: 'Player', id: player._id}]
+                    return [{type: 'Player', id: player._id},"ClubPlayers"]
                 },
                 query: (player) => {
                     return{
@@ -67,4 +62,3 @@ const playersApi = createApi({
 })
 
 export const {useFetchPlayersQuery, useRemovePlayerMutation, useCreatePlayerMutation, useEditPlayerMutation} = playersApi; 
-export {playersApi}

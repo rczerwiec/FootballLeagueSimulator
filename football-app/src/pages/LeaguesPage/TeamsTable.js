@@ -1,24 +1,16 @@
-import axios from "axios";
-import React, { useEffect,useState,useMemo } from "react";
+import React, { useMemo } from "react";
 import { useSortBy, useTable } from "react-table";
-import styles from "./Leagues.module.css";
-
 
 const Table = ({ columns, data, initialState }) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState
-    },
-    useSortBy
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+        initialState,
+      },
+      useSortBy
+    );
 
   // We don't want to render all 2000 rows for this example, so cap
   // it at 20 for this use case
@@ -26,17 +18,17 @@ const Table = ({ columns, data, initialState }) => {
 
   return (
     <>
-      <table style={{backgroundColor: 'gray'}} {...getTableProps()}>
+      <table className="bg-zinc-400" {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
+          {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column) => (
                 // Add the sorting props to control sorting. For this example
                 // we can add them into the header props
-                <th{...column.getHeaderProps(column.getSortByToggleProps())}>
+                <th  className="bg-gray-100 m-2 p-2 w-10" {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
                   {/* Add a sort direction indicator */}
-                  <span >
+                  <span>
                     {column.isSorted
                       ? column.isSortedDesc
                         ? " 🔽"
@@ -48,48 +40,51 @@ const Table = ({ columns, data, initialState }) => {
             </tr>
           ))}
         </thead>
-        <tbody  {...getTableBodyProps()}>
+        <tbody {...getTableBodyProps()}>
           {firstPageRows.map((row, i) => {
-            if (i==0){
+            if (i === 0) {
               prepareRow(row);
               return (
-                <tr style={{backgroundColor: 'green'}}{...row.getRowProps()}>
+                <tr className="bg-lime-400" {...row.getRowProps()}>
                   {row.cells.map((cell) => {
-                   return (
-                        <td style={{border: '1px solid black'}} {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
-  
-  
+                    return (
+                      <td 
+                        className="border border-black w-10 max-w-full"
+                        {...cell.getCellProps()}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    );
                   })}
                 </tr>
               );
-            }
-            else{
+            } else {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
-                   return (
-                        <td style={{border: '1px solid black'}} {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
-  
-  
+                    return (
+                      <td
+                        className="border border-black"
+                        {...cell.getCellProps()}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    );
                   })}
                 </tr>
               );
             }
-
           })}
         </tbody>
       </table>
       <br />
     </>
   );
-}
+};
 
-const TeamsTable = (props) => {
-  console.log(props.data)
-  const data = useMemo(() => props.tableList, [props.tableList])
+function TeamsTable({ league, matchList, tableList }) {
+  const data = useMemo(() => tableList, [tableList]);
   const columns = useMemo(
     () => [
       {
@@ -134,26 +129,24 @@ const TeamsTable = (props) => {
 
   return (
     <div>
-    <h4>
-      {props.data.name}
-  </h4>
+      <h4>{league.name}</h4>
 
-    <div className={styles.LeagueTable}>
-      <Table
-        columns={columns}
-        data={data}
-        initialState={{
-          sortBy: [
-            {
-              id: "points",
-              desc: true
-            },
-          ]
-        }}
-      />
-    </div>
+      <div className="flex justify-center m-2 p-2">
+        <Table
+          columns={columns}
+          data={data}
+          initialState={{
+            sortBy: [
+              {
+                id: "points",
+                desc: true,
+              },
+            ],
+          }}
+        />
+      </div>
     </div>
   );
-};
+}
 
 export default TeamsTable;

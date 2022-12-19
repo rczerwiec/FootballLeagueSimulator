@@ -1,11 +1,11 @@
 import React from "react";
 import LeagueMatch from "./LeagueMatch";
 
-const LeagueMatches = (props) => {
+function LeagueMatches({league, matchList}){
     
-    const matches = props.matchList.map((e) => {
+    const matches = matchList.map((m) => {
         return (
-            <LeagueMatch key={e._id} data={props.data} matchData={e}/>
+            <LeagueMatch key={m._id} league={league} match={m}/>
         )
     })
     
