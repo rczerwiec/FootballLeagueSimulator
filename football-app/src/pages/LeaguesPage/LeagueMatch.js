@@ -28,7 +28,7 @@ function LeagueMatch({match,league}) {
                 scoreHome:scoreHome,
                 scoreAway:scoreAway,
                 complete:true,
-            }   
+            }
             patchMatch(finishedMatch);
             patchTable({league,match:finishedMatch,clubId:match.clubHome});
             patchTable({league,match:finishedMatch,clubId:match.clubAway});

@@ -54,7 +54,7 @@ const leaguesApi = createApi({
         },
       }),
       createFriendlyMatch: builder.mutation({
-        invalidatesTags: ["FriendlyMatches"],
+        invalidatesTags: ["FriendlyMatches","Club"],
         query: ({firstClub, secondClub}) => {
           return {
             url: `/matches`,
@@ -64,14 +64,25 @@ const leaguesApi = createApi({
         },
       }),
       patchMatch: builder.mutation({
-        invalidatesTags: ["Matches", "ClubMatches"],
+        invalidatesTags: ["Matches", "ClubMatches", "Club"],
         query: (match) => {
+
+          let winner;
+          if(match.scoreAway>match.scoreHome){
+            winner = "away";
+          }
+          else if(match.scoreHome === match.scoreAway){
+            winner = "draw";
+          }
+          else{
+            winner = "home";
+          } 
+
           const matchId = match._id;
-          console.log(match);
           return {
             method: "PATCH",
             url: `/matches/${matchId}`,
-            body: match,
+            body: {match,winner}
           };
         },
       }),
