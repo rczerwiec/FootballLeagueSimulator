@@ -29,17 +29,31 @@ router.get("/friendly",async (req,res) => {
 })
 
 router.patch("/:matchId", async(req,res) => {
+    console.log(req.body);
     try{
         const match = await Match.updateOne({_id: req.params.matchId}, {$set : {
-            scoreHome: req.body.scoreHome,
-            scoreAway: req.body.scoreAway,
-            complete: req.body.complete
+            scoreHome: req.body.match.scoreHome,
+            scoreAway: req.body.match.scoreAway,
+            complete: req.body.match.complete,
+            winner: req.body.winner,
         }})
-        const clubHome = await Club.findById(req.body.clubHome);
-        clubHome.matches.push(req.body);
+        const clubHome = await Club.findById(req.body.match.clubHome);
+        clubHome.matches.push(req.body.match);
+        const clubAway = await Club.findById(req.body.match.clubAway);
+        clubAway.matches.push(req.body.match);
+        if(req.body.winner === req.body.match.clubHome){
+            clubHome.wins +=1;
+            clubAway.lost +=1;
+        }
+        else if(req.body.winner === req.body.match.clubAway){
+            clubAway.wins +=1;
+            clubHome.lost +=1;
+        }
+        else{
+            clubAway.draws +=1;
+            clubHome.draws +=1;
+        }
         clubHome.save();
-        const clubAway = await Club.findById(req.body.clubAway);
-        clubAway.matches.push(req.body);
         clubAway.save();
         console.log(clubHome)
         console.log(clubAway)

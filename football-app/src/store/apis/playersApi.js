@@ -4,9 +4,7 @@ const playersApi = leaguesApi.injectEndpoints({
     endpoints(builder){
         return{
             editPlayer: builder.mutation({
-                invalidatesTags: (result, error, {id, player}) =>{
-                    return [{type: 'Player', id: id}]
-                },
+                invalidatesTags: ["Player", "ClubPlayers"],
                 query: ({id,player}) => {
                     const playerId = id;
                     console.log("data",player);
@@ -18,9 +16,7 @@ const playersApi = leaguesApi.injectEndpoints({
                 }
             }),
             createPlayer: builder.mutation({
-                invalidatesTags: (result, error, player) =>{
-                    return [{type: 'Player', id: player._id},"ClubPlayers"]
-                },
+                invalidatesTags: ["Player", "ClubPlayers"],
                 query: (player) => {
                     return{
                         url: '/players',
@@ -30,9 +26,7 @@ const playersApi = leaguesApi.injectEndpoints({
                 }
             }),
             removePlayer: builder.mutation({
-                invalidatesTags: (result, error, player) =>{
-                    return [{type: 'Player', id: player._id}]
-                },
+                invalidatesTags: ["Player", "ClubPlayers"],
                 query: (player) => {
                     const playerId = player._id
                     return{
@@ -42,13 +36,7 @@ const playersApi = leaguesApi.injectEndpoints({
                 }
             }),
             fetchPlayers: builder.query({
-                providesTags: (result,error, arg) => {
-                    const tags = result.map(player => {
-                        return {type: 'Player', id: player._id}
-                    })
-                    console.log(tags);
-                    return tags;
-                },
+                providesTags: ["Player"],
                 query: () => {
                     return{
                         url: '/players',

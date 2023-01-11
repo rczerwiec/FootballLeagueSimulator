@@ -118,7 +118,7 @@ function ClubInfo({ onClick, club }) {
                 <tr>
                   <td>{club.wins}</td>
                   <td>{club.draws}</td>
-                  <td>{club.losts}</td>
+                  <td>{club.lost}</td>
                 </tr>
               </tbody>
             </table>

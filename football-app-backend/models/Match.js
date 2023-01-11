@@ -38,6 +38,10 @@ const MatchSchema = mongoose.Schema({
     },
     complete: {
         type: Boolean
+    },
+    winner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clubs",
     }
 })
 
