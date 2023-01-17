@@ -1,24 +1,22 @@
-import express from 'express';
-const router = express.Router();
-import Player from '../models/Player.js';
-import Club from '../models/Club.js';
+import Club from "../models/Club.js";
+import Player from "../models/Player.js";
 import {faker} from '@faker-js/faker';
 
-//GET ALL PLAYERS
-router.get('/', async (req,res) => {
+//router.get('/', getAllPlayers);
+export const getAllPlayers = async (req,res) => {
     try{
         const players = await Player.find();
         console.log("getAllPlayers>>".yellow,"Pomyslnie pobrano wszystkich graczy".green);
         res.json(players);
     }
     catch(err){
-        console.log("getSpecificPlayer>>".yellow,"Blad podczas pobierania wszystkich graczy".red);
+        console.log("getAllPlayers>>".yellow,"Blad podczas pobierania wszystkich graczy".red);
         res.json({message:err});
     }
-});
+}
 
-//SUBMIT PLAYER
-router.post('/', async (req,res) => {
+//router.post('/', createPlayer)
+export const createPlayer = async (req,res) => {
     const player = new Player({
         name: req.body.name,
         nationality: req.body.nationality,
@@ -53,10 +51,85 @@ router.post('/', async (req,res) => {
         console.log("createPlayer>>".yellow,"Blad podczas tworzenia klubu".red, err);
         res.json({message: err});
     }
-})
+}
 
-//GENERATE X PLAYERS
-router.post('/generateMultiple', async(req,res) =>{
+//router.get('/:playerId', getPlayer)
+export const getPlayer = async (req,res) => {
+    try{
+        const player = await Player.findById(req.params.playerId);
+        console.log("getPlayer>>".yellow,"Pomyślnie wybrano danego gracza".green);
+        res.json(player);
+    }
+    catch(err){
+        console.log("getPlayer>>".yellow,"Blad podczas pobierania danego gracza".red);
+        res.json({message:err});
+    }
+
+}
+
+//router.get('/:playerId/club', getPlayerClub)
+export const getPlayerClub = async (req,res) => {
+    try{
+        const player = await Player.findById(req.params.playerId).populate("club");
+        //const club = await Club.findById(player.club.valueOf());
+        console.log("getPlayerClub>>".yellow,"Pomyślnie pobrano klub gracza".green);
+        res.json(player.club);
+    }
+    catch(err){
+        console.log("getPlayerClub>>".yellow,"Blad podczas pobierania klubu gracza".red);
+        res.json({message:err});
+    }
+
+}
+
+//router.delete('/:playerId', deletePlayer)
+export const deletePlayer = async (req,res) =>{
+    try{
+        const player = await Player.findById(req.params.playerId);
+        if(player.club !== undefined && player.club !== null){
+            const club = await Club.findById(player.club.valueOf());
+            await Player.deleteOne({_id:req.params.playerId});
+            club.players.splice(club.players.indexOf(req.params.playerId),1);
+            await club.save();
+            res.json(player);
+            console.log("deletePlayer>>".yellow,"Pomyślnie usunięto gracza i jego dane z klubu".green);
+        }
+        else{
+            await Player.deleteOne({_id:req.params.playerId});
+            res.json(player);
+            console.log("deletePlayer>>".yellow,"Pomyślnie usunięto gracza".green);
+        }
+    }
+    catch(err){
+        console.log("deletePlayer>>".yellow,"Blad podczas usuwania gracza".red);
+        res.json({message:err});
+    }
+}
+
+//router.patch('/:playerId', updatePlayer)
+export const updatePlayer = async(req,res)=>{
+    try{
+        console.log(req.params.playerId)
+        const oldPlayer = await Player.findById(req.params.playerId).populate("club");
+        if(oldPlayer.club!=null){
+            oldPlayer.club.players.splice(oldPlayer.club.players.indexOf(req.params.playerId),1);
+            await oldPlayer.club.save();
+        }
+        await Player.updateOne({_id: req.params.playerId},{$set : {name: req.body.name, nationality: req.body.nationality, club: req.body.club, overall: req.body.overall}});
+        const player = await Player.findById(req.params.playerId).populate("club");
+        player.club.players.push(player);
+        await player.club.save();
+        console.log("updatePlayer>>".yellow,"Pomyślnie zaaktualizowano gracza".green);
+        res.json(player);
+    }
+    catch(err){
+        console.log("updatePlayer>>".yellow,"Blad podczas aktualizacji gracza".red);
+        res.json({message:err});
+    }
+}
+
+//router.post('/generateMultiple',createRandomPlayers)
+export const createRandomPlayers =  async(req,res) =>{
     //console.log(req.body);
     
     for(var i=0; i<req.body.howMuchToGenerate; i++){
@@ -76,84 +149,9 @@ router.post('/generateMultiple', async(req,res) =>{
             
         }
         catch(err){
-            console.log("generatePlayers>>".yellow,"Blad podczas generowania gracza".red);
+            console.log("createRandomPlayers>>".yellow,"Blad podczas generowania gracza".red);
             res.json({message: err});
         }
     }
-    console.log("generatePlayers>>".yellow,"Pomyślnie wygenerowano graczy".green);
-})
-
-//GET SPECIFIC PLAYER
-router.get('/:playerId', async (req,res) => {
-    try{
-        const player = await Player.findById(req.params.playerId);
-        console.log("getSpecificPlayer>>".yellow,"Pomyślnie wybrano danego gracza".green);
-        res.json(player);
-    }
-    catch(err){
-        console.log("getSpecificPlayer>>".yellow,"Blad podczas pobierania danego gracza".red);
-        res.json({message:err});
-    }
-
-})
-
-//GET PLAYER's CLUB
-router.get('/:playerId/club', async (req,res) => {
-    try{
-        const player = await Player.findById(req.params.playerId).populate("club");
-        //const club = await Club.findById(player.club.valueOf());
-        console.log("getPlayersClub>>".yellow,"Pomyślnie pobrano klub gracza".green);
-        res.json(player.club);
-    }
-    catch(err){
-        console.log("getPlayersClub>>".yellow,"Blad podczas pobierania klubu gracza".red);
-        res.json({message:err});
-    }
-
-})
-
-router.delete('/:playerId', async (req,res) =>{
-    try{
-        const player = await Player.findById(req.params.playerId);
-        if(player.club !== undefined && player.club !== null){
-            const club = await Club.findById(player.club.valueOf());
-            await Player.deleteOne({_id:req.params.playerId});
-            club.players.splice(club.players.indexOf(req.params.playerId),1);
-            await club.save();
-            res.json(player);
-            console.log("removePlayer>>".yellow,"Pomyślnie usunięto gracza i jego dane z klubu".green);
-        }
-        else{
-            await Player.deleteOne({_id:req.params.playerId});
-            res.json(player);
-            console.log("removePlayer>>".yellow,"Pomyślnie usunięto gracza".green);
-        }
-    }
-    catch(err){
-        console.log("removePlayer>>".yellow,"Blad podczas usuwania gracza".red);
-        res.json({message:err});
-    }
-})
-
-router.patch('/:playerId', async(req,res)=>{
-    try{
-        console.log(req.params.playerId)
-        const oldPlayer = await Player.findById(req.params.playerId).populate("club");
-        if(oldPlayer.club!=null){
-            oldPlayer.club.players.splice(oldPlayer.club.players.indexOf(req.params.playerId),1);
-            await oldPlayer.club.save();
-        }
-        await Player.updateOne({_id: req.params.playerId},{$set : {name: req.body.name, nationality: req.body.nationality, club: req.body.club, overall: req.body.overall}});
-        const player = await Player.findById(req.params.playerId).populate("club");
-        player.club.players.push(player);
-        await player.club.save();
-        console.log("updatePlayer>>".yellow,"Pomyślnie zaaktualizowano gracza".green);
-        res.json(player);
-    }
-    catch(err){
-        console.log("updatePlayer>>".yellow,"Blad podczas aktualizacji gracza".red);
-        res.json({message:err});
-    }
-})
-
-export default router;
+    console.log("createRandomPlayers>>".yellow,"Pomyślnie wygenerowano graczy".green);
+}

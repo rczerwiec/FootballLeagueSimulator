@@ -45,6 +45,7 @@ function ClubInfo({ onClick, club }) {
             : "border-b-2 border-black bg-red-500";
 
         classes = winner ? classes : "border-b-2 border-black bg-yellow-500";
+        classes = matchType === "Towarzyski" ? "border-b-2 border-black bg-blue-400" : classes
 
         return (
           <tr key={_id} className={classes}>
@@ -65,29 +66,28 @@ function ClubInfo({ onClick, club }) {
   return (
     <div>
       <div>
-      <h1 className="font-bold p-2 m-2">{club.name}</h1>
-      <div className="flex flex-col justify-center text-center">
-
-        <table>
-          <thead>
-            <tr className="bg-gray-500 border-b-4 border-black">
-              <th>Liga</th>
-              <th className="bg-yellow-500">Mistrz</th>
-              <th className="bg-gray-200">Wice-Mistrz</th>
-              <th className="bg-yellow-800">3/4 Miejsce</th>
-              <th className="bg-red-700">Spadek</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-gray-400 border-b-2 border-black">
-              <td>Liga Mistrzów</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-          </tbody>
-        </table>
+        <h1 className="font-bold p-2 m-2">{club.name}</h1>
+        <div className="flex flex-col justify-center text-center">
+          <table>
+            <thead>
+              <tr className="bg-gray-500 border-b-4 border-black">
+                <th>Liga</th>
+                <th className="bg-yellow-500">Mistrz</th>
+                <th className="bg-gray-200">Wice-Mistrz</th>
+                <th className="bg-yellow-800">3/4 Miejsce</th>
+                <th className="bg-red-700">Spadek</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-gray-400 border-b-2 border-black">
+                <td>Liga Mistrzów</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div className="flex flex-col justify-center text-center">
           <h4 className="font-bold text-xl">Zawodnicy</h4>

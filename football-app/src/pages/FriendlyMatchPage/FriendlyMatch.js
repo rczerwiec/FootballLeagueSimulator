@@ -12,7 +12,7 @@ function FriendlyMatch(){
   const clubs = useFetchClubsQuery();
   console.log(data);
   const [createFriendly, results] = useCreateFriendlyMatchMutation();
-  console.log(results)
+  //console.log(results)
 
   let clubListContent;
   let options;

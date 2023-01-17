@@ -2,11 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import colors from "colors";
-import clubsRoute from './routes/clubs.js';
-import playersRoute from './routes/players.js';
-import matchesRoute from "./routes/match.js";
-import leaguesRoute from "./routes/leagues.js";
-import tablesRoute from "./routes/leagueTable.js";
+import clubsRoute from './routes/ClubsRoutes.js';
+import playersRoute from './routes/PlayersRoutes.js';
+import matchesRoute from "./routes/MatchRoutes.js";
+import leaguesRoute from "./routes/LeaguesRoutes.js";
+import tablesRoute from "./routes/LeagueClubStatsRoutes.js";
 
 import 'dotenv/config';
 
@@ -21,14 +21,13 @@ const port = 5000;
 //Middlewares
 app.use(cors()); 
 app.use(express.json()) //parse our request to json
+ 
+//Routes
 app.use('/clubs', clubsRoute);
 app.use('/players', playersRoute);
 app.use('/matches', matchesRoute);
 app.use('/leagues', leaguesRoute);
 app.use('/tables', tablesRoute);
-
-//Routes
-app.get('/', (req,res) => res.send(`You're on home page`));
 
 
 //Connect to DB

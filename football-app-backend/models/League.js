@@ -26,7 +26,7 @@ const LeagueSchema = mongoose.Schema({
     }],
     tables:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "LeagueTable"
+        ref: "LeagueClubStats"
     }],
     complete: {
         type: Boolean,

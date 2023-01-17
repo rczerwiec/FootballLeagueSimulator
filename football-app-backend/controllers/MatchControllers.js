@@ -1,34 +1,22 @@
-import express from "express";
-const router = express.Router();
 import Match from "../models/Match.js";
 import Club from "../models/Club.js";
 
-router.get("/", async (req,res) => {
-    try{
-        const matches = await Match.find();
-
-        console.log("getAllMatches>>".magenta,"Pomyslnie pobrano wszystkie mecze towarzyskie".green);
-        res.json(matches);
-    }
-    catch(err){
-        res.json({message:err});
-    }
-})
-
-router.get("/friendly",async (req,res) => {
+//router.get("/friendly", getAllFriendlyMatches)
+export const getAllFriendlyMatches = async (req,res) => async (req,res) => {
+    console.log("pobiera mecze towarzyskie")
     try{
         const matches = await Match.find({matchType: "Towarzyski"});
         
-        console.log(matches);
-
+        console.log("getAllFriendlyMatches>>".magenta,"Pomyslnie pobrano mecze towarzyskie".green);
         res.json(matches);
     }
     catch(err){
+        console.log("getAllFriendlyMatches>>".magenta,"Blad podczas pobierania meczy towarzyskich".red);
         res.json(err);
     }
-})
+}
 
-router.patch("/:matchId", async(req,res) => {
+export const updateLeagueMatch = async(req,res) => {
     console.log(req.body);
     try{
         const match = await Match.updateOne({_id: req.params.matchId}, {$set : {
@@ -55,20 +43,20 @@ router.patch("/:matchId", async(req,res) => {
         }
         clubHome.save();
         clubAway.save();
-        console.log(clubHome)
-        console.log(clubAway)
-        console.log(match);
-        console.log(req.body)
-        console.log("updateMatch>>".magenta,"Pomyslnie zaaktualizowano mecz ligowy".green);
+        // console.log(clubHome)
+        // console.log(clubAway)
+        // console.log(match);
+        // console.log(req.body)
+        console.log("updateLeagueMatch>>".magenta,"Pomyslnie zaaktualizowano mecz ligowy".green);
         res.json(req.body)
     }
     catch(err){
-        console.log("updateMatch>>".magenta,"Blad podczas aktualizacji meczu ligowego".red, err);
+        console.log("updateLeagueMatch>>".magenta,"Blad podczas aktualizacji meczu ligowego".red, err);
         res.json({message:err})
     }
-})
+}
 
-router.post("/", async(req,res)=>{
+export const createFriendlyMatch = async(req,res)=>{
     //console.log(req);
     try{
             const match =new Match({
@@ -94,13 +82,11 @@ router.post("/", async(req,res)=>{
         2
 
         await match.save();
-        console.log("generateMatch>>".magenta,"Pomyslnie wygenerowano mecz towarzyski".green);
+        console.log("createFriendlyMatch>>".magenta,"Pomyslnie wygenerowano mecz towarzyski".green);
         res.json(match);
     }
     catch(err){
-        console.log("generateMatch>>".magenta,"Blad podczas generowania meczu towarzyskiego".red);
+        console.log("createFriendlyMatch>>".magenta,"Blad podczas generowania meczu towarzyskiego".red);
         res.json({message:err});
     }
-})
-
-export default router;
+}

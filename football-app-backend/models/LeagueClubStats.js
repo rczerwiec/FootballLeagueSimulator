@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const LeagueTableSchema = mongoose.Schema({
+const LeagueClubStats = mongoose.Schema({
     league: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Leagues"
@@ -47,4 +47,4 @@ const LeagueTableSchema = mongoose.Schema({
     },
 })
 
-export default mongoose.model('LeagueTable', LeagueTableSchema);
+export default mongoose.model('LeagueClubStats', LeagueClubStats);
