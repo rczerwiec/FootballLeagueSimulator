@@ -64,7 +64,7 @@ const leaguesApi = createApi({
         },
       }),
       patchMatch: builder.mutation({
-        invalidatesTags: ["Matches", "ClubMatches", "Club"],
+        invalidatesTags: ["Matches", "ClubMatches", "Club", "ClubLeagueStats"],
         query: (match) => {
           let winner;
           if(match.scoreAway>match.scoreHome){

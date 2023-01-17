@@ -64,6 +64,7 @@ const clubsApi = leaguesApi.injectEndpoints({
         },
       }),
       getClubLeagueStats: builder.query({
+        providesTags: ["ClubLeagueStats"],
         query: (id) => {
           const clubId = id;
 
