@@ -3,16 +3,19 @@ import Button from "../../components/ReusableComponents/Button";
 import {
   useFetchClubMatchesQuery,
   useFetchClubPlayersQuery,
+  useGetClubLeagueStatsQuery,
 } from "../../store";
 
 function ClubInfo({ onClick, club }) {
   const players = useFetchClubPlayersQuery(club._id);
   const matches = useFetchClubMatchesQuery(club._id);
+  const leagueStats = useGetClubLeagueStatsQuery(club._id);
 
   let playersContent;
   let matchesContent;
+  let leagueStatsContent;
 
-  if (players.isFetching || matches.isFetching) {
+  if (players.isFetching || matches.isFetching || leagueStats.isFetching) {
     playersContent = <Spinner />;
   } else if (players.error || matches.error) {
     playersContent = <div>Error while loading players and matches</div>;
@@ -28,6 +31,20 @@ function ClubInfo({ onClick, club }) {
         );
       }
     );
+
+    leagueStatsContent = leagueStats.data.map((stat) => {
+      return <tr  key={stat._id} className="bg-gray-400 border-b-2 border-black">
+        <td>{stat.league.name}</td>
+        <td>{stat.playedGames}</td>
+        <td>{stat.wonGames}</td>
+        <td>{stat.drawGames}</td>
+        <td>{stat.lostGames}</td>
+        <td>{stat.goalsShot}</td>
+        <td>{stat.goalsLost}</td>
+        <td>{stat.goalsDif}</td>
+        <td>{stat.points}</td>
+      </tr>
+    })
 
     matchesContent = matches.data.matches.map(
       ({
@@ -137,6 +154,25 @@ function ClubInfo({ onClick, club }) {
             <tbody>{matchesContent}</tbody>
           </table>
         </div>
+        <div className="flex flex-col justify-center text-center">
+          <h4 className="font-bold text-xl">Wyniki w Ligach</h4>
+          <table>
+            <thead>
+              <tr className="bg-gray-500 border-b-4 border-black">
+                <th>Liga</th>
+                <th>Zagrane Mecze</th>
+                <th>Wygrane</th>
+                <th>Remisy</th>
+                <th>Porażki</th>
+                <th>Strzelone Gole</th>
+                <th>Stracone Gole</th>
+                <th>Różnica Goli</th>
+                <th>Punkty</th>
+              </tr>
+            </thead>
+            <tbody>{leagueStatsContent}</tbody>
+          </table>
+      </div>
       </div>
       <Button primary rounded onClick={onClick}>
         POWRÓT

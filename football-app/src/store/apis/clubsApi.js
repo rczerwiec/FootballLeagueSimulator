@@ -63,6 +63,16 @@ const clubsApi = leaguesApi.injectEndpoints({
           };
         },
       }),
+      getClubLeagueStats: builder.query({
+        query: (id) => {
+          const clubId = id;
+
+          return{
+            url: `/tables/club/${clubId}`,
+            method: "GET",
+          }
+        }
+      }),
       createClub: builder.mutation({
         invalidatesTags:['Club'],
         query: (club) => {
@@ -80,6 +90,7 @@ const clubsApi = leaguesApi.injectEndpoints({
 export const {
   useFetchClubsQuery,
   useGetOneClubQuery,
+  useGetClubLeagueStatsQuery,
   useCreateClubMutation,
   useEditClubMutation,
   useRemoveClubMutation,

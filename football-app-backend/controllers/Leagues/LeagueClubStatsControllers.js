@@ -1,18 +1,34 @@
+import League from "../../models/League.js";
 import LeagueClubStats from "../../models/LeagueClubStats.js";
 import updateClub from "./utils/updateClubs.js";
 
 //router.get("/:leagueId", getLeagueClubStats);
-export const getLeagueClubStats = async (req, res) => {
+export const getLeagueClubsStats = async (req, res) => {
     try {
       const table = await LeagueClubStats.find({ leagues: req.params.leagueId });
   
-      console.log("getLeagueClubStats>>".cyan,"Pomyslnie pobrano statystyki klubu dla danej ligi".green);
+      console.log("getLeagueClubsStats>>".cyan,"Pomyslnie pobrano statystyki klubow danej ligi".green);
+      console.log(table);
       res.json(table); 
     } catch (err) {
-      console.log("getLeagueClubStats>>".cyan,"Blad podczas pobierania statystyki klubu dla danej ligi".red);
+      console.log("getLeagueClubsStats>>".cyan,"Blad podczas pobierania statystyki klubów dla danej ligi".red);
       res.json(err);
     }
   }
+
+//router.get("/:clubId", getLeagueClubStats);
+export const getLeagueClubStats = async (req, res) => {
+  try{
+    const table = await LeagueClubStats.find({club: req.params.clubId}).populate("league");
+
+    console.log("getLeagueClubStats>>".cyan,"Pomyslnie pobrano statystyki lig jednego klubu".green);
+    res.json(table);
+  }
+  catch (err){
+    console.log("getLeagueClubStats>>".cyan,"Blad podczas pobierania statystyk klubu dla wszystkich lig".red,err);
+    res.json(err);
+  }
+}
 
 //router.post("", createNewLeagueClubStats); 
 export const createNewLeagueClubStats = async (req, res) => {

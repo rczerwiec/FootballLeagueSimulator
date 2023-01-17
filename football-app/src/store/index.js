@@ -24,6 +24,7 @@ export {
 export {
   useFetchClubsQuery,
   useGetOneClubQuery,
+  useGetClubLeagueStatsQuery,
   useCreateClubMutation,
   useEditClubMutation,
   useRemoveClubMutation,
