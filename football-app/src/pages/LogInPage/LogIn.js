@@ -1,24 +1,51 @@
 import { useState } from "react";
 import Button from "../../components/ReusableComponents/Button";
 import Input from "../../components/ReusableComponents/Input";
-import { registerNewUser, singIn } from "../../firebase/firebase";
+import { useCreateUserMutation } from "../../store";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {signIn ,auth} from "../../firebase/firebase";
 
 function LogIn(){
     const [email, setEmail] = useState("");
+    const [createUser, results] = useCreateUserMutation();
     const [password, setPassword] = useState("");
 
     const [emailL, setEmailL] = useState("");
     const [passwordL, setPasswordL] = useState("");
 
-    const onSignIn = (e,email, password) => {
+    const registerNewUser = (email, password) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+          createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user)
+            createUser({user: user, type: "arcade"})
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+          });
+      }
+
+
+    const onSignIn = (e,emailL, passwordL) => {
         e.preventDefault();
         
-        singIn(emailL,passwordL)
+        signIn(emailL,passwordL)
+    }
+
+    
+    const onRegister = (e,email, password) => {
+        e.preventDefault();
+        
+        registerNewUser(email,password)
     }
 
     return(
         <div>
-            <form onSubmit={() => registerNewUser(email,password)}>
+            <form onSubmit={(e) => onRegister(e, email,password)}>
                 <Input value={email} onChange={(e)=> setEmail(e.target.value)}></Input>
                 <Input value={password} onChange={(e)=> setPassword(e.target.value)}></Input>
                 <Button primary>Zarejestruj</Button>

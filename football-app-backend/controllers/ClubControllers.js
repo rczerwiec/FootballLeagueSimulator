@@ -5,11 +5,11 @@ export const getAllClubs = async (req,res) => {
     try{
         const clubs = await Club.find();
         console.log("getAllClubs>>".blue,"Pomyślnie pobrano wszystkie kluby".green);
-        res.json(clubs);
+        return res.status(200).json(clubs);
     }
     catch(err){
         console.log("getAllClubs>>".blue,"Blad podczas pobierania klubu".red);
-        res.json({message:err});
+        return res.status(200).json({message:err});
     }
 }
 

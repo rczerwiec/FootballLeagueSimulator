@@ -1,10 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { auth } from "../../firebase/firebase";
 
 const leaguesApi = createApi({
   reducerPath: "leagues",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000",
+    prepareHeaders: async(headers) => {
+      const token = await auth.currentUser.getIdToken()
+      console.log("tuu");
+      console.log(token)
+      if (token) {
+        headers.set('authorization',  token)
+      }         
+      return headers
+    },
   }),
+
   tagTypes: [
     "Matches",
     "Tables",

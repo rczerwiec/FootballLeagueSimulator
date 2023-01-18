@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 
 console.log(process.env)
 
@@ -18,12 +19,11 @@ const firebaseConfig = {
   const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 
-export const registerNewUser = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
+export const signIn = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log(user)
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -32,17 +32,12 @@ export const registerNewUser = (email, password) => {
     });
 }
 
-export const singIn = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
-    });
+export const userSignOut = async() => {
+  await signOut(auth).then(()=>{
+    console.log("Sign out successfull");
+  }).catch((error) => {
+    console.log(error);
+  })
 }
 
 

@@ -8,22 +8,28 @@ import Leagues from "./pages/LeaguesPage/Leagues";
 import FriendlyMatch from "./pages/FriendlyMatchPage/FriendlyMatch";
 import LogIn from "./pages/LogInPage/LogIn";
 import { auth } from "./firebase/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Spinner from "./components/Spinner/Spinner";
 
 function App () {
-    const [loggedIn, setLoggedIn] = useState(false);
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        setLoggedIn(true);
-      } else {
-        // User is signed out
-        console.log("logged out");
-        setLoggedIn(false);
-      }
-    })
+    const [loggedIn, setLoggedIn] = useState();
+    console.log(loggedIn)
+    useEffect(() => {
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          console.log(uid);
+          setLoggedIn(true);
+        } else {
+          // User is signed out
+          console.log("logged out");
+          setLoggedIn(false);
+        }
+      })
+    }, [])
+
     if(loggedIn){
       return (
         <div className="AppFlex">
@@ -46,11 +52,15 @@ function App () {
         
       );
     }
+    else if(loggedIn===undefined){
+      return(
+        <Spinner/>
+      )
+    }
     else{
       return(
         <div className="AppFlex">
           <Router>
-              <Navbar/>
               <div className="Content">
                 <Routes>
                   <Route path="/" element={<LogIn/>} />
