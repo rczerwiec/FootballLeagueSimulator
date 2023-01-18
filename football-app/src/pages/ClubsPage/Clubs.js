@@ -9,6 +9,7 @@ function Clubs() {
     const [action, setAction] = useState(true);
     const changeAction = () => {setAction(!action)}
 
+
     let content = <ClubList/>
     let actionIcon = <IoMdAdd/>
 
@@ -27,6 +28,7 @@ function Clubs() {
 
     </div>
   );
-}
+  }
+
 
 export default Clubs;
