@@ -35,7 +35,7 @@ function ClubInfo({ onClick, club }) {
     );
     leagueStatsContent = leagueStats.data.map((stat,index) => {
       const length = leagueStats.data.length;
-        if (index < (length+leagueStatsAmount) && index>=(length-25+leagueStatsAmount) ){
+        if (index < (length+leagueStatsAmount) && index>=(length-10+leagueStatsAmount) ){
       return (
         <tr key={stat._id} className="bg-gray-400 border-b-2 border-black">
           <td>{stat.league.name}</td>
@@ -133,8 +133,8 @@ function ClubInfo({ onClick, club }) {
         </div>
         <div>
           <h4 className="font-bold text-xl">Wyniki w Ligach</h4>
-          <button className="border-2" onClick={() => setLeagueStatsAmount(leagueStatsAmount+25)}>WSTECZ</button>
-          <button className="border-2" onClick={() => setLeagueStatsAmount(leagueStatsAmount-25)}>DALEJ</button>
+          <button className="border-2" onClick={() => setLeagueStatsAmount(leagueStatsAmount+10)}>WSTECZ</button>
+          <button className="border-2" onClick={() => setLeagueStatsAmount(leagueStatsAmount-10)}>DALEJ</button>
           <table className="w-full">
             <thead>
               <tr className="bg-gray-500 border-b-4 border-black">
