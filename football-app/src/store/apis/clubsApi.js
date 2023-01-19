@@ -1,4 +1,5 @@
 import { leaguesApi } from "./leaguesApi";
+import { auth } from "../../firebase/firebase";
 
 const clubsApi = leaguesApi.injectEndpoints({
   endpoints(builder) {

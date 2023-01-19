@@ -41,4 +41,6 @@ export {
   useGetFriendlyMatchesQuery,
   useCreateFriendlyMatchMutation,
 } from "./apis/leaguesApi";
-
+export {
+  useCreateUserMutation,
+} from "./apis/usersApi"

@@ -1,9 +1,9 @@
 import express from 'express';
-import {getAllLeagues, getLeagueMatches, getLeagueTables, generateLeague} from "../controllers/Leagues/LeaguesControllers.js"
+import {getAllUserLeagues, getLeagueMatches, getLeagueTables, generateLeague} from "../controllers/Leagues/LeaguesControllers.js"
 const router = express.Router();
 
 //GET ALL LEAGUES
-router.get('/', getAllLeagues)
+router.get('/', getAllUserLeagues)
 
 //GET ALL LEAGUE MATCHES
 router.get('/:leagueId/matches',getLeagueMatches )

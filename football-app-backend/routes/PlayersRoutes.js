@@ -1,9 +1,9 @@
 import express from 'express';
 const router = express.Router();
-import { getAllPlayers , createPlayer, createRandomPlayers, getPlayer , getPlayerClub, deletePlayer, updatePlayer} from '../controllers/PlayersControllers.js';
+import { getAllUserPlayers , createPlayer, createRandomPlayers, getPlayer , getPlayerClub, deletePlayer, updatePlayer} from '../controllers/PlayersControllers.js';
 
 //GET ALL PLAYERS
-router.get('/', getAllPlayers);
+router.get('/', getAllUserPlayers);
 
 //SUBMIT PLAYER
 router.post('/', createPlayer)

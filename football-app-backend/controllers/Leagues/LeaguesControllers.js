@@ -2,16 +2,18 @@ import League from "../../models/League.js";
 import Match from "../../models/Match.js";
 import LeagueTable from "../../models/LeagueClubStats.js";
 import LeagueGenerator from "./utils/generateMatches.js";
+import User from "../../models/User.js";
 
-//router.get('/', getAllLeagues)
-export const getAllLeagues = async(req,res) => {
+//router.get('/', getAllUserLeagues)
+export const getAllUserLeagues = async(req,res) => {
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
     try{
-        const leages = await League.find();
-        console.log("getAllLeagues>>".cyan,"Pomyslnie pobrano ligi".green);
-        res.json(leages);
+        const user = await User.findOne({firebaseID: firebaseUID}).populate('leagues');
+        console.log("getAllUserLeagues>>".cyan,"Pomyslnie pobrano ligi".green);
+        res.json(user.leagues);
     }
     catch(err){
-        console.log("getAllLeagues>>".cyan,"Blad podczas pobierania lig".red);
+        console.log("getAllUserLeagues>>".cyan,"Blad podczas pobierania lig".red);
         res.json(err);
     }
 }
@@ -45,6 +47,7 @@ export const getLeagueTables = async(req,res) => {
 
 //router.post('/',generateLeague )
 export const generateLeague = async(req,res) => {
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
     try{
         let league = new League({
             name: req.body.name,
@@ -60,6 +63,7 @@ export const generateLeague = async(req,res) => {
         league=await league.populate('clubs')
         LeagueGenerator(league.clubs, league.level, league._id);
 
+        await User.updateOne({firebaseID: firebaseUID}, { $push: { leagues: league}})
         console.log("generateLeague>>".cyan,"Pomyslnie wygenerowano lige i mecze dla niej".green);
         res.json(league)
     }

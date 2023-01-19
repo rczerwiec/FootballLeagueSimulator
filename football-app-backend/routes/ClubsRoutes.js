@@ -1,10 +1,10 @@
 import express from 'express';
 const router = express.Router();
-import { getAllClubs,getAllClubMatches,createNewClub, getAllClubPlayers, getClub, deleteClub, updateClub } from '../controllers/ClubControllers.js';
+import {getAllClubMatches,createNewClub, getAllClubPlayers, getClub, deleteClub, updateClub, getAllUserClubs } from '../controllers/ClubControllers.js';
 
 
 //GET BACK ALL THE CLUBS
-router.get('/', getAllClubs);
+router.get('/', getAllUserClubs);
 
 //GET CLUB'S MATCHES
 router.get('/:clubId/matches', getAllClubMatches)
