@@ -21,17 +21,9 @@ const UserSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Clubs"
     }],
-    matches: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Match"
-    }],
     leagues: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Leagues"
-    }],
-    leagueClubStats: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "LeagueClubStats"
     }],
     registeredAt: {
         type: Date,

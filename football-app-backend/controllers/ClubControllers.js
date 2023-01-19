@@ -1,15 +1,20 @@
 import Club from "../models/Club.js";
+import User from "../models/User.js";
 
-//router.get('/', getAllClubs);
-export const getAllClubs = async (req,res) => {
+
+//router.get('/', getAllUserClubs);
+export const getAllUserClubs = async (req,res) => {
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
     try{
-        const clubs = await Club.find();
-        console.log("getAllClubs>>".blue,"Pomyślnie pobrano wszystkie kluby".green);
-        return res.status(200).json(clubs);
+        const user = await User.findOne({firebaseID: firebaseUID}).populate("clubs")
+        //console.log(user.clubs);
+
+        console.log("getAllUserClubs>>".blue,"Pomyślnie pobrano wszystkie kluby użytkownika".green);
+        res.json(user.clubs)
     }
     catch(err){
-        console.log("getAllClubs>>".blue,"Blad podczas pobierania klubu".red);
-        return res.status(200).json({message:err});
+        console.log("getAllUserClubs>>".blue,"Blad podczas pobierania klubow uzytkownika".red);
+        return res.json({message:err});
     }
 }
 
@@ -30,11 +35,11 @@ export const getAllClubMatches = async (req,res) => {
 //router.get('/:clubId/players', getAllClubPlayers)
 export const getAllClubPlayers = async (req,res) =>{
     try{
-        console.log(req.params.clubId);
+        //console.log(req.params.clubId);
         const club = await Club.findById(req.params.clubId).populate("players");
         //console.log(club);
         console.log("getAllClubPlayers>>".blue,"Pomyślnie pobrano wszystkich graczy z klubu".green)
-        console.log(club);
+        //console.log(club);
         res.json(club);
     }
     catch(err){
@@ -45,12 +50,17 @@ export const getAllClubPlayers = async (req,res) =>{
 
 //router.post('/', createNewClub)
 export const createNewClub = async (req,res) => {
-    const club = new Club({
-        name: req.body.name,
-        type: req.body.type,
-    })
+
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
+
 
     try{
+        const club = new Club({
+            name: req.body.name,
+            type: req.body.type,
+        })
+    
+        await User.updateOne({firebaseID: firebaseUID}, { $push: { clubs: club}})
         const savedClub = await club.save()
         console.log("createNewClub>>".blue,"Pomyślnie utworzono klub".green)
         res.json(savedClub);
@@ -77,6 +87,8 @@ export const getClub = async (req,res) => {
 
 //router.delete('/:clubId', deleteClub)
 export const deleteClub = async (req,res) => {
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
+
     try{
         const club = await Club.findById(req.params.clubId).populate("players").populate("matches");
         //console.log(club);
@@ -88,13 +100,21 @@ export const deleteClub = async (req,res) => {
         club.matches.forEach(async (e) => {
             await Match.deleteOne({_id: e._id});
         })
+        const user = await User.findOne({firebaseID: firebaseUID}).populate("clubs");
+        await user.clubs.forEach((c,index) => {
+            if(String(c._id) === String(club._id)){
+                console.log("im here")
+                user.clubs.splice(index,1);
+                user.save();
+            }
+        })
 
         await Club.remove({_id: req.params.clubId});
         console.log("deleteClub>>".blue,"Pomyslnie usunieto klub".green)
         res.json(club);
     }
     catch(err){
-        console.log("deleteClub>>".blue,"Blad podczas usuwania klubu".red);
+        console.log("deleteClub>>".blue,"Blad podczas usuwania klubu".red, err);
         res.json({message:err});
     }
     

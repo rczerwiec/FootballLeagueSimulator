@@ -10,7 +10,7 @@ import {FiEdit3, FiTrash} from "react-icons/fi"
 function PlayerList(){
 
     const {data, error, isLoading} = useFetchPlayersQuery();
-    
+    console.log(data);
     const [action,setAction] = useState(true)
     const [selectedPlayer, setSelectedPlayer] = useState();
 

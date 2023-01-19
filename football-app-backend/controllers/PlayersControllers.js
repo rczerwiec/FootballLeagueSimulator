@@ -1,22 +1,27 @@
 import Club from "../models/Club.js";
 import Player from "../models/Player.js";
 import {faker} from '@faker-js/faker';
+import User from "../models/User.js";
 
-//router.get('/', getAllPlayers);
-export const getAllPlayers = async (req,res) => {
+//router.get('/', getAllUserPlayers);
+export const getAllUserPlayers = async (req,res) => {
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
     try{
-        const players = await Player.find();
-        console.log("getAllPlayers>>".yellow,"Pomyslnie pobrano wszystkich graczy".green);
-        res.json(players);
+        const user = await User.findOne({firebaseID: firebaseUID}).populate('players');
+        console.log("getAllUserPlayers>>".yellow,"Pomyslnie pobrano wszystkich graczy".green);
+        res.json(user.players);
     }
     catch(err){
-        console.log("getAllPlayers>>".yellow,"Blad podczas pobierania wszystkich graczy".red);
+        console.log("getAllUserPlayers>>".yellow,"Blad podczas pobierania wszystkich graczy".red);
         res.json({message:err});
     }
 }
 
 //router.post('/', createPlayer)
 export const createPlayer = async (req,res) => {
+
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
+
     const player = new Player({
         name: req.body.name,
         nationality: req.body.nationality,
@@ -31,6 +36,7 @@ export const createPlayer = async (req,res) => {
                 const savedPlayer = await player.save();
                 club.players.push(savedPlayer);
                 await club.save();
+                await User.updateOne({firebaseID: firebaseUID}, { $push: { players: player}})
                 res.json(savedPlayer);
                 console.log("createPlayer>>".yellow,"Pomyslnie utworzono gracza i przypisano go do klubu".green)
             }
@@ -42,6 +48,7 @@ export const createPlayer = async (req,res) => {
         else{
             player.club = undefined;
             const savedPlayer = await player.save();
+            await User.updateOne({firebaseID: firebaseUID}, { $push: { players: player}})
             res.json(savedPlayer);
             console.log("createPlayer>>".yellow,"Pomyslnie utworzono gracza bez klubu".green);
         }
@@ -84,6 +91,8 @@ export const getPlayerClub = async (req,res) => {
 
 //router.delete('/:playerId', deletePlayer)
 export const deletePlayer = async (req,res) =>{
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
+
     try{
         const player = await Player.findById(req.params.playerId);
         if(player.club !== undefined && player.club !== null){
@@ -91,17 +100,33 @@ export const deletePlayer = async (req,res) =>{
             await Player.deleteOne({_id:req.params.playerId});
             club.players.splice(club.players.indexOf(req.params.playerId),1);
             await club.save();
+            const user = await User.findOne({firebaseID: firebaseUID}).populate("clubs");
+            await user.players.forEach((p,index) => {
+                if(String(p._id) === String(player._id)){
+                    console.log("im here")
+                    user.players.splice(index,1);
+                    user.save();
+                }
+            })
             res.json(player);
             console.log("deletePlayer>>".yellow,"Pomyślnie usunięto gracza i jego dane z klubu".green);
         }
         else{
             await Player.deleteOne({_id:req.params.playerId});
+            const user = await User.findOne({firebaseID: firebaseUID}).populate("clubs");
+            await user.players.forEach((p,index) => {
+                if(String(p._id) === String(player._id)){
+                    console.log("im here")
+                    user.players.splice(index,1);
+                    user.save();
+                }
+            })
             res.json(player);
             console.log("deletePlayer>>".yellow,"Pomyślnie usunięto gracza".green);
         }
     }
     catch(err){
-        console.log("deletePlayer>>".yellow,"Blad podczas usuwania gracza".red);
+        console.log("deletePlayer>>".yellow,"Blad podczas usuwania gracza".red, err);
         res.json({message:err});
     }
 }
