@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { getAllFriendlyMatches, updateLeagueMatch, createFriendlyMatch} from "../controllers/MatchControllers.js";
+import { getAllFriendlyMatches, updateLeagueMatch, createFriendlyMatch} from "../controllers/Matches/MatchControllers.js";
 
 //GET ALL FRIENDLY MATCHES
 router.get("/friendly", getAllFriendlyMatches)

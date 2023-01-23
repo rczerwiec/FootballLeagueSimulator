@@ -13,6 +13,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         require: true,
     },
+    season: {
+        type: Number,
+        default: 2023
+    },
     players: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Players"

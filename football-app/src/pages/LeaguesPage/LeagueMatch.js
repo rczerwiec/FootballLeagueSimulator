@@ -42,7 +42,7 @@ function LeagueMatch({match,league}) {
                     scoreAway:results.B,
                     complete:true,
                 }
-                patchMatch(finishedMatch);
+                patchMatch({match:finishedMatch, league});
                 patchTable({league,match:finishedMatch,clubId:match.clubHome});
                 patchTable({league,match:finishedMatch,clubId:match.clubAway});
                 setScoreAway(results.B);
@@ -64,7 +64,7 @@ function LeagueMatch({match,league}) {
                     scoreAway:scoreAway,
                     complete:true,
                 }
-                patchMatch(finishedMatch);
+                patchMatch({match:finishedMatch, league});
                 patchTable({league,match:finishedMatch,clubId:match.clubHome});
                 patchTable({league,match:finishedMatch,clubId:match.clubAway});
             }
