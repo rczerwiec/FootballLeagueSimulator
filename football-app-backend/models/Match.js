@@ -18,6 +18,9 @@ const MatchSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Players"
     }],
+    clubHomeOverall:{
+        type:Number
+    },
     clubAway: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Clubs",
@@ -30,6 +33,9 @@ const MatchSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Players"
     }],
+    clubAwayOverall:{
+        type:Number
+    },
     scoreHome: {
         type: Number,
     },

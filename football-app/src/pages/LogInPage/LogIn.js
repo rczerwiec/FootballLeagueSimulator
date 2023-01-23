@@ -47,12 +47,12 @@ function LogIn(){
         <div>
             <form onSubmit={(e) => onRegister(e, email,password)}>
                 <Input value={email} onChange={(e)=> setEmail(e.target.value)}></Input>
-                <Input value={password} onChange={(e)=> setPassword(e.target.value)}></Input>
+                <Input type="password" value={password} onChange={(e)=> setPassword(e.target.value)}></Input>
                 <Button primary>Zarejestruj</Button>
             </form>
             <form onSubmit={(e) => onSignIn(e,emailL, passwordL)}>
                 <Input value={emailL} onChange={(e)=> setEmailL(e.target.value)}></Input>
-                <Input value={passwordL} onChange={(e)=> setPasswordL(e.target.value)}></Input>
+                <Input type="password" value={passwordL} onChange={(e)=> setPasswordL(e.target.value)}></Input>
                 <Button primary>Zaloguj</Button>
             </form>
 

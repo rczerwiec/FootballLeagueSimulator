@@ -3,6 +3,8 @@ import Player from "../models/Player.js";
 import {faker} from '@faker-js/faker';
 import User from "../models/User.js";
 
+import { createPlayerUtil } from "./Players/utils/playerControllersUtils.js";
+
 //router.get('/', getAllUserPlayers);
 export const getAllUserPlayers = async (req,res) => {
     const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
@@ -19,45 +21,19 @@ export const getAllUserPlayers = async (req,res) => {
 
 //router.post('/', createPlayer)
 export const createPlayer = async (req,res) => {
-
+    console.log("siema")
+    
     const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
 
-    const player = new Player({
+    const player = {
         name: req.body.name,
         nationality: req.body.nationality,
         club: req.body.club,
         overall: req.body.overall
-    })
-    console.log(player);
-    try{
-        if(req.body.club !==undefined){
-            const club = await Club.findById(player.club.valueOf());
-            if (club.players.length <= 4){
-                const savedPlayer = await player.save();
-                club.players.push(savedPlayer);
-                await club.save();
-                await User.updateOne({firebaseID: firebaseUID}, { $push: { players: player}})
-                res.json(savedPlayer);
-                console.log("createPlayer>>".yellow,"Pomyslnie utworzono gracza i przypisano go do klubu".green)
-            }
-            else{
-                console.log("createPlayer>>".yellow,"Klub jest pelen".red)
-                res.json({message:"Klub jest pełen!"});
-            }
-        }
-        else{
-            player.club = undefined;
-            const savedPlayer = await player.save();
-            await User.updateOne({firebaseID: firebaseUID}, { $push: { players: player}})
-            res.json(savedPlayer);
-            console.log("createPlayer>>".yellow,"Pomyslnie utworzono gracza bez klubu".green);
-        }
+    }
+    const response = createPlayerUtil(firebaseUID, player)
+    res.json(response);
 
-    }
-    catch(err){
-        console.log("createPlayer>>".yellow,"Blad podczas tworzenia klubu".red, err);
-        res.json({message: err});
-    }
 }
 
 //router.get('/:playerId', getPlayer)

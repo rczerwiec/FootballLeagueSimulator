@@ -7,10 +7,12 @@ function CreateClub({changeAction}){
     const [createClub, results] = useCreateClubMutation();
     const [name, setName] = useState("");
     const [type, setType] = useState("");
+    const [generatePlayers, setGeneratePlayers] = useState(true)
+    console.log(generatePlayers);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        createClub({name,type});
+        createClub({name,type, generatePlayers});
         changeAction();
     }
 
@@ -22,7 +24,9 @@ function CreateClub({changeAction}){
                 <div><Input placeholder="Wprowadź nazwę drużyny" value={name} onChange={(e)=>{setName(e.target.value)}}/></div>
                 <label>Rodzaj</label>
                 <div><Input placeholder="Wprowadź nazwę drużyny" value={type} onChange={(e)=>{setType(e.target.value)}}/></div>
-                <Button secondary rounded>Utwórz</Button>
+                <label>Generowanie zawodników</label>
+                <input type="checkbox" defaultChecked={generatePlayers} onChange={() => setGeneratePlayers(!generatePlayers)}></input>
+                <div><Button secondary rounded>Utwórz</Button></div>
             </form>
         </div>
     )

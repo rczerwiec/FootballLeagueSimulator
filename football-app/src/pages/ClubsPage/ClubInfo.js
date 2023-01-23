@@ -6,6 +6,7 @@ import {
   useGetClubLeagueStatsQuery,
 } from "../../store";
 import { useState } from "react";
+import { Table } from "./components/Table";
 
 function ClubInfo({ onClick, club }) {
   const players = useFetchClubPlayersQuery(club._id);
@@ -13,9 +14,41 @@ function ClubInfo({ onClick, club }) {
   const [matchesAmount, setMatchesAmount] = useState(0);
   const leagueStats = useGetClubLeagueStatsQuery(club._id);
   const [leagueStatsAmount, setLeagueStatsAmount] = useState(0);
+
+  const matchesHeaders = [
+   { name: "U Siebie"},
+   { name: "T1"},
+   { name: ":"},
+   { name: "T2"},
+   { name: "Wyjazd"},
+   { name: "Liga"}
+  ]
+
+  const playersHeaders = [
+    {name: "Imię Nazwisko"},
+    {name: "Narodowość"},
+    {name: "Overall"},
+  ]
+
+  const leagueStatsHeadesr = [
+    { name: "Liga"},
+    { name: "Zagrane Mecze"},
+    { name: "Wygrane"},
+    { name: "Remisy"},
+    { name: "Porażki"},
+    { name: "Strzelone Gole"},
+    { name: "Stracone Gole"},
+    { name: "Różnica Goli"},
+    { name: "Punkty"},
+  ]
+
+
   let playersContent;
   let matchesContent;
   let leagueStatsContent;
+  let clubStatsContent = <tr className=""><td>{club.wins}</td>
+  <td>{club.draws}</td>
+  <td>{club.lost}</td></tr>
 
   if (players.isFetching || matches.isFetching || leagueStats.isFetching) {
     playersContent = <Spinner />;
@@ -95,99 +128,26 @@ function ClubInfo({ onClick, club }) {
   return (
     <div>
       <div>
-        <h1 className="font-bold p-2 m-2">{club.name}</h1>
-        <div className="flex flex-col justify-center text-center">
-          <table>
-            <thead>
-              <tr className="bg-gray-500 border-b-4 border-black">
-                <th>Liga</th>
-                <th className="bg-yellow-500">Mistrz</th>
-                <th className="bg-gray-200">Wice-Mistrz</th>
-                <th className="bg-yellow-800">3/4 Miejsce</th>
-                <th className="bg-red-700">Spadek</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-gray-400 border-b-2 border-black">
-                <td>Liga Mistrzów</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h1 className="font-bold p-2 m-2">{club.name}-{club.overall}</h1>
         <div className="flex flex-col justify-center text-center">
           <h4 className="font-bold text-xl">Zawodnicy</h4>
-          <table>
-            <thead>
-              <tr className="bg-gray-500 border-b-4 border-black">
-                <th>Imię Nazwisko</th>
-                <th>Narodowość</th>
-                <th>Overall</th>
-              </tr>
-            </thead>
-            <tbody>{playersContent}</tbody>
-          </table>
+          <Table headers={playersHeaders} content={playersContent}/>
         </div>
         <div>
           <h4 className="font-bold text-xl">Wyniki w Ligach</h4>
           <button className="border-2" onClick={() => setLeagueStatsAmount(leagueStatsAmount+10)}>WSTECZ</button>
           <button className="border-2" onClick={() => setLeagueStatsAmount(leagueStatsAmount-10)}>DALEJ</button>
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gray-500 border-b-4 border-black">
-                <th>Liga</th>
-                <th>Zagrane Mecze</th>
-                <th>Wygrane</th>
-                <th>Remisy</th>
-                <th>Porażki</th>
-                <th>Strzelone Gole</th>
-                <th>Stracone Gole</th>
-                <th>Różnica Goli</th>
-                <th>Punkty</th>
-              </tr>
-            </thead>
-            <tbody>{leagueStatsContent}</tbody>
-          </table>
+          <Table headers={leagueStatsHeadesr} content={leagueStatsContent}/>
         </div>
         <div className="flex flex-col justify-center text-center">
           <h4 className="font-bold text-xl">Rozegrane Mecze</h4>
-          <div className="flex justify-center bg-gray-400 m-2 p-2 mx-auto border-2 border-black">
-            <table>
-              <thead>
-                <tr>
-                  <th className="p-1">Wygrane</th>
-                  <th className="p-1"> Remisy</th>
-                  <th className="p-1">Przegrane</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{club.wins}</td>
-                  <td>{club.draws}</td>
-                  <td>{club.lost}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="flex justify-center bg-gray-400 mx-auto border-2 border-black">
+          <Table headers={[{name:"Wygrane"}, {name: "Remisy"}, {name: "Przegrane"}]} content={clubStatsContent}/>
           </div>
           <div>
             <button className="border-2" onClick={() => setMatchesAmount(matchesAmount+25)}>WSTECZ</button>
             <button className="border-2" onClick={() => setMatchesAmount(matchesAmount-25)}>DALEJ</button>
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-500 border-b-4 border-black">
-                  <th>U siebie</th>
-                  <th>T1</th>
-                  <th>:</th>
-                  <th>T2</th>
-                  <th>Wyjazd</th>
-                  <th>Liga</th>
-                </tr>
-              </thead>
-              <tbody>{matchesContent}</tbody>
-            </table>
+            <Table headers={matchesHeaders} content={matchesContent}/>
           </div>
         </div>
 
