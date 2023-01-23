@@ -21,6 +21,10 @@ const UserSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Clubs"
     }],
+    friendlyMatches: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Match"
+    }],
     leagues: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Leagues"

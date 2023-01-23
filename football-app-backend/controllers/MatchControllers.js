@@ -1,14 +1,16 @@
 import Match from "../models/Match.js";
 import Club from "../models/Club.js";
+import User from "../models/User.js";
 
 //router.get("/friendly", getAllFriendlyMatches)
-export const getAllFriendlyMatches = async (req,res) => async (req,res) => {
+export const getAllFriendlyMatches = async (req,res) => {
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
     console.log("pobiera mecze towarzyskie")
     try{
-        const matches = await Match.find({matchType: "Towarzyski"});
+        const club = await User.findOne({firebaseID: firebaseUID}).populate("friendlyMatches");
         
         console.log("getAllFriendlyMatches>>".magenta,"Pomyslnie pobrano mecze towarzyskie".green);
-        res.json(matches);
+        res.json(club.friendlyMatches);
     }
     catch(err){
         console.log("getAllFriendlyMatches>>".magenta,"Blad podczas pobierania meczy towarzyskich".red);
@@ -19,15 +21,15 @@ export const getAllFriendlyMatches = async (req,res) => async (req,res) => {
 export const updateLeagueMatch = async(req,res) => {
     console.log(req.body);
     try{
+        const clubHome = await Club.findById(req.body.match.clubHome);
+        const clubAway = await Club.findById(req.body.match.clubAway);
         const match = await Match.updateOne({_id: req.params.matchId}, {$set : {
             scoreHome: req.body.match.scoreHome,
             scoreAway: req.body.match.scoreAway,
             complete: req.body.match.complete,
             winner: req.body.winner,
         }})
-        const clubHome = await Club.findById(req.body.match.clubHome);
         clubHome.matches.push(req.body.match);
-        const clubAway = await Club.findById(req.body.match.clubAway);
         clubAway.matches.push(req.body.match);
         if(req.body.winner === req.body.match.clubHome){
             clubHome.wins +=1;
@@ -57,7 +59,8 @@ export const updateLeagueMatch = async(req,res) => {
 }
 
 export const createFriendlyMatch = async(req,res)=>{
-    //console.log(req);
+    const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
+
     try{
             const match =new Match({
             matchType: "Towarzyski",
@@ -79,9 +82,9 @@ export const createFriendlyMatch = async(req,res)=>{
         await secondClub.matches.push(match)
         await secondClub.save();
         //console.log(firstClub);
-        2
 
         await match.save();
+        await User.updateOne({firebaseID: firebaseUID}, { $push: { friendlyMatches: match}})
         console.log("createFriendlyMatch>>".magenta,"Pomyslnie wygenerowano mecz towarzyski".green);
         res.json(match);
     }

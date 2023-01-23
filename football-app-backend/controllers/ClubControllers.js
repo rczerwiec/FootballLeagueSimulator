@@ -1,5 +1,7 @@
 import Club from "../models/Club.js";
 import User from "../models/User.js";
+import { createPlayerUtil } from "./Players/utils/playerControllersUtils.js";
+import { namesPL, surnamesPL } from "../statics/playerNames.js";
 
 
 //router.get('/', getAllUserClubs);
@@ -53,20 +55,35 @@ export const createNewClub = async (req,res) => {
 
     const firebaseUID = req.socket._httpMessage.locals.firebaseuid;
 
-
     try{
         const club = new Club({
             name: req.body.name,
             type: req.body.type,
         })
-    
+        
         await User.updateOne({firebaseID: firebaseUID}, { $push: { clubs: club}})
         const savedClub = await club.save()
+        if(req.body.generatePlayers === true){
+            for (let x=0; x<4; x++){
+                const name = namesPL[Math.floor(Math.random() * namesPL.length)]
+                const surname = surnamesPL[Math.floor(Math.random() * surnamesPL.length)]
+                const nationality = "Poland";
+                const overall = Math.floor(Math.random() * 99)
+                const player = {
+                    name:name + " " + surname,
+                    nationality,
+                    overall,
+                    club: String(club._id)
+                }
+                await createPlayerUtil(firebaseUID,player)
+            }
+            console.log("createNewClub>>".blue,"Wygenerowano graczy dla klubu".green)
+        }
         console.log("createNewClub>>".blue,"Pomyślnie utworzono klub".green)
         res.json(savedClub);
     }
     catch(err){
-        console.log("createNewClub>>".blue,"Blad podczas tworzenia klubu".red);
+        console.log("createNewClub>>".blue,"Blad podczas tworzenia klubu".red, err);
         res.json({message: err});
     }
 

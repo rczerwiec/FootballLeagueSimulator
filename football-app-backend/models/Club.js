@@ -32,7 +32,7 @@ const ClubSchema = mongoose.Schema({
     },
     overall: {
         type: Number,
-        default: 0
+        default: 1
     },
     matches: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -9,11 +9,13 @@ const Settings = (props) => {
 
     return(
         <div><h2>Ustawienia</h2>
-        <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
-        <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
-        <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
+     
         </div>
     );
 }
 
 export default Settings;
+
+{/* <SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
+<SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/>
+<SimpleButton text="Generuj 10 Graczy" onClick={generatePlayers}/> */}

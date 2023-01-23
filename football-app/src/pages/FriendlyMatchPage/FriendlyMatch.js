@@ -10,7 +10,6 @@ import FriendlyMatchList from "./FriendlyMatchList";
 function FriendlyMatch(){
   const {data, error, isLoading} = useGetFriendlyMatchesQuery();
   const clubs = useFetchClubsQuery();
-  console.log(data);
   const [createFriendly, results] = useCreateFriendlyMatchMutation();
   //console.log(results)
 

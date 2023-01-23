@@ -76,8 +76,9 @@ const clubsApi = leaguesApi.injectEndpoints({
         }
       }),
       createClub: builder.mutation({
-        invalidatesTags:['Club'],
+        invalidatesTags:['Club', 'Player'],
         query: (club) => {
+          console.log(club);
           return {
             url: "/clubs",
             method: "POST",

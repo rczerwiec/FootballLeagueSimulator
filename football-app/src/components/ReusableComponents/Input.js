@@ -1,12 +1,12 @@
 import classNames from "classnames";
 
-function Input({placeholder, value, onChange, className}) {
+function Input({placeholder, value, onChange, className,type}) {
 
 
     const classes = classNames("p-2 m- bg-slate-300 rounded",className)
 
     return(
-        <input placeholder={placeholder} className={classes} value={value} onChange={onChange}></input>
+        <input type={type} placeholder={placeholder} className={classes} value={value} onChange={onChange}></input>
 
     )
 }
