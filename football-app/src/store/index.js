@@ -43,4 +43,8 @@ export {
 } from "./apis/leaguesApi";
 export {
   useCreateUserMutation,
-} from "./apis/usersApi"
+  useGetUserQuery
+} from "./apis/usersApi";
+export {
+  useGetSeasonsQuery
+} from "./apis/seasonsApi";

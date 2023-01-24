@@ -18,3 +18,16 @@ export const createUser = async (req,res) => {
     }
 
 }
+
+export const getUser = async (req,res) => {
+    console.log(req.params);
+    try{
+        const user = await User.findOne({firebaseID: req.params.userId}).populate("leagues");
+        console.log("Pomyslnie pobrano uzytkownika");
+        return res.status(200).json(user);
+    }
+    catch(err){
+        console.log("Blad podczas pobierania uzytkownika", err);
+        return res.json(err);
+    }
+}

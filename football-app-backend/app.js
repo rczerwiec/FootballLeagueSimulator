@@ -8,6 +8,7 @@ import matchesRoute from "./routes/MatchRoutes.js";
 import leaguesRoute from "./routes/LeaguesRoutes.js";
 import tablesRoute from "./routes/LeagueClubStatsRoutes.js";
 import userRoute from "./routes/UserRoutes.js";
+import seasonsRoute from './routes/SeasonsRoutes.js';
 
 import 'dotenv/config';
 import { myLogger } from './firebase/firebase-middleware.js';
@@ -27,6 +28,7 @@ app.use(express.json()) //parse our request to json
 app.use(myLogger); 
 app.use('/players', playersRoute);
 app.use('/matches', matchesRoute);
+app.use('/seasons', seasonsRoute);
 app.use('/leagues', leaguesRoute);
 app.use('/tables', tablesRoute);
 app.use('/clubs', clubsRoute);

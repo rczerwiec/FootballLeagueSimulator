@@ -7,8 +7,6 @@ const leaguesApi = createApi({
     baseUrl: "http://localhost:5000",
     prepareHeaders: async(headers) => {
       const token = await auth.currentUser.getIdToken()
-      console.log("tuu");
-      console.log(token)
       if (token) {
         headers.set('authorization',  token)
       }         

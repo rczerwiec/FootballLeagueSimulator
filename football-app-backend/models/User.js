@@ -33,6 +33,10 @@ const UserSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Leagues"
     }],
+    seasons: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Season"
+    }],
     registeredAt: {
         type: Date,
         default: Date.now,

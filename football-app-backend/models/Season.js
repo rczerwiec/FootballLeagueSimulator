@@ -6,6 +6,10 @@ const SeasonSchema = mongoose.Schema({
         type: String,
         require: true,
     },
+    season: {
+        type: Number,
+        require: true,
+    },
     firstLeague: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Leagues",

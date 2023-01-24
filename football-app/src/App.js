@@ -10,6 +10,7 @@ import LogIn from "./pages/LogInPage/LogIn";
 import { auth } from "./firebase/firebase";
 import { useEffect, useState } from "react";
 import Spinner from "./components/Spinner/Spinner";
+import Seasons from "./pages/SeasonsPage/Seasons";
 
 function App () {
     const [loggedIn, setLoggedIn] = useState();
@@ -40,6 +41,7 @@ function App () {
                   <Route path="/" element={<Clubs/>} />
                   <Route path="/kluby" element={<Clubs/>} />
                   <Route path="/zawodnicy" element={<Players/>}/>
+                  <Route path="/sezony" element={<Seasons />} />
                   <Route path="/ligi" element={<Leagues />} />
                   <Route path="/pojedynek" element={<FriendlyMatch/>}/> 
                   <Route path="/ustawienia" element={<Settings />} />
