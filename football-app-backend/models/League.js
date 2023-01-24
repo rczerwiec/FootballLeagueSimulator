@@ -65,6 +65,14 @@ const LeagueSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Clubs"
     },
+    advances: {
+        type: Number,
+        default: 0,
+    },
+    relegation: {
+        type: Number,
+        default: 0,
+    }
 })
 
 export default mongoose.model('Leagues', LeagueSchema);

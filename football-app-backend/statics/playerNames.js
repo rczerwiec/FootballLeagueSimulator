@@ -44,6 +44,7 @@ export const namesPL = [
   "Mariusz",
   "Marek",
   "Michał",
+  "Mikołaj",
   "Natan",
   "Norbert",
   "Nikodem",
@@ -61,10 +62,20 @@ export const namesPL = [
   "Wiktor",
   "Wojciech",
   "Zbigniew",
+  "Zorian",
 ];
 
 export const surnamesPL = [
   "Nowak",
+  "Bereszyński",
+  "Kiwior",
+  "Cash",
+  "Fabiański",
+  "Drągowski",
+  "Kopernik",
+  "Wlazły",
+  "Domagalski",
+  "Liwocha",
   "Kowalski",
   "Wiśniewski",
   "Wójcik",
