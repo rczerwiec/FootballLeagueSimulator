@@ -1,0 +1,18 @@
+
+.Buttons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:10px;
+    padding:5px;
+}
+
+.Button{
+    padding:10px;
+    border: 1px solid #242424;
+    background-color: #505050;
+}
+.Button:hover{
+    background-color: #14A76C;
+    cursor: pointer;
+}
